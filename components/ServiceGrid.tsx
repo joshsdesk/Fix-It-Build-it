@@ -10,55 +10,55 @@ export default function ServiceGrid() {
         <section id="services" className="py-24 bg-gradient-to-b from-[#1A1A1A] to-stone-900">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="mb-16">
-                    <h2 className="text-4xl font-thin tracking-tight mb-4 text-white">The <span className="text-fibi-accent font-normal">HAA Protocol</span></h2>
+                    <h2 className="text-4xl font-thin tracking-tight mb-4 text-white">The <span className="text-fibi-purple font-normal">HAA Protocol</span></h2>
                     <p className="text-slate-400 text-lg font-light">
                         Independent carpentry integrated with sensory science. We build non-structural,
                         high-impact adaptations that transform your home into a safe harbor.
                     </p>
                 </div>
-                <div className="glass-card px-4 py-2 border-fibi-accent/30 flex items-center gap-3 text-sm text-fibi-accent font-bold w-fit mb-12">
+                <div className="glass-card px-4 py-2 border-fibi-purple/30 flex items-center gap-3 text-sm text-fibi-purple font-bold w-fit mb-12">
                     <Info className="w-4 h-4" />
                     Specialized Adaptations
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div className="glass-card relative p-8 group overflow-hidden">
-                        <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-fibi-accent/10 text-fibi-accent group-hover:scale-110 transition-transform relative z-10">
+                        <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-fibi-purple/10 text-fibi-purple group-hover:scale-110 transition-transform relative z-10">
                             <Box className="w-6 h-6" />
                         </div>
-                        <h3 className="text-xl font-bold mb-3 text-white relative z-10">Sensory Installations</h3>
+                        <h3 className="text-xl font-bold mb-3 text-white relative z-10">Tactile Hardware</h3>
                         <p className="text-slate-400 leading-relaxed text-sm relative z-10">
-                            Professional assembly and secure mounting of tactile panels, bubble tubes, and specialized sensory furniture.
+                            Custom-crafted sensory bins and stations designed for engagement and durability.
                         </p>
                     </div>
 
                     <div className="glass-card relative p-8 group overflow-hidden">
-                        <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-fibi-accent/10 text-fibi-accent group-hover:scale-110 transition-transform relative z-10">
+                        <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-fibi-purple/10 text-fibi-purple group-hover:scale-110 transition-transform relative z-10">
                             <Shield className="w-6 h-6" />
                         </div>
-                        <h3 className="text-xl font-bold mb-3 text-white relative z-10">Adaptive Safety</h3>
+                        <h3 className="text-xl font-bold mb-3 text-white relative z-10">Structural Focus</h3>
                         <p className="text-slate-400 leading-relaxed text-sm relative z-10">
-                            Installation of specialized gate hardware, safety window films, wall padding, and anti-tip anchoring.
+                            Heavy-duty, grounded furniture (desks, shelving) providing essential proprioceptive feedback.
                         </p>
                     </div>
 
                     <div className="glass-card relative p-8 group overflow-hidden">
-                        <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-fibi-accent/10 text-fibi-accent group-hover:scale-110 transition-transform relative z-10">
+                        <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-fibi-purple/10 text-fibi-purple group-hover:scale-110 transition-transform relative z-10">
                             <LayoutGrid className="w-6 h-6" />
                         </div>
-                        <h3 className="text-xl font-bold mb-3 text-white relative z-10">Specialized Storage</h3>
+                        <h3 className="text-xl font-bold mb-3 text-white relative z-10">Environmental Zoning</h3>
                         <p className="text-slate-400 leading-relaxed text-sm relative z-10">
-                            Organization systems for equipment and secure, safety-locking cabinetry for sensitive items.
+                            Physical room modifications implemented based on sensory-friendly frameworks.
                         </p>
                     </div>
 
                     <div className="glass-card relative p-8 group overflow-hidden">
-                        <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-fibi-accent/10 text-fibi-accent group-hover:scale-110 transition-transform relative z-10">
+                        <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 bg-fibi-purple/10 text-fibi-purple group-hover:scale-110 transition-transform relative z-10">
                             <FileText className="w-6 h-6" />
                         </div>
-                        <h3 className="text-xl font-bold mb-3 text-white relative z-10">Technical Consultation</h3>
+                        <h3 className="text-xl font-bold mb-3 text-white relative z-10">Methodology Framework</h3>
                         <p className="text-slate-400 leading-relaxed text-sm relative z-10">
-                            On-site walkthroughs to plan installation strategy, hardware requirements, and equipment placement.
+                            Utilizing the ASPECTSS™ framework for neuro-inclusive spatial design.
                         </p>
                     </div>
                 </div>

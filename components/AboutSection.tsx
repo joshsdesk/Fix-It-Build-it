@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Hammer, History, Heart, Shield } from "lucide-react";
+import { Hammer, History, Heart, Shield, Volume2, LogOut } from "lucide-react";
 
 export default function AboutSection() {
     return (
@@ -18,11 +18,11 @@ export default function AboutSection() {
                                 </div>
                                 <div>
                                     <div className="font-bold text-xl uppercase tracking-wider text-white">Josh Bourassa</div>
-                                    <div className="text-fibi-accent text-sm font-bold">Independent Carpenter & HAA specialist</div>
+                                    <div className="text-fibi-accent text-sm font-bold">Sensory-Informed Carpentry Technician</div>
                                 </div>
                             </div>
                             <p className="text-slate-400 text-lg leading-relaxed mb-6">
-                                Fix-It Build-It Colorado began with a shift in perspective. As a skilled technician and a father to a child on the spectrum, I experienced firsthand the challenge of turning a standard house into a safe, functional, and sensory-friendly home. I saw that families often have the right gear but lack a professional path to get it installed safely and correctly. This inspired a pivot in my business: moving beyond general repair to focus on specialized environment adaptations. We combine technical precision with a deep understanding of why these installations matter, bridging the gap between purchasing specialized equipment and achieving a successful home environment.
+                                Fix-it Build-it didn't start for the neurodivergent community, but it evolved because of it. As a father navigating the trials and triumphs of the ASD world, I realized my skills as a carpenter could solve the physical friction points families face every day. I am not a doctor or a lawyer—I am a Technician. I build the environments that allow neuro-spicy lives to thrive. We are starting here, in the Westminster hub, and growing alongside the community we serve.
                             </p>
                         </div>
 
@@ -41,26 +41,35 @@ export default function AboutSection() {
                     </div>
 
                     <div className="relative">
-                        <div className="glass-card p-12 border-fibi-accent/20 bg-fibi-accent/5">
+                        <div className="glass-card p-12 border-fibi-purple/20 bg-fibi-purple/5">
                             <div className="flex items-center gap-3 mb-6">
-                                <Shield className="w-6 h-6 text-fibi-accent" />
-                                <h3 className="text-2xl font-bold text-white">Specialty Standards</h3>
+                                <Shield className="w-6 h-6 text-fibi-purple" />
+                                <h3 className="text-2xl font-bold text-white">The "Psycho-Proof" Standard</h3>
                             </div>
                             <div className="space-y-6">
                                 <div className="flex justify-between items-center group">
-                                    <span className="text-slate-300 font-medium whitespace-nowrap">Safety First</span>
+                                    <div className="flex items-center gap-2">
+                                        <Volume2 className="w-4 h-4 text-fibi-purple" />
+                                        <span className="text-slate-300 font-medium whitespace-nowrap">Acoustics</span>
+                                    </div>
                                     <span className="w-full mx-4 h-px bg-white/5 min-w-[20px]" />
-                                    <span className="text-slate-500 text-sm italic whitespace-nowrap">Reinforced Solutions</span>
+                                    <span className="text-slate-500 text-sm italic whitespace-nowrap">Noise-reduction builds</span>
                                 </div>
                                 <div className="flex justify-between items-center group">
-                                    <span className="text-slate-300 font-medium whitespace-nowrap">Regulation</span>
+                                    <div className="flex items-center gap-2">
+                                        <LogOut className="w-4 h-4 text-fibi-purple" />
+                                        <span className="text-slate-300 font-medium whitespace-nowrap">Escape</span>
+                                    </div>
                                     <span className="w-full mx-4 h-px bg-white/5 min-w-[20px]" />
-                                    <span className="text-slate-500 text-sm italic whitespace-nowrap">Sensory Optimization</span>
+                                    <span className="text-slate-500 text-sm italic whitespace-nowrap">Quiet zones & chill-out nooks</span>
                                 </div>
                                 <div className="flex justify-between items-center group">
-                                    <span className="text-slate-300 font-medium whitespace-nowrap">Compliance</span>
+                                    <div className="flex items-center gap-2">
+                                        <Shield className="w-4 h-4 text-fibi-purple" />
+                                        <span className="text-slate-300 font-medium whitespace-nowrap">Safety</span>
+                                    </div>
                                     <span className="w-full mx-4 h-px bg-white/5 min-w-[20px]" />
-                                    <span className="text-slate-500 text-sm italic whitespace-nowrap">Non-Structural Only</span>
+                                    <span className="text-slate-500 text-sm italic whitespace-nowrap">Rounded edges, non-toxic finishes</span>
                                 </div>
                             </div>
                             <div className="mt-8 pt-8 border-t border-white/10">

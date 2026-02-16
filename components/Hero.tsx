@@ -21,12 +21,12 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
                     transition={{ duration: 0.8 }}
                     className="flex flex-col gap-6"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fibi-accent/10 border border-fibi-accent/20 text-fibi-accent text-xs font-bold uppercase tracking-wider w-fit">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fibi-purple/10 border border-fibi-purple/20 text-fibi-purple text-xs font-bold uppercase tracking-wider w-fit">
                         <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fibi-accent opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-fibi-accent"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fibi-purple opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-fibi-purple"></span>
                         </span>
-                        Professional HAA Specialist • Colorado
+                        Sensory-Informed Carpentry Technician
                     </div>
 
                     <h1 className="text-5xl md:text-7xl font-thin tracking-tight leading-[1.1]">
@@ -71,13 +71,13 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
                         <div className="absolute inset-0 flex items-center justify-center">
                             <div className="text-center">
                                 <div className="text-6xl font-black text-white/10 select-none">FIBI</div>
-                                <div className="text-sm font-mono text-fibi-accent/60 mt-2 tracking-widest uppercase">Colorado Specialist</div>
+                                <div className="text-sm font-mono text-fibi-purple/60 mt-2 tracking-widest uppercase">Colorado Specialist</div>
                             </div>
                         </div>
                     </div>
                     {/* Floating badge */}
-                    <div className="absolute -bottom-6 -left-6 glass-card p-6 border-fibi-accent/30 animate-bounce-slow">
-                        <div className="text-3xl font-bold text-fibi-accent">15+</div>
+                    <div className="absolute -bottom-6 -left-6 glass-card p-6 border-fibi-purple/30 animate-bounce-slow">
+                        <div className="text-3xl font-bold text-fibi-purple">15+</div>
                         <div className="text-xs text-slate-400 uppercase tracking-widest">Years Expertise</div>
                     </div>
                 </motion.div>

@@ -37,7 +37,7 @@ export default function Footer() {
                         © 2026 Fix-It Build-It Colorado LLC. All Rights Reserved.
                     </p>
                     <p className="text-[10px] text-slate-500 uppercase tracking-widest max-w-sm text-center md:text-right">
-                        All work is non-structural and specialty-focused. Independent Carpenter specializing in HAA modules.
+                        Currently in Phase 1: Physical Infrastructure. Scaling toward community-wide digital and clinical integration.
                     </p>
                 </div>
             </div>
