@@ -30,12 +30,12 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
                     </div>
 
                     <h1 className="text-5xl md:text-7xl font-thin tracking-tight leading-[1.1]">
-                        Building Autonomy.<br />
-                        <span className="font-normal text-gradient">One Room at a Time.</span>
+                        Precision Installation for<br />
+                        <span className="font-normal text-gradient">Specialized Environments.</span>
                     </h1>
 
                     <p className="text-xl text-slate-300 max-w-lg leading-relaxed font-light">
-                        Specialized Home Accessibility Adaptations (HAA) for the Neurodivergent Community.
+                        Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in Colorado.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -43,7 +43,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
                             onClick={onOpenModal}
                             className="btn-primary flex items-center justify-center gap-2 text-lg"
                         >
-                            Start Intake <ArrowRight className="w-5 h-5" />
+                            Request Installation Quote <ArrowRight className="w-5 h-5" />
                         </button>
                         <a
                             href="#roadmap"

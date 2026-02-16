@@ -6,14 +6,14 @@ import { Calculator, Info } from "lucide-react";
 const LABOR_RATE = 85;
 
 const SERVICE_RATES: Record<string, { material_base: number; labor_hours: number }> = {
-    'Sensory Pod': { material_base: 800, labor_hours: 20 },
-    'Safety Gate (Custom)': { material_base: 300, labor_hours: 8 },
-    'Wall Padding (Per 8ft)': { material_base: 200, labor_hours: 5 },
-    'Visual Hub': { material_base: 150, labor_hours: 4 }
+    'Sensory Installations': { material_base: 800, labor_hours: 20 },
+    'Adaptive Safety': { material_base: 300, labor_hours: 8 },
+    'Specialized Storage': { material_base: 200, labor_hours: 5 },
+    'Technical Consultation': { material_base: 0, labor_hours: 2 }
 };
 
 export default function HAAEstimator() {
-    const [project, setProject] = useState('Sensory Pod');
+    const [project, setProject] = useState('Sensory Installations');
 
     const calculateEstimate = () => {
         const item = SERVICE_RATES[project];
@@ -34,11 +34,6 @@ export default function HAAEstimator() {
                 </div>
 
                 <div className="glass-card relative p-8 group overflow-hidden">
-                    {/* L-Bracket: Top Right */}
-                    <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-fibi-accent/30 group-hover:border-fibi-accent group-hover:shadow-[0_0_15px_rgba(209,136,94,0.5)] transition-all duration-300 rounded-tr-lg" />
-                    {/* L-Bracket: Bottom Left */}
-                    <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-fibi-accent/30 group-hover:border-fibi-accent group-hover:shadow-[0_0_15px_rgba(209,136,94,0.5)] transition-all duration-300 rounded-bl-lg" />
-
                     <label className="block mb-3 text-sm font-bold text-fibi-accent uppercase tracking-wider relative z-10">Select Project Type</label>
                     <div className="relative mb-8 z-10">
                         <select
@@ -72,7 +67,7 @@ export default function HAAEstimator() {
 
                 <div className="mt-8 flex justify-center">
                     <button className="btn-primary w-full flex items-center justify-center gap-2">
-                        Book Site Visit <Calculator className="w-4 h-4" />
+                        Request Installation Quote <Calculator className="w-4 h-4" />
                     </button>
                 </div>
             </div>

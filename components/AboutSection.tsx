@@ -22,8 +22,7 @@ export default function AboutSection() {
                                 </div>
                             </div>
                             <p className="text-slate-400 text-lg leading-relaxed mb-6">
-                                Born from the personal necessity of building a safer, more regulated world for a son with Level 3 Autism,
-                                Josh Bourassa combines 15+ years of structural experience with specialized sensory knowledge.
+                                Fix-It Build-It Colorado began with a shift in perspective. As a skilled technician and a father to a child on the spectrum, I experienced firsthand the challenge of turning a standard house into a safe, functional, and sensory-friendly home. I saw that families often have the right gear but lack a professional path to get it installed safely and correctly. This inspired a pivot in my business: moving beyond general repair to focus on specialized environment adaptations. We combine technical precision with a deep understanding of why these installations matter, bridging the gap between purchasing specialized equipment and achieving a successful home environment.
                             </p>
                         </div>
 
