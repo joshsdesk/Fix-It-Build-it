@@ -8,7 +8,8 @@ import ProcessTimeline from "@/components/ProcessTimeline";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 import ContactModal from "@/components/ContactModal";
-import HAAEstimator from "@/components/HAAEstimator";
+import SensoryNeedsWizard from "@/components/SensoryNeedsWizard";
+import ZeroFailureContent from "@/components/ZeroFailureContent";
 import HAARoadmapModal from "@/components/HAARoadmapModal";
 import SectionDivider from "@/components/SectionDivider";
 
@@ -40,7 +41,9 @@ export default function Home() {
 
       <ProcessTimeline />
 
-      <HAAEstimator />
+      <SensoryNeedsWizard />
+
+      <ZeroFailureContent />
 
       <div className="rotate-180 transform">
         <SectionDivider />

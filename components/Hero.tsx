@@ -26,7 +26,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fibi-purple opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-fibi-purple"></span>
                         </span>
-                        Sensory-Informed Carpentry Technician
+                        Sensory-Informed Technician
                     </div>
 
                     <h1 className="text-5xl md:text-7xl font-thin tracking-tight leading-[1.1]">
@@ -35,7 +35,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
                     </h1>
 
                     <p className="text-xl text-slate-300 max-w-lg leading-relaxed font-light">
-                        Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in Colorado.
+                        Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in the Denver Metro Front Range.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -71,7 +71,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
                         <div className="absolute inset-0 flex items-center justify-center">
                             <div className="text-center">
                                 <div className="text-6xl font-black text-white/10 select-none">FIBI</div>
-                                <div className="text-sm font-mono text-fibi-purple/60 mt-2 tracking-widest uppercase">Colorado Specialist</div>
+                                <div className="text-sm font-mono text-fibi-purple/60 mt-2 tracking-widest uppercase">Westminster • Front Range</div>
                             </div>
                         </div>
                     </div>

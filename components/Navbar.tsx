@@ -7,7 +7,7 @@ const navItems = [
     { name: "Home", href: "#home" },
     { name: "Services", href: "#services" },
     { name: "Roadmap", href: "#roadmap" },
-    { name: "Estimator", href: "#estimator" },
+    { name: "Sensory Wizard", href: "#estimator" },
     { name: "About", href: "#about" },
 ];
 
@@ -45,7 +45,7 @@ export default function Navbar() {
                             <a
                                 key={item.name}
                                 href={item.href}
-                                className="text-sm font-light tracking-widest text-slate-300 hover:text-fibi-accent transition-colors uppercase"
+                                className="text-sm font-light tracking-widest text-slate-300 hover:text-fibi-purple transition-colors uppercase"
                             >
                                 {item.name}
                             </a>
@@ -58,7 +58,7 @@ export default function Navbar() {
                     <span className="text-2xl tracking-[0.2em] uppercase font-thin text-white leading-none">
                         FIX-IT
                     </span>
-                    <span className="text-2xl tracking-[0.2em] uppercase font-normal text-fibi-accent leading-none">
+                    <span className="text-2xl tracking-[0.2em] uppercase font-normal text-fibi-purple leading-none">
                         BUILD-IT
                     </span>
                 </div>

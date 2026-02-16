@@ -17,7 +17,7 @@ export default function Footer() {
                             </span>
                         </div>
                         <p className="text-slate-500 text-sm max-w-xs mb-4">
-                            Independent Carpenter in Colorado. Specialist in Home Accessibility Adaptations.
+                            Westminster-Based Sensory Technician. Serving the Denver Metro Front Range.
                         </p>
                         <div className="flex flex-col gap-1 text-xs text-slate-500">
                             <a href="tel:7205153348" className="hover:text-fibi-accent italic transition-colors">720-515-3348</a>
@@ -36,9 +36,16 @@ export default function Footer() {
                     <p className="text-xs text-slate-600">
                         © 2026 Fix-It Build-It Colorado LLC. All Rights Reserved.
                     </p>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-widest max-w-sm text-center md:text-right">
-                        Currently in Phase 1: Physical Infrastructure. Scaling toward community-wide digital and clinical integration.
-                    </p>
+                    <div className="text-[10px] text-slate-500 uppercase tracking-widest text-right">
+                        <p className="mb-2">Specialized Carpentry Technician. Family-Owned & Operated. Building the physical foundation for the neuro-diverse community while scaling toward clinical-grade integration.</p>
+                        <div className="flex gap-4 justify-end mt-4 text-[9px] font-bold text-fibi-purple/80">
+                            <a href="https://fixitbuildit-portal.cloudflareaccess.com" className="hover:text-fibi-accent transition-colors">My Project Hub</a>
+                            <span className="text-slate-700">|</span>
+                            <a href="https://fixitbuildit-portal.cloudflareaccess.com" className="hover:text-fibi-accent transition-colors">Community Pulse</a>
+                            <span className="text-slate-700">|</span>
+                            <a href="https://fixitbuildit-portal.cloudflareaccess.com" className="hover:text-fibi-accent transition-colors">The Command Center</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>
