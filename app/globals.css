@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --background: #1A1A1A;
+  /* Dark Gray Base */
+  --foreground: #ffffff;
+  /* Primary Text */
+  --fibi-accent: #d1885e;
+  /* Professional Copper/Tan Accent */
+  --fibi-accent-muted: #a66d4b;
+  --glass: rgba(51, 51, 51, 0.85);
+  --glass-border: rgba(209, 136, 94, 0.2);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-fibi-accent: var(--fibi-accent);
+  --color-fibi-accent-muted: var(--fibi-accent-muted);
+  --font-sans: var(--font-outfit);
+  --font-mono: var(--font-outfit);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--fibi-accent) 0%, #e2b49a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .btn-primary {
+    @apply relative px-8 py-3 bg-fibi-accent text-white font-bold rounded-full overflow-hidden transition-all duration-300 active:scale-95 text-[#333333];
+  }
+
+  .btn-primary:hover {
+    @apply scale-105;
+    box-shadow: 0 0 25px rgba(209, 136, 94, 0.4);
+  }
+}
