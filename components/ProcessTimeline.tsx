@@ -36,7 +36,7 @@ export default function ProcessTimeline() {
         <section id="process" className="py-24 relative overflow-hidden bg-slate-900/40 border-y border-white/5">
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6">The <span className="text-fibi-accent">HAA Protocol</span></h2>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-6">The <span className="text-fibi-accent">ASD Blueprint</span></h2>
                     <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
                         A rigorous 4-step process designed for the ASD community. We prioritize safety, speed, and minimal environmental intrusion.
                     </p>
