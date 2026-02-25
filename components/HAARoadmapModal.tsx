@@ -59,7 +59,7 @@ export default function HAARoadmapModal({ isOpen, onClose }: HAARoadmapModalProp
                         </button>
 
                         <div className="mb-12">
-                            <h3 className="text-3xl font-bold mb-3">The <span className="text-gradient">HAA Roadmap</span></h3>
+                            <h3 className="text-3xl font-bold mb-3">The <span className="text-gradient">ASD Blueprint Roadmap</span></h3>
                             <p className="text-slate-400">Our 4-step process to a safer, more regulated home.</p>
                         </div>
 
