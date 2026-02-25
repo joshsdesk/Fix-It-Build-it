@@ -10,7 +10,7 @@ export default function ServiceGrid() {
         <section id="services" className="py-24 bg-gradient-to-b from-[#1A1A1A] to-stone-900">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="mb-16">
-                    <h2 className="text-4xl font-thin tracking-tight mb-4 text-white">The <span className="text-fibi-purple font-normal">HAA Protocol</span></h2>
+                    <h2 className="text-4xl font-thin tracking-tight mb-4 text-white">The <span className="text-fibi-purple font-normal">ASD Blueprint</span></h2>
                     <p className="text-slate-400 text-lg font-light">
                         Independent carpentry integrated with sensory science. We build non-structural,
                         high-impact adaptations that transform your home into a safe harbor.
