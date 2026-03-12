@@ -1,0 +1,30 @@
+[00:03:58.313] Browser ERROR   Missing NEXT_PUBLIC_EMAILJS_PUBLIC_KEY in environment
+[00:03:58.313] Browser ERROR   Turnstile render error: {"code":3588,"name":"TurnstileError"}
+[00:03:59.305] Browser ERROR   Turnstile render error: {"code":3588,"name":"TurnstileError"}
+[00:04:45.954] Browser ERROR   Missing NEXT_PUBLIC_EMAILJS_PUBLIC_KEY in environment
+[00:04:45.954] Browser ERROR   Turnstile render error: {"code":3588,"name":"TurnstileError"}
+[00:04:46.955] Browser ERROR   Turnstile render error: {"code":3588,"name":"TurnstileError"}
+[00:04:47.955] Browser ERROR   Turnstile render error: {"code":3588,"name":"TurnstileError"}
+[00:04:48.955] Browser ERROR   Turnstile render error: {"code":3588,"name":"TurnstileError"}
+[00:04:49.261] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.264] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.273] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.275] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.279] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.281] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.287] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.290] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.294] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.296] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.302] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.303] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.335] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.337] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.371] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:49.373] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:50.787] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:04:50.790] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:05:29.899] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:05:29.901] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:05:32.133] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'
+[00:05:32.134] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it/apps/client/src/app'

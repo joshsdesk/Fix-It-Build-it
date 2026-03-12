@@ -1,0 +1,142 @@
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+	new file:   .gitignore
+	new file:   .wrangler/tmp/bundle-0ePMWf/middleware-insertion-facade.js
+	new file:   .wrangler/tmp/bundle-0ePMWf/middleware-loader.entry.ts
+	new file:   .wrangler/tmp/bundle-4TScGd/middleware-insertion-facade.js
+	new file:   .wrangler/tmp/bundle-4TScGd/middleware-loader.entry.ts
+	new file:   .wrangler/tmp/bundle-BsHZTY/middleware-insertion-facade.js
+	new file:   .wrangler/tmp/bundle-BsHZTY/middleware-loader.entry.ts
+	new file:   .wrangler/tmp/bundle-HZ0qic/middleware-insertion-facade.js
+	new file:   .wrangler/tmp/bundle-HZ0qic/middleware-loader.entry.ts
+	new file:   .wrangler/tmp/bundle-aQyjlv/middleware-insertion-facade.js
+	new file:   .wrangler/tmp/bundle-aQyjlv/middleware-loader.entry.ts
+	new file:   .wrangler/tmp/bundle-af5nA7/middleware-insertion-facade.js
+	new file:   .wrangler/tmp/bundle-af5nA7/middleware-loader.entry.ts
+	new file:   .wrangler/tmp/bundle-zcDOjb/middleware-insertion-facade.js
+	new file:   .wrangler/tmp/bundle-zcDOjb/middleware-loader.entry.ts
+	new file:   .wrangler/tmp/dev-4iF88s/functionsWorker-0.8087328936948566.js
+	new file:   .wrangler/tmp/dev-4iF88s/functionsWorker-0.8087328936948566.js.map
+	new file:   .wrangler/tmp/dev-NfOG9q/functionsWorker-0.08976439980783413.js
+	new file:   .wrangler/tmp/dev-NfOG9q/functionsWorker-0.08976439980783413.js.map
+	new file:   .wrangler/tmp/dev-Y4BUA0/functionsWorker-0.9545270204478811.js
+	new file:   .wrangler/tmp/dev-Y4BUA0/functionsWorker-0.9545270204478811.js.map
+	new file:   .wrangler/tmp/dev-f5MPI6/functionsWorker-0.7792884472265496.js
+	new file:   .wrangler/tmp/dev-f5MPI6/functionsWorker-0.7792884472265496.js.map
+	new file:   .wrangler/tmp/pages-1sUlLr/functionsRoutes-0.14958306824021417.mjs
+	new file:   .wrangler/tmp/pages-1sUlLr/functionsWorker-0.08976439980783413.mjs
+	new file:   .wrangler/tmp/pages-1sUlLr/functionsWorker-0.08976439980783413.mjs.map
+	new file:   .wrangler/tmp/pages-QNXlsk/functionsRoutes-0.6288662589094494.mjs
+	new file:   .wrangler/tmp/pages-QNXlsk/functionsWorker-0.9545270204478811.mjs
+	new file:   .wrangler/tmp/pages-QNXlsk/functionsWorker-0.9545270204478811.mjs.map
+	new file:   .wrangler/tmp/pages-y0Qwt9/functionsRoutes-0.4988828209227467.mjs
+	new file:   .wrangler/tmp/pages-y0Qwt9/functionsWorker-0.8087328936948566.mjs
+	new file:   .wrangler/tmp/pages-y0Qwt9/functionsWorker-0.8087328936948566.mjs.map
+	new file:   .wrangler/tmp/pages-zPPlyR/functionsRoutes-0.46642107313017944.mjs
+	new file:   .wrangler/tmp/pages-zPPlyR/functionsWorker-0.7792884472265496.mjs
+	new file:   .wrangler/tmp/pages-zPPlyR/functionsWorker-0.7792884472265496.mjs.map
+	new file:   README.md
+	new file:   app/admin/page.tsx
+	new file:   app/favicon.ico
+	new file:   app/globals.css
+	new file:   app/layout.tsx
+	new file:   app/page.tsx
+	new file:   apps/client/.next/dev/logs/next-development.log
+	new file:   components/Background.tsx
+	new file:   components/ContactModal.tsx
+	new file:   components/HAARoadmapModal.tsx
+	new file:   components/SectionDivider.tsx
+	new file:   components/ZeroFailureContent.tsx
+	new file:   components/layout/About.tsx
+	new file:   components/layout/Footer.tsx
+	new file:   components/layout/Header.tsx
+	new file:   components/layout/Home.tsx
+	new file:   components/layout/Services.tsx
+	new file:   eslint.config.mjs
+	new file:   features/bento-grid/BentoModal.tsx
+	new file:   features/sensory-wizard/SensoryWizard.tsx
+	new file:   fix-it-temp/package-lock.json
+	new file:   functions/api/contact.ts
+	new file:   lib/firebase.ts
+	new file:   lib/utils.ts
+	new file:   next.config.ts
+	new file:   package-lock.json
+	new file:   package.json
+	new file:   postcss.config.mjs
+	new file:   project.json
+	new file:   public/file.svg
+	new file:   public/globe.svg
+	new file:   public/imgs/Portfolio/.directory
+	new file:   public/imgs/Portfolio/Blueprints/.directory
+	new file:   public/imgs/Portfolio/Blueprints/Screenshot_20260312_025357.png
+	new file:   public/imgs/Portfolio/Blueprints/Untitled.jpg
+	new file:   public/imgs/Portfolio/Blueprints/Untitled1.jpg
+	new file:   public/imgs/Portfolio/Blueprints/Untitled2.jpg
+	new file:   public/imgs/Portfolio/Blueprints/Untitled3.jpg
+	new file:   public/imgs/Portfolio/Blueprints/il_794xN.5910131741_6ou1.webp
+	new file:   public/imgs/Portfolio/Blueprints/www.lakeshorelearning.avif
+	new file:   public/imgs/Portfolio/Jobs/.directory
+	new file:   public/imgs/Portfolio/Jobs/20180809_091517.jpg
+	new file:   public/imgs/Portfolio/Jobs/20180920_125230.jpg
+	new file:   public/imgs/Portfolio/Jobs/20181009_101235-COLLAGE.jpg
+	new file:   public/imgs/Portfolio/Jobs/20181013_173229.jpg
+	new file:   public/imgs/Portfolio/Jobs/20181109_161737~2.jpg
+	new file:   public/imgs/Portfolio/Jobs/20200110_171720.jpg
+	new file:   public/imgs/Portfolio/Jobs/20260226_202316-COLLAGE.jpg
+	new file:   public/imgs/Portfolio/Jobs/20260226_205421-COLLAGE.jpg
+	new file:   public/imgs/Portfolio/Jobs/20260226_205734-COLLAGE.jpg
+	new file:   public/imgs/Portfolio/Jobs/20260311_213221-COLLAGE.jpg
+	new file:   public/imgs/Portfolio/about/20200202_201313.jpg
+	new file:   public/imgs/Portfolio/about/20200226_181420.jpg
+	new file:   public/imgs/Portfolio/about/20200619_181315.jpg
+	new file:   public/imgs/Portfolio/about/20200727_095029.jpg
+	new file:   public/imgs/Portfolio/about/20200731_140950.jpg
+	new file:   public/imgs/Portfolio/about/20200807_103820.jpg
+	new file:   public/imgs/Portfolio/about/20200903_170054.jpg
+	new file:   public/imgs/Portfolio/about/20220708_190610.jpg
+	new file:   public/imgs/Portfolio/about/20230819_113919.jpg
+	new file:   public/imgs/Portfolio/about/20230826_160449.jpg
+	new file:   public/imgs/Portfolio/about/20231216_165833.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20250128_194508115.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20250202_165648838.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20250209_175202653.MP.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20250919_011449773.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20251018_204141986.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20251024_233342686.MP.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20251231_234545618.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20260101_000551848.MP.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20260101_004225537.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20260105_213747693.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20260112_235134821.jpg
+	new file:   public/imgs/Portfolio/about/PXL_20260116_023240598.jpg
+	new file:   public/imgs/Portfolio/about/Screenshot_20200611-092232_Messenger.jpg
+	new file:   public/imgs/Portfolio/about/VideoCapture_20230805-161050.jpg
+	new file:   public/imgs/Portfolio/about/download_20200208_194129.jpg
+	new file:   public/imgs/UI/Background Mobile.png
+	new file:   public/imgs/UI/Background.png
+	new file:   public/imgs/UI/Mtns Trees.png
+	new file:   public/imgs/UI/Mtns.png
+	new file:   public/imgs/UI/Trees.png
+	new file:   public/next.svg
+	new file:   public/vercel.svg
+	new file:   public/window.svg
+	new file:   src/api/leadCapture.js
+	new file:   src/config/firebase.js
+	new file:   src/config/maps.js
+	new file:   styles/design-system.css
+	new file:   tsconfig.json
+	new file:   wrangler.toml
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .gitignore
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	git_check2.txt
+

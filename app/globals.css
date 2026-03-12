@@ -1,0 +1,192 @@
+@import "tailwindcss";
+@import "../styles/design-system.css";
+
+@source "../features";
+@source "../components";
+@source "../app";
+
+@theme {
+  --color-background: #1A1A1A;
+  --color-foreground: #ffffff;
+  --color-fibi-accent: #d1885e;
+  --color-fibi-purple: #6D28D9;
+  --color-fibi-accent-muted: #a66d4b;
+  --color-glass: rgba(51, 51, 51, 0.85);
+  --color-glass-border: rgba(209, 136, 94, 0.2);
+  --spacing-fitts: 8px;
+  /* >= 2mm physical spacing */
+  --target-min: 44px;
+  /* Minimum tap target size */
+}
+
+@layer components {
+
+  /* Neuro-Inclusive FatButton Component */
+  /* Implements Hick's Law (zero-decision queues) & Fitts's Law spacing */
+  .fat-button {
+    min-height: var(--target-min);
+    min-width: var(--target-min);
+    padding: 1rem 1.5rem;
+    background-color: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    border-radius: 12px;
+    color: var(--color-foreground);
+    font-size: 1.125rem;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .fat-button+.fat-button {
+    margin-top: var(--spacing-fitts);
+  }
+
+  .fat-button:hover,
+  .fat-button:focus-visible {
+    background-color: rgba(81, 81, 81, 0.95);
+    border-color: var(--color-fibi-accent);
+    outline: none;
+  }
+
+  .fat-button.selected {
+    background-color: var(--color-fibi-accent);
+    border-color: var(--color-foreground);
+    font-weight: 700;
+  }
+
+  /* BinaryToggle Container (Strictly Serial A/B Choices) */
+  .binary-toggle-container {
+    display: flex;
+    gap: var(--spacing-fitts);
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .binary-toggle-btn {
+    flex: 1;
+    min-height: var(--target-min);
+    background-color: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    border-radius: 12px;
+    color: var(--color-foreground);
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .binary-toggle-btn:hover,
+  .binary-toggle-btn:focus-visible {
+    background-color: rgba(81, 81, 81, 0.95);
+    border-color: var(--color-fibi-accent);
+    outline: none;
+  }
+
+  .binary-toggle-btn[aria-pressed="true"] {
+    background-color: var(--color-fibi-accent);
+    font-weight: 700;
+  }
+
+  /* Emotional Accessibility Wait State */
+  /* Used instead of aggressive spinners during processor execution */
+  .wait-state-container {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    border-radius: 12px;
+    animation: pulse-calm 2.5s infinite ease-in-out;
+  }
+
+  .wait-state-container.active {
+    display: block;
+  }
+
+  .wait-state-text {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-foreground);
+  }
+}
+
+@keyframes pulse-calm {
+  0% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+    border-color: var(--color-fibi-accent);
+  }
+
+  100% {
+    opacity: 0.7;
+  }
+}
+
+:root {
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --fibi-accent: var(--color-fibi-accent);
+  --fibi-purple: var(--color-fibi-purple);
+  --fibi-accent-muted: var(--color-fibi-accent-muted);
+  --glass: var(--color-glass);
+  --glass-border: var(--color-glass-border);
+  --alert-red: #ef4444;
+}
+
+@theme inline {
+  --font-sans: var(--font-outfit);
+  --font-mono: var(--font-outfit);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@layer components {
+  /* Migrated tokens moved to design-system.css */
+
+  .grid-locked-surface {
+    @apply relative border border-white/10 rounded-2xl overflow-hidden shadow-2xl;
+  }
+
+  /* 2026 Monorepo Standards - Semantic Tokens */
+  .component-surface {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.5rem;
+    overflow: hidden;
+  }
+
+  .btn-action-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-action-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: var(--alert-red);
+  }
+}

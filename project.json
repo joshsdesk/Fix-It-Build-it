@@ -1,0 +1,11 @@
+{
+  "project_name": "Fix-It-Build-it",
+  "lineage": "Template_Monorepo",
+  "status": "active",
+  "scope": "/mnt/Playground/Projects/Dev_Projects/Fix-It-Build-it",
+  "inheritance": [
+    "@monorepo/shared",
+    "@monorepo/library"
+  ],
+  "initialized_date": "2026-03-03T20:50:00Z"
+}
