@@ -24,7 +24,7 @@ export default function Footer() {
                     <div className="flex gap-6 mt-2 text-sm text-slate-300">
                         <a href="tel:7205153348" className="hover:text-fibi-purple transition-colors font-medium">720.515.3348</a>
                         <span className="opacity-30">|</span>
-                        <a href="mailto:contact@fixitbuildit.app" className="hover:text-fibi-purple transition-colors font-medium">contact@fixitbuildit.app</a>
+                        <a href="mailto:FixitBuilditColorado@gmail.com" className="hover:text-fibi-purple transition-colors font-medium">FixitBuilditColorado@gmail.com</a>
                     </div>
                 </div>
 
