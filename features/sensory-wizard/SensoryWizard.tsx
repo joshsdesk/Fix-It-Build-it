@@ -3,11 +3,15 @@
 import React, { useState } from "react";
 import { ArrowRight, Activity, Battery, Shield, Volume2, RefreshCw, Moon, Info } from "lucide-react";
 
-export default function SensoryNeedsWizard() {
+interface SensoryWizardProps {
+    onRequestConsultation: (prefill: { specs: string }) => void;
+}
+
+export default function SensoryNeedsWizard({ onRequestConsultation }: SensoryWizardProps) {
     const [step, setStep] = useState(1);
     const [energy, setEnergy] = useState<string | null>(null);
     const [sensoryNeed, setSensoryNeed] = useState<string | null>(null);
-    const [, setBuildGoal] = useState<string | null>(null);
+    const [buildGoal, setBuildGoal] = useState<string | null>(null);
 
     const reset = () => {
         setStep(1);
@@ -26,6 +30,10 @@ export default function SensoryNeedsWizard() {
             if (sensoryNeed === 'Sensitive') return "Decompression Sanctuary: Blackout capability, sound isolation, and soft-texture finishes.";
         }
         return "Custom Sensory Adaptation: Tailored to unique environmental friction points.";
+    };
+
+    const buildIntakeSummary = () => {
+        return `Sensory Wizard results — Energy: ${energy}, Sensory Profile: ${sensoryNeed}, Build Goal: ${buildGoal}. Recommendation: ${getRecommendation()}`;
     };
 
     return (
@@ -144,7 +152,10 @@ export default function SensoryNeedsWizard() {
                                     <button onClick={reset} className="px-6 py-3 rounded-full border border-white/10 text-slate-400 hover:bg-white/5 transition-colors text-sm font-bold">
                                         Start Over
                                     </button>
-                                    <button className="btn-primary flex items-center gap-2">
+                                    <button
+                                        onClick={() => onRequestConsultation({ specs: buildIntakeSummary() })}
+                                        className="btn-action-primary flex items-center justify-center gap-2"
+                                    >
                                         Request Consultation <ArrowRight className="w-4 h-4" />
                                     </button>
                                 </div>
