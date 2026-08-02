@@ -91,7 +91,7 @@ export default function HAARoadmapModal({ isOpen, onClose }: HAARoadmapModalProp
                                 onClick={onClose}
                                 className="btn-primary w-full max-w-xs"
                             >
-                                Got it, let's start
+                                Got it, let&apos;s start
                             </button>
                         </div>
                     </motion.div>

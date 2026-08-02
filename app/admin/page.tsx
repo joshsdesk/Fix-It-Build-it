@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { Database, ShieldCheck, Mail, Users, ArrowLeft, Scroll } from "lucide-react";
 import Link from "next/link";
 

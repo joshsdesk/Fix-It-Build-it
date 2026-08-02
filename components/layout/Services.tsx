@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Shield, LayoutGrid, Info, Box, FileText, ClipboardList, PencilRuler, Hammer, Home } from "lucide-react";
+import { Shield, LayoutGrid, Box, FileText, ClipboardList, PencilRuler, Hammer, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const steps = [

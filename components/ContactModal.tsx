@@ -3,62 +3,106 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, CheckCircle2 } from "lucide-react";
-import emailjs from "@emailjs/browser";
+
+export type LeadCategory = "residential" | "commercial";
+
+export interface ContactFormData {
+    category: LeadCategory;
+    name: string;
+    email: string;
+    phone: string;
+    organization: string;
+    siteType: string;
+    projectType: string;
+    fundingType: string;
+    hasLMN: boolean;
+    specs: string;
+}
 
 export interface BaseModalProps {
     isOpen: boolean;
     onClose: () => void;
-}
-
-export interface ContactFormData {
-    name: string;
-    email: string;
-    phone: string;
-    projectType: string;
-    fundingType: string;
-    specs: string;
+    prefill?: Partial<ContactFormData>;
 }
 
 export type SubmissionStatus = "idle" | "submitting" | "success" | "error";
+
+const RESIDENTIAL_PROJECT_TYPES = [
+    "Sensory Sanctuary / Playroom",
+    "Vestibular Swing / Climbing Wall",
+    "Safety & Padding (Z-Clip) Installation",
+    "Quiet / Low-Stimulus Bedroom",
+    "Adaptive Storage",
+    "General Consultation",
+];
+
+const COMMERCIAL_PROJECT_TYPES = [
+    "Acoustic Dampening / Quiet Waiting Area",
+    "Focus Pod / Recharge Space",
+    "Low-Flicker Lighting Retrofit",
+    "General Consultation",
+];
+
+const SITE_TYPES = [
+    "Pediatric / Therapy Clinic",
+    "School / Classroom",
+    "Office / Workplace",
+    "Waiting Room / Lobby",
+    "Other",
+];
+
+const DEFAULT_FORM_DATA: ContactFormData = {
+    category: "residential",
+    name: "",
+    email: "",
+    phone: "",
+    organization: "",
+    siteType: SITE_TYPES[0],
+    projectType: RESIDENTIAL_PROJECT_TYPES[0],
+    fundingType: "Private Pay",
+    hasLMN: false,
+    specs: "",
+};
 
 // Declare global for Turnstile
 declare global {
     interface Window {
         turnstile: {
-            render: (container: string | HTMLElement, options: any) => string;
+            render: (
+                container: string | HTMLElement,
+                options: {
+                    sitekey?: string;
+                    callback?: (token: string) => void;
+                    "error-callback"?: () => void;
+                    theme?: "light" | "dark" | "auto";
+                }
+            ) => string;
             remove: (widgetId: string) => void;
         };
-        onTurnstileVerify: (token: string) => void;
     }
 }
 
-export default function ContactModal({ isOpen, onClose }: BaseModalProps) {
+export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProps) {
     const [status, setStatus] = useState<SubmissionStatus>("idle");
     const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
     const [turnstileError, setTurnstileError] = useState<boolean>(false);
-    const [formData, setFormData] = useState<ContactFormData>({
-        name: "",
-        email: "",
-        phone: "",
-        projectType: "Sensory Pod",
-        fundingType: "Private Pay",
-        specs: "",
-    });
+    const [formData, setFormData] = useState<ContactFormData>(DEFAULT_FORM_DATA);
+    const [wasOpen, setWasOpen] = useState(isOpen);
 
     const turnstileRef = React.useRef<HTMLDivElement>(null);
 
-    // Handle Turnstile verification and EmailJS Init
+    // Reset (and apply any prefill) each time the modal transitions to open
+    if (isOpen !== wasOpen) {
+        setWasOpen(isOpen);
+        if (isOpen) {
+            setFormData({ ...DEFAULT_FORM_DATA, ...prefill });
+            setStatus("idle");
+        }
+    }
+
+    // Handle Turnstile render/cleanup
     React.useEffect(() => {
         if (!isOpen) return;
-
-        // Ensure EmailJS is initialized on the client before we try to send anything
-        if (process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
-            emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY.trim());
-            console.log("EmailJS Initialized with Public Key");
-        } else {
-            console.error("Missing NEXT_PUBLIC_EMAILJS_PUBLIC_KEY in environment");
-        }
-
         if (!turnstileRef.current) return;
 
         let widgetId: string | null = null;
@@ -123,49 +167,39 @@ export default function ContactModal({ isOpen, onClose }: BaseModalProps) {
         setStatus("submitting");
 
         try {
-            const templateParams = {
-                user_name: formData.name,
-                user_email: formData.email,
-                user_phone: formData.phone,
-                project_type: formData.projectType,
-                funding_type: formData.fundingType,
-                message: formData.specs,
-            };
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ token: turnstileToken, ...formData }),
+            });
 
-            const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim() || "";
-            const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID?.trim() || "";
-            const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim() || "";
+            const result: { success: boolean; error?: string } = await response.json();
 
-            console.log("=== EMAILJS HANDSHAKE INITIATED ===");
-            console.log("Service ID parsed length:", serviceId.length);
-            console.log("Template ID parsed length:", templateId.length);
-            console.log("Public Key parsed length:", publicKey.length);
-            console.log("Payload:", templateParams);
-
-            const result = await emailjs.send(
-                serviceId,
-                templateId,
-                templateParams,
-                publicKey
-            );
-
-            console.log("=== EMAILJS RESULT ===", result);
-
-            if (result.status === 200) {
+            if (result.success) {
                 setStatus("success");
                 setTimeout(() => {
                     setStatus("idle");
                     onClose();
                 }, 3000);
             } else {
-                console.warn("EmailJS returned non-200 status:", result.status);
+                console.warn("Contact submission failed:", result.error);
                 setStatus("error");
             }
         } catch (error) {
-            console.error("=== EMAILJS HANDSHAKE FAILED ===");
-            console.error("Submission error:", error);
+            console.error("Contact submission error:", error);
             setStatus("error");
         }
+    };
+
+    const isResidential = formData.category === "residential";
+    const projectTypes = isResidential ? RESIDENTIAL_PROJECT_TYPES : COMMERCIAL_PROJECT_TYPES;
+
+    const setCategory = (category: LeadCategory) => {
+        setFormData((prev) => ({
+            ...prev,
+            category,
+            projectType: category === "residential" ? RESIDENTIAL_PROJECT_TYPES[0] : COMMERCIAL_PROJECT_TYPES[0],
+        }));
     };
 
     return (
@@ -184,7 +218,7 @@ export default function ContactModal({ isOpen, onClose }: BaseModalProps) {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative w-full max-w-lg glass-card p-8 border-fibi-accent/30 overflow-hidden flex flex-col items-center text-center"
+                        className="relative w-full max-w-lg glass-card p-8 border-fibi-accent/30 overflow-hidden flex flex-col items-center text-center max-h-[90vh] overflow-y-auto"
                     >
                         <button
                             onClick={onClose}
@@ -206,7 +240,7 @@ export default function ContactModal({ isOpen, onClose }: BaseModalProps) {
                             </div>
                         ) : (
                             <>
-                                <div className="mb-8 w-full">
+                                <div className="mb-6 w-full">
                                     <h3 className="text-2xl font-bold flex items-center justify-center gap-2 mx-auto">
                                         Start Your <span className="text-gradient">Intake</span>
                                     </h3>
@@ -215,11 +249,33 @@ export default function ContactModal({ isOpen, onClose }: BaseModalProps) {
                                     </p>
                                 </div>
 
+                                <div className="binary-toggle-container" role="group" aria-label="Project category">
+                                    <button
+                                        type="button"
+                                        aria-pressed={isResidential}
+                                        onClick={() => setCategory("residential")}
+                                        className="binary-toggle-btn"
+                                    >
+                                        Residential / Family
+                                    </button>
+                                    <button
+                                        type="button"
+                                        aria-pressed={!isResidential}
+                                        onClick={() => setCategory("commercial")}
+                                        className="binary-toggle-btn"
+                                    >
+                                        Commercial / Business
+                                    </button>
+                                </div>
+
                                 <form onSubmit={handleSubmit} className="space-y-6 w-full text-left">
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <label className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Name</label>
+                                            <label htmlFor="cf-name" className="text-xs font-bold uppercase tracking-widest text-fibi-accent">
+                                                {isResidential ? "Name" : "Contact Name"}
+                                            </label>
                                             <input
+                                                id="cf-name"
                                                 type="text"
                                                 required
                                                 value={formData.name}
@@ -229,8 +285,9 @@ export default function ContactModal({ isOpen, onClose }: BaseModalProps) {
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Email</label>
+                                            <label htmlFor="cf-email" className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Email</label>
                                             <input
+                                                id="cf-email"
                                                 type="email"
                                                 required
                                                 value={formData.email}
@@ -242,8 +299,9 @@ export default function ContactModal({ isOpen, onClose }: BaseModalProps) {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Phone (Optional)</label>
+                                        <label htmlFor="cf-phone" className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Phone (Optional)</label>
                                         <input
+                                            id="cf-phone"
                                             type="tel"
                                             value={formData.phone}
                                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -252,42 +310,86 @@ export default function ContactModal({ isOpen, onClose }: BaseModalProps) {
                                         />
                                     </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <label className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Project Type</label>
-                                            <select
-                                                value={formData.projectType}
-                                                onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                                                className="w-full bg-slate-900 border border-white/10 rounded-lg px-4 py-3 focus:border-fibi-accent outline-none transition-colors appearance-none"
-                                            >
-                                                <option>Sensory Pod</option>
-                                                <option>Safety Installation</option>
-                                                <option>Wall Padding</option>
-                                                <option>Adaptive Storage</option>
-                                                <option>Consultation</option>
-                                            </select>
+                                    {!isResidential && (
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div className="space-y-2">
+                                                <label htmlFor="cf-organization" className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Organization</label>
+                                                <input
+                                                    id="cf-organization"
+                                                    type="text"
+                                                    required
+                                                    value={formData.organization}
+                                                    onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                                                    className="w-full bg-slate-900 border border-white/10 rounded-lg px-4 py-3 focus:border-fibi-accent outline-none transition-colors"
+                                                    placeholder="Business / Clinic Name"
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label htmlFor="cf-site-type" className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Site Type</label>
+                                                <select
+                                                    id="cf-site-type"
+                                                    value={formData.siteType}
+                                                    onChange={(e) => setFormData({ ...formData, siteType: e.target.value })}
+                                                    className="w-full bg-slate-900 border border-white/10 rounded-lg px-4 py-3 focus:border-fibi-accent outline-none transition-colors appearance-none"
+                                                >
+                                                    {SITE_TYPES.map((type) => (
+                                                        <option key={type}>{type}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
                                         </div>
-
-                                        <div className="space-y-2">
-                                            <label className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Funding Source</label>
-                                            <select
-                                                value={formData.fundingType}
-                                                onChange={(e) => setFormData({ ...formData, fundingType: e.target.value })}
-                                                className="w-full bg-slate-900 border border-white/10 rounded-lg px-4 py-3 focus:border-fibi-accent outline-none transition-colors appearance-none"
-                                            >
-                                                <option value="Private Pay">Private Pay</option>
-                                                <option value="Unsure / Need Guidance">Unsure / Need Guidance</option>
-                                                <option value="CES Waiver" disabled className="text-slate-500 bg-slate-950">CES Waiver</option>
-                                                <option value="SLS Waiver" disabled className="text-slate-500 bg-slate-950">SLS Waiver</option>
-                                                <option value="CHRP Waiver" disabled className="text-slate-500 bg-slate-950">CHRP Waiver</option>
-                                                <option value="HCBS-DD Waiver" disabled className="text-slate-500 bg-slate-950">HCBS-DD Waiver</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    )}
 
                                     <div className="space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Message</label>
+                                        <label htmlFor="cf-project-type" className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Project Type</label>
+                                        <select
+                                            id="cf-project-type"
+                                            value={formData.projectType}
+                                            onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                                            className="w-full bg-slate-900 border border-white/10 rounded-lg px-4 py-3 focus:border-fibi-accent outline-none transition-colors appearance-none"
+                                        >
+                                            {projectTypes.map((type) => (
+                                                <option key={type}>{type}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    {isResidential && (
+                                        <>
+                                            <div className="space-y-2">
+                                                <label htmlFor="cf-funding" className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Funding Source</label>
+                                                <select
+                                                    id="cf-funding"
+                                                    value={formData.fundingType}
+                                                    onChange={(e) => setFormData({ ...formData, fundingType: e.target.value })}
+                                                    className="w-full bg-slate-900 border border-white/10 rounded-lg px-4 py-3 focus:border-fibi-accent outline-none transition-colors appearance-none"
+                                                >
+                                                    <option value="Private Pay">Private Pay</option>
+                                                    <option value="Unsure / Need Guidance">Unsure / Need Guidance</option>
+                                                    <option value="CES Waiver" disabled className="text-slate-500 bg-slate-950">CES Waiver (Coming Soon)</option>
+                                                    <option value="SLS Waiver" disabled className="text-slate-500 bg-slate-950">SLS Waiver (Coming Soon)</option>
+                                                    <option value="CHRP Waiver" disabled className="text-slate-500 bg-slate-950">CHRP Waiver (Coming Soon)</option>
+                                                    <option value="HCBS-DD Waiver" disabled className="text-slate-500 bg-slate-950">HCBS-DD Waiver (Coming Soon)</option>
+                                                </select>
+                                            </div>
+
+                                            <label htmlFor="cf-has-lmn" className="flex items-center gap-3 text-sm text-slate-300 cursor-pointer">
+                                                <input
+                                                    id="cf-has-lmn"
+                                                    type="checkbox"
+                                                    checked={formData.hasLMN}
+                                                    onChange={(e) => setFormData({ ...formData, hasLMN: e.target.checked })}
+                                                    className="w-4 h-4 accent-fibi-accent"
+                                                />
+                                                I have a Letter of Medical Necessity (LMN) from an OT/therapist
+                                            </label>
+                                        </>
+                                    )}
+
+                                    <div className="space-y-2">
+                                        <label htmlFor="cf-specs" className="text-xs font-bold uppercase tracking-widest text-fibi-accent">Message</label>
                                         <textarea
+                                            id="cf-specs"
                                             value={formData.specs}
                                             onChange={(e) => setFormData({ ...formData, specs: e.target.value })}
                                             className="w-full bg-slate-900 border border-white/10 rounded-lg px-4 py-3 focus:border-fibi-accent outline-none h-24 resize-none transition-colors"
@@ -297,6 +399,14 @@ export default function ContactModal({ isOpen, onClose }: BaseModalProps) {
 
                                     {status === "error" && (
                                         <p className="text-red-400 text-sm">Oops we&apos;re having a problem, please contact us directly at Fixitbuilditcolorado@gmail.com 720-515-3348.</p>
+                                    )}
+
+                                    {status === "submitting" && (
+                                        <div className="wait-state-container active">
+                                            <p className="wait-state-text">
+                                                Sending your request — no need to refresh, this only takes a moment.
+                                            </p>
+                                        </div>
                                     )}
 
                                     <div className="flex flex-col items-center justify-center py-2 min-h-[70px]">
