@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, CheckCircle2 } from "lucide-react";
+import { X, Send, CheckCircle2, AlertTriangle, Mail, Phone } from "lucide-react";
 
 export type LeadCategory = "residential" | "commercial";
 
@@ -238,6 +238,38 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
                                     Our team will contact you shortly to discuss next steps.
                                 </p>
                             </div>
+                        ) : status === "error" ? (
+                            <div className="py-10 flex flex-col items-center text-center">
+                                <div className="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mb-6">
+                                    <AlertTriangle className="w-12 h-12 text-red-400" />
+                                </div>
+                                <h3 className="text-2xl font-bold mb-2">Looks Like We Hit a Snag</h3>
+                                <p className="text-slate-400 mb-6 max-w-sm">
+                                    Something went wrong sending your request. Reach out directly and we&apos;ll get you sorted right away:
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-3 w-full max-w-sm">
+                                    <a
+                                        href="mailto:FixitBuilditColorado@gmail.com"
+                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors text-sm font-bold"
+                                    >
+                                        <Mail className="w-4 h-4" /> Email Us
+                                    </a>
+                                    <a
+                                        href="tel:7205153348"
+                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors text-sm font-bold"
+                                    >
+                                        <Phone className="w-4 h-4" /> Call Us
+                                    </a>
+                                </div>
+                                <p className="text-slate-500 text-xs mt-4">FixitBuilditColorado@gmail.com &nbsp;·&nbsp; 720.515.3348</p>
+                                <button
+                                    type="button"
+                                    onClick={() => setStatus("idle")}
+                                    className="mt-6 text-sm text-slate-400 hover:text-white underline underline-offset-4 transition-colors"
+                                >
+                                    Try the form again
+                                </button>
+                            </div>
                         ) : (
                             <>
                                 <div className="mb-6 w-full">
@@ -396,10 +428,6 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
                                             placeholder="Tell us about your adaptation needs..."
                                         ></textarea>
                                     </div>
-
-                                    {status === "error" && (
-                                        <p className="text-red-400 text-sm">Oops we&apos;re having a problem, please contact us directly at Fixitbuilditcolorado@gmail.com 720-515-3348.</p>
-                                    )}
 
                                     {status === "submitting" && (
                                         <div className="wait-state-container active">
