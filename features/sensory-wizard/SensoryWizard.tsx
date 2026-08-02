@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowRight, Activity, Battery, Shield, Volume2, RefreshCw, Moon, Hammer, Info } from "lucide-react";
+import { ArrowRight, Activity, Battery, Shield, Volume2, RefreshCw, Moon, Info } from "lucide-react";
 
 export default function SensoryNeedsWizard() {
     const [step, setStep] = useState(1);
     const [energy, setEnergy] = useState<string | null>(null);
     const [sensoryNeed, setSensoryNeed] = useState<string | null>(null);
-    const [buildGoal, setBuildGoal] = useState<string | null>(null);
+    const [, setBuildGoal] = useState<string | null>(null);
 
     const reset = () => {
         setStep(1);
@@ -39,7 +39,7 @@ export default function SensoryNeedsWizard() {
                                 The Sensory <span className="font-normal text-gradient">Wizard</span>
                             </h2>
                             <p className="text-slate-400 text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed">
-                                We don't quote square footage. We solve friction points. Let's find your baseline.
+                                We don&apos;t quote square footage. We solve friction points. Let&apos;s find your baseline.
                             </p>
                         </div>
 
@@ -60,7 +60,7 @@ export default function SensoryNeedsWizard() {
                                     <button onClick={() => { setEnergy('Big Body'); setStep(2); }} className="p-6 rounded-xl bg-white/5 border border-white/10 hover:border-fibi-purple hover:bg-fibi-purple/10 transition-all group text-left">
                                         <Activity className="w-8 h-8 text-fibi-purple mb-4 group-hover:scale-110 transition-transform" />
                                         <div className="font-bold text-white text-lg mb-2">High Energy</div>
-                                        <div className="text-sm text-slate-400">"Big Body" Play. Jumping, crashing, climbing.</div>
+                                        <div className="text-sm text-slate-400">&quot;Big Body&quot; Play. Jumping, crashing, climbing.</div>
                                     </button>
                                     <button onClick={() => { setEnergy('Recharge'); setStep(2); }} className="p-6 rounded-xl bg-white/5 border border-white/10 hover:border-fibi-purple hover:bg-fibi-purple/10 transition-all group text-left">
                                         <Battery className="w-8 h-8 text-fibi-purple mb-4 group-hover:scale-110 transition-transform" />

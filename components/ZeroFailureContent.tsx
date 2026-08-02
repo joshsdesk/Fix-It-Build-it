@@ -8,7 +8,7 @@ export default function ZeroFailureContent() {
         <section className="py-24 bg-slate-950 relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 <div className="text-center mb-16">
-                    <h2 className="text-5xl md:text-6xl font-thin tracking-tight leading-[1.1] mb-6">The "Zero-Failure" <span className="font-normal text-gradient">Content</span></h2>
+                    <h2 className="text-5xl md:text-6xl font-thin tracking-tight leading-[1.1] mb-6">The &quot;Zero-Failure&quot; <span className="font-normal text-gradient">Content</span></h2>
                     <p className="text-slate-400 text-lg font-light max-w-2xl mx-auto">
                         Standardized assets and protocols for consistent environmental implementation.
                     </p>

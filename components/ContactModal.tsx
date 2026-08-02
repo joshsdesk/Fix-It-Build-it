@@ -25,7 +25,15 @@ export type SubmissionStatus = "idle" | "submitting" | "success" | "error";
 declare global {
     interface Window {
         turnstile: {
-            render: (container: string | HTMLElement, options: any) => string;
+            render: (
+                container: string | HTMLElement,
+                options: {
+                    sitekey?: string;
+                    callback?: (token: string) => void;
+                    "error-callback"?: () => void;
+                    theme?: "light" | "dark" | "auto";
+                }
+            ) => string;
             remove: (widgetId: string) => void;
         };
         onTurnstileVerify: (token: string) => void;

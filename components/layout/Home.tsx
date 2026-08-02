@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Background from "@/components/Background";
 import BentoModal from "@/features/bento-grid/BentoModal";
@@ -29,9 +30,12 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
         const selectedPast = shuffle(pastImages).slice(0, 2);
         const selectedBlueprints = shuffle(blueprintImages).slice(0, 2);
 
-        // Grid layout: 
+        // Grid layout:
         // [Past 0] [Blue 0]
         // [Blue 1] [Past 1]
+        // Deferred to an effect (rather than computed during render) so the random
+        // selection runs client-side only, after hydration, avoiding a server/client mismatch.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setBentoImages([selectedPast[0], selectedBlueprints[0], selectedBlueprints[1], selectedPast[1]]);
     }, []);
 
@@ -96,7 +100,7 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
                 >
                     {/* Bento Photo Gallery - Fluid Scaling */}
                     <div className="grid grid-cols-2 gap-3 lg:gap-4 w-full">
-                        {gridItems.map((item, idx) => (
+                        {gridItems.map((item) => (
                             <div
                                 key={item.id}
                                 onClick={() => setSelectedCategory(item.category)}
@@ -104,10 +108,12 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
                             >
                                 <div className="absolute inset-0 bg-slate-900 group-hover/item:scale-105 transition-transform duration-700">
                                     {item.img && (
-                                        <img
+                                        <Image
                                             src={item.img}
                                             alt=""
-                                            className="w-full h-full object-cover opacity-60 group-hover/item:opacity-90 transition-all duration-500"
+                                            fill
+                                            sizes="(max-width: 1024px) 50vw, 25vw"
+                                            className="object-cover opacity-60 group-hover/item:opacity-90 transition-all duration-500"
                                         />
                                     )}
                                 </div>

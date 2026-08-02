@@ -12,11 +12,11 @@ export default function SectionDivider({ variant = "default", className = "" }: 
     const getAsset = () => {
         switch (variant) {
             case "mountains":
-                return "/imgs/UI/Mtns.png";
+                return { src: "/imgs/UI/Mtns.png", width: 4096, height: 305 };
             case "trees":
-                return "/imgs/UI/Trees.png";
+                return { src: "/imgs/UI/Trees.png", width: 4096, height: 305 };
             case "mtns-trees":
-                return "/imgs/UI/Mtns Trees.png";
+                return { src: "/imgs/UI/Mtns Trees.png", width: 4096, height: 409 };
             default:
                 return null;
         }
@@ -53,8 +53,10 @@ export default function SectionDivider({ variant = "default", className = "" }: 
         <div className={`relative w-full z-20 pointer-events-none ${className}`}>
             <div className="max-w-[90rem] mx-auto px-6">
                 <div className="-mt-12 sm:-mt-16 md:-mt-20">
-                    <img
-                        src={asset}
+                    <Image
+                        src={asset.src}
+                        width={asset.width}
+                        height={asset.height}
                         alt={`${variant} divider`}
                         className="w-full h-auto object-contain object-bottom"
                     />

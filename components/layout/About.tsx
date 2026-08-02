@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { Hammer, History, Heart, Shield, Volume2, LogOut, Instagram, Linkedin, Facebook } from "lucide-react";
 
 export default function About() {
@@ -35,10 +34,10 @@ export default function About() {
                                 </div>
                             </div>
                             <p className="text-slate-400 text-lg leading-relaxed mb-6">
-                                I didn't just learn these skills; I lived the need for them. As a father navigating the trials and triumphs of the ASD world, I saw the gaps in standard home construction. I am not a doctor or a lawyer—I am a Technician. I applied my trade to solve the friction points my own family faced. Now, I build those solutions for you.
+                                I didn&apos;t just learn these skills; I lived the need for them. As a father navigating the trials and triumphs of the ASD world, I saw the gaps in standard home construction. I am not a doctor or a lawyer—I am a Technician. I applied my trade to solve the friction points my own family faced. Now, I build those solutions for you.
                             </p>
                             <p className="text-fibi-accent font-bold text-lg mb-6">
-                                "All-Access" Policy: We do not filter by "Level" or support needs. If you've been told your needs are "too much," you're in the right place.
+                                &quot;All-Access&quot; Policy: We do not filter by &quot;Level&quot; or support needs. If you&apos;ve been told your needs are &quot;too much,&quot; you&apos;re in the right place.
                             </p>
                         </div>
 

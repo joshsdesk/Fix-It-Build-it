@@ -10,24 +10,9 @@ interface BentoModalProps {
     category: "past" | "future" | null;
 }
 
-const sensoryImages = [
-    { src: "/imgs/Portfolio/Jobs/20180809_091517.jpg", alt: "Suspension swing installation" },
-    { src: "/imgs/Portfolio/Jobs/20180920_125230.jpg", alt: "Crash pad setup" },
-    { src: "/imgs/Portfolio/Jobs/20181009_101235-COLLAGE.jpg", alt: "Sensory room collage" }
-];
-
-const safetyImages = [
-    { src: "/imgs/Portfolio/Jobs/20181013_173229.jpg", alt: "Tamper proof enclosure" },
-    { src: "/imgs/Portfolio/Jobs/20181109_161737~2.jpg", alt: "Safety adaptation" }
-];
-
-const hardwareImages = [
-    { src: "/imgs/Portfolio/Jobs/20200110_171720.jpg", alt: "Ceiling lift" },
-    { src: "/imgs/Portfolio/Jobs/20260226_202316-COLLAGE.jpg", alt: "Hardware installation" }
-];
-
 export default function BentoModal({ isOpen, onClose, category }: BentoModalProps) {
     const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [prevCategory, setPrevCategory] = React.useState(category);
 
     // Escape key listener
     useEffect(() => {
@@ -39,9 +24,10 @@ export default function BentoModal({ isOpen, onClose, category }: BentoModalProp
     }, [isOpen, onClose]);
 
     // Reset index when category changes
-    useEffect(() => {
+    if (category !== prevCategory) {
+        setPrevCategory(category);
         setCurrentIndex(0);
-    }, [category]);
+    }
 
     if (!isOpen || !category) return null;
 
@@ -57,11 +43,11 @@ export default function BentoModal({ isOpen, onClose, category }: BentoModalProp
         { src: "/imgs/Portfolio/Blueprints/Untitled.jpg", alt: "Future Design 3" }
     ];
 
-    let title = category === "past" ? "Past Projects" : "Future Plans";
-    let textClass = category === "past"
+    const title = category === "past" ? "Past Projects" : "Future Plans";
+    const textClass = category === "past"
         ? "bg-gradient-to-r from-orange-500 to-fibi-purple bg-clip-text text-transparent"
         : "bg-gradient-to-r from-fibi-purple to-orange-500 bg-clip-text text-transparent";
-    let borderColor = category === "past" ? "border-fibi-purple/40" : "border-orange-500/40";
+    const borderColor = category === "past" ? "border-fibi-purple/40" : "border-orange-500/40";
 
     const nextImage = () => setCurrentIndex((prev) => (prev + 1) % images.length);
     const prevImage = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);

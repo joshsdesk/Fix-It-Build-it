@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "@/components/layout/Header";
 import Home from "@/components/layout/Home";
 import Services from "@/components/layout/Services";
@@ -8,7 +8,6 @@ import About from "@/components/layout/About";
 import Footer from "@/components/layout/Footer";
 import ContactModal from "@/components/ContactModal";
 import SensoryNeedsWizard from "@/features/sensory-wizard/SensoryWizard";
-import ZeroFailureContent from "@/components/ZeroFailureContent";
 import SectionDivider from "@/components/SectionDivider";
 
 export default function Page() {
