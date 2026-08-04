@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Instagram, Linkedin, Facebook } from "lucide-react";
 
 export default function Footer() {
@@ -57,8 +58,7 @@ export default function Footer() {
                         © 2026 Fix-It Build-It Colorado LLC.
                     </p>
                     <div className="flex gap-6 font-bold text-fibi-purple/60 uppercase tracking-widest">
-                        <a href="https://fixitbuildit-portal.cloudflareaccess.com" className="hover:text-fibi-purple transition-colors">Client Portal</a>
-                        <a href="https://fixitbuildit-portal.cloudflareaccess.com" className="hover:text-fibi-purple transition-colors">Admin Login</a>
+                        <Link href="/admin" className="hover:text-fibi-purple transition-colors">Admin Login</Link>
                     </div>
                 </div>
 
