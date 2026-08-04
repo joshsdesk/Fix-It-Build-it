@@ -1,5 +1,4 @@
 interface Env {
-    CLOUDFLARE_SECRET_KEY: string;
     EMAILJS_SERVICE_ID: string;
     EMAILJS_TEMPLATE_ID: string;
     EMAILJS_PUBLIC_KEY: string;
@@ -7,7 +6,6 @@ interface Env {
 }
 
 interface ContactRequestBody {
-    token?: string;
     category?: "residential" | "commercial";
     name?: string;
     email?: string;
@@ -29,38 +27,17 @@ function jsonResponse(body: unknown, status: number) {
     });
 }
 
-// Verifies the Turnstile token server-side, then sends the lead via EmailJS's
-// REST API using a private key — the client never talks to EmailJS directly,
-// so a submission can't reach an inbox without passing the security check.
+// Sends the lead via EmailJS's REST API using a private key, so the client
+// never talks to EmailJS directly and the key never reaches the browser.
 export const onRequestPost = async (context: { request: Request; env: Env }) => {
     const { request, env } = context;
 
     try {
         const body: ContactRequestBody = await request.json();
-        const { token, name, email } = body;
+        const { name, email } = body;
 
-        if (!token) {
-            return jsonResponse({ success: false, error: "Missing security token" }, 400);
-        }
         if (!name?.trim() || !email?.trim() || !EMAIL_RE.test(email)) {
             return jsonResponse({ success: false, error: "Missing or invalid contact details" }, 400);
-        }
-
-        const ip = request.headers.get("CF-Connecting-IP") || "";
-
-        const turnstileForm = new FormData();
-        turnstileForm.append("secret", env.CLOUDFLARE_SECRET_KEY);
-        turnstileForm.append("response", token);
-        turnstileForm.append("remoteip", ip);
-
-        const turnstileResult = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-            method: "POST",
-            body: turnstileForm,
-        });
-        const turnstileOutcome = (await turnstileResult.json()) as { success: boolean };
-
-        if (!turnstileOutcome.success) {
-            return jsonResponse({ success: false, error: "Security verification failed" }, 403);
         }
 
         const emailResult = await fetch("https://api.emailjs.com/api/v1.0/email/send", {

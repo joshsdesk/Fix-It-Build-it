@@ -64,32 +64,10 @@ const DEFAULT_FORM_DATA: ContactFormData = {
     specs: "",
 };
 
-// Declare global for Turnstile
-declare global {
-    interface Window {
-        turnstile: {
-            render: (
-                container: string | HTMLElement,
-                options: {
-                    sitekey?: string;
-                    callback?: (token: string) => void;
-                    "error-callback"?: () => void;
-                    theme?: "light" | "dark" | "auto";
-                }
-            ) => string;
-            remove: (widgetId: string) => void;
-        };
-    }
-}
-
 export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProps) {
     const [status, setStatus] = useState<SubmissionStatus>("idle");
-    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-    const [turnstileError, setTurnstileError] = useState<boolean>(false);
     const [formData, setFormData] = useState<ContactFormData>(DEFAULT_FORM_DATA);
     const [wasOpen, setWasOpen] = useState(isOpen);
-
-    const turnstileRef = React.useRef<HTMLDivElement>(null);
 
     // Reset (and apply any prefill) each time the modal transitions to open
     if (isOpen !== wasOpen) {
@@ -100,69 +78,8 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
         }
     }
 
-    // Handle Turnstile render/cleanup
-    React.useEffect(() => {
-        if (!isOpen) return;
-        if (!turnstileRef.current) return;
-
-        let widgetId: string | null = null;
-        let interval: NodeJS.Timeout;
-        let attempts = 0;
-
-        const initTurnstile = () => {
-            attempts++;
-            if (attempts > 15) {
-                if (interval) clearInterval(interval);
-                setTurnstileError(true);
-                return;
-            }
-
-            try {
-                if (window.turnstile && turnstileRef.current && !widgetId) {
-                    widgetId = window.turnstile.render(turnstileRef.current, {
-                        sitekey: process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY,
-                        callback: (token: string) => {
-                            setTurnstileToken(token);
-                            setTurnstileError(false);
-                        },
-                        "error-callback": () => {
-                            console.error("Turnstile error-callback triggered");
-                            setTurnstileError(true);
-                        },
-                        theme: "dark",
-                    });
-                    if (interval) clearInterval(interval);
-                }
-            } catch (err) {
-                console.error("Turnstile render error:", err);
-            }
-        };
-
-        // Delay initialization until animation roughly finishes (~500ms)
-        const timeout = setTimeout(() => {
-            initTurnstile();
-            if (!widgetId) {
-                interval = setInterval(initTurnstile, 1000);
-            }
-        }, 500);
-
-        return () => {
-            clearTimeout(timeout);
-            if (interval) clearInterval(interval);
-            if (widgetId && window.turnstile) {
-                window.turnstile.remove(widgetId);
-            }
-            setTurnstileToken(null);
-        };
-    }, [isOpen]);
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        if (!turnstileToken) {
-            alert("Please complete the security check.");
-            return;
-        }
 
         setStatus("submitting");
 
@@ -170,7 +87,7 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
             const response = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ token: turnstileToken, ...formData }),
+                body: JSON.stringify(formData),
             });
 
             const result: { success: boolean; error?: string } = await response.json();
@@ -436,15 +353,6 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
                                             </p>
                                         </div>
                                     )}
-
-                                    <div className="flex flex-col items-center justify-center py-2 min-h-[70px]">
-                                        <div ref={turnstileRef}></div>
-                                        {turnstileError && (
-                                            <p className="text-red-400 text-[10px] mt-2 animate-pulse">
-                                                Security check blocked. Please disable VPN or Ad-blocker and refresh.
-                                            </p>
-                                        )}
-                                    </div>
 
                                     <button
                                         type="submit"

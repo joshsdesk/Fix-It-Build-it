@@ -2,9 +2,6 @@
 # In production, set these as Cloudflare Pages environment variables/secrets instead
 # (Pages dashboard -> Settings -> Environment variables, or `wrangler pages secret put`).
 
-# Cloudflare Turnstile secret key (server-side verification)
-CLOUDFLARE_SECRET_KEY=
-
 # EmailJS — service/template IDs and public key match your EmailJS dashboard.
 # EMAILJS_PRIVATE_KEY is the "Private Key" from EmailJS Account > Security —
 # it authorizes server-side sends and is never exposed to the browser.
