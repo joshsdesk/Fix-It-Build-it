@@ -87,18 +87,17 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
     const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
     const [turnstileError, setTurnstileError] = useState<boolean>(false);
     const [formData, setFormData] = useState<ContactFormData>(DEFAULT_FORM_DATA);
-    const [wasOpen, setWasOpen] = useState(isOpen);
+
 
     const turnstileRef = React.useRef<HTMLDivElement>(null);
 
     // Reset (and apply any prefill) each time the modal transitions to open
-    if (isOpen !== wasOpen) {
-        setWasOpen(isOpen);
+    React.useEffect(() => {
         if (isOpen) {
             setFormData({ ...DEFAULT_FORM_DATA, ...prefill });
             setStatus("idle");
         }
-    }
+    }, [isOpen, prefill]);
 
     // Handle Turnstile render/cleanup
     React.useEffect(() => {
