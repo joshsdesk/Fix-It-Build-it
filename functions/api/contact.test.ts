@@ -94,7 +94,7 @@ describe('contact API', () => {
       },
     } as unknown as Request;
 
-    const response = await onRequestPost({ request: mockRequest, env: mockEnv });
+    const response = await onRequestPost({ request: mockRequest, env: mockEnv } as any);
 
     expect(response.status).toBe(500);
     const data = await response.json();
