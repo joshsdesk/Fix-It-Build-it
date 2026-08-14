@@ -23,10 +23,12 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^4.1.10",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
     "typescript": "^5",
+    "vitest": "^4.1.10",
     "wrangler": "^4.69.0"
   }
 }
