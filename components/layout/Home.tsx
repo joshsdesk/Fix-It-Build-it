@@ -26,7 +26,14 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
         ];
 
         // Pick 2 random from each
-        const shuffle = (arr: string[]) => [...arr].sort(() => Math.random() - 0.5);
+        const shuffle = (arr: string[]) => {
+            const newArr = [...arr];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        };
         const selectedPast = shuffle(pastImages).slice(0, 2);
         const selectedBlueprints = shuffle(blueprintImages).slice(0, 2);
 
