@@ -68,7 +68,7 @@ export default function ZeroFailureContent() {
                         <div className="space-y-4">
                             <div className="bg-slate-900/50 p-4 rounded-lg border border-white/5">
                                 <div className="text-xs text-fibi-accent font-mono mb-1">PROJECT STATUS</div>
-                                <div className="text-sm text-white font-medium">Digital Boss_TODO Integration</div>
+                                <div className="text-sm text-white font-medium">Digital Boss Integration</div>
                                 <div className="text-xs text-slate-500 mt-2">Real-time client updates active.</div>
                             </div>
                             <a href="#" className="text-xs text-fibi-purple hover:underline flex items-center gap-1">

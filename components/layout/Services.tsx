@@ -33,6 +33,33 @@ const steps = [
     },
 ];
 
+const bentoTabs = [
+    {
+        title: "Tactile Hardware",
+        description: "Sensory bins & stations for durability.",
+        icon: Box,
+        color: "purple"
+    },
+    {
+        title: "Structural Focus",
+        description: "Grounded furniture & proprioceptive rigs.",
+        icon: Shield,
+        color: "orange"
+    },
+    {
+        title: "Zoning",
+        description: "Spatial room mods for sensory flow.",
+        icon: LayoutGrid,
+        color: "orange"
+    },
+    {
+        title: "Methodology",
+        description: "ASPECTSS™ evidence-based design.",
+        icon: FileText,
+        color: "purple"
+    }
+];
+
 export default function Services() {
     return (
         <section id="services" className="snap-start min-h-screen relative flex flex-col justify-center py-12 bg-gradient-to-b from-background to-stone-900 overflow-hidden">
@@ -71,32 +98,7 @@ export default function Services() {
                     <div className="flex flex-col gap-8 w-full relative">
                         {/* Slim Bento Tabs Grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full">
-                            {[
-                                {
-                                    title: "Tactile Hardware",
-                                    description: "Sensory bins & stations for durability.",
-                                    icon: Box,
-                                    color: "purple"
-                                },
-                                {
-                                    title: "Structural Focus",
-                                    description: "Grounded furniture & proprioceptive rigs.",
-                                    icon: Shield,
-                                    color: "orange"
-                                },
-                                {
-                                    title: "Zoning",
-                                    description: "Spatial room mods for sensory flow.",
-                                    icon: LayoutGrid,
-                                    color: "orange"
-                                },
-                                {
-                                    title: "Methodology",
-                                    description: "ASPECTSS™ evidence-based design.",
-                                    icon: FileText,
-                                    color: "purple"
-                                }
-                            ].map((item, idx) => (
+                            {bentoTabs.map((item, idx) => (
                                 <motion.div
                                     key={idx}
                                     whileHover={{ y: -2 }}
