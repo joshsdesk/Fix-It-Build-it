@@ -4,6 +4,29 @@ import React from "react";
 import { Database, ShieldCheck, Mail, Users, ArrowLeft, Scroll } from "lucide-react";
 import Link from "next/link";
 
+const STATS = [
+    { label: "Active Leads", value: "12", icon: Mail, color: "text-fibi-accent" },
+    { label: "Pending Quotes", value: "05", icon: Database, color: "text-blue-400" },
+    { label: "Consults", value: "08", icon: Users, color: "text-purple-400" },
+    { label: "Security Status", value: "STABLE", icon: ShieldCheck, color: "text-green-400" },
+];
+
+const LEADS = [
+    { name: "Family_A", project: "Sensory Pod", status: "New" },
+    { name: "Family_B", project: "Safety Gates", status: "Vetted" },
+    { name: "Family_C", project: "Mounting", status: "Consult scheduled" },
+    { name: "Family_D", project: "Visual Hub", status: "On Hold" },
+    { name: "Family_E", project: "Full Install", status: "New" },
+];
+
+const MATERIAL_ITEMS = [
+    { label: "Lumber (2x4)", price: "4.50" },
+    { label: "Plywood (3/4)", price: "45.00" },
+    { label: "Sensory Foam", price: "220.00" },
+    { label: "Acrylic Sheets", price: "85.00" },
+    { label: "Hardware Kit", price: "35.00" },
+];
+
 export default function AdminDashboard() {
     return (
         <div className="min-h-screen bg-background text-foreground p-8">
@@ -25,12 +48,7 @@ export default function AdminDashboard() {
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-                    {[
-                        { label: "Active Leads", value: "12", icon: Mail, color: "text-fibi-accent" },
-                        { label: "Pending Quotes", value: "05", icon: Database, color: "text-blue-400" },
-                        { label: "Consults", value: "08", icon: Users, color: "text-purple-400" },
-                        { label: "Security Status", value: "STABLE", icon: ShieldCheck, color: "text-green-400" },
-                    ].map((stat) => (
+                    {STATS.map((stat) => (
                         <div key={stat.label} className="glass-card p-6 border-white/5 bg-white/5">
                             <div className="flex items-center justify-between mb-4">
                                 <div className="p-2 rounded-lg bg-white/5">
@@ -62,13 +80,7 @@ export default function AdminDashboard() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-white/5">
-                                    {[
-                                        { name: "Family_A", project: "Sensory Pod", status: "New" },
-                                        { name: "Family_B", project: "Safety Gates", status: "Vetted" },
-                                        { name: "Family_C", project: "Mounting", status: "Consult scheduled" },
-                                        { name: "Family_D", project: "Visual Hub", status: "On Hold" },
-                                        { name: "Family_E", project: "Full Install", status: "New" },
-                                    ].map((lead) => (
+                                    {LEADS.map((lead) => (
                                         <tr key={lead.name} className="hover:bg-white/5 transition-colors group">
                                             <td className="px-6 py-4 font-medium">{lead.name}</td>
                                             <td className="px-6 py-4 text-slate-400">{lead.project}</td>
@@ -92,13 +104,7 @@ export default function AdminDashboard() {
                         <p className="text-xs text-slate-500 mb-6">Live update base material rates for the public Estimator.</p>
 
                         <div className="space-y-4 flex-1">
-                            {[
-                                { label: "Lumber (2x4)", price: "4.50" },
-                                { label: "Plywood (3/4)", price: "45.00" },
-                                { label: "Sensory Foam", price: "220.00" },
-                                { label: "Acrylic Sheets", price: "85.00" },
-                                { label: "Hardware Kit", price: "35.00" },
-                            ].map((item) => (
+                            {MATERIAL_ITEMS.map((item) => (
                                 <div key={item.label} className="flex justify-between items-center group">
                                     <label className="text-sm text-slate-400 group-hover:text-white transition-colors">{item.label}</label>
                                     <div className="flex items-center gap-2">
