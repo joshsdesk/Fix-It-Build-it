@@ -54,7 +54,7 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
     ];
 
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center pt-16 sm:pt-20 pb-16 lg:pb-12 overflow-hidden">
+        <section id="home" className="relative flex-1 flex items-center justify-center pt-16 sm:pt-20 pb-6 lg:pb-12 overflow-hidden">
             {/* Background Elements */}
             <Background />
 
