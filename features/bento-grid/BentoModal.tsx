@@ -82,6 +82,7 @@ export default function BentoModal({ isOpen, onClose, category }: BentoModalProp
                         </div>
                         <button
                             onClick={onClose}
+                            aria-label="Close dialog"
                             className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors backdrop-blur-md border border-white/10"
                         >
                             <X className="w-5 h-5" />
@@ -107,12 +108,14 @@ export default function BentoModal({ isOpen, onClose, category }: BentoModalProp
                         <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between z-40 pointer-events-none">
                             <button
                                 onClick={prevImage}
+                                aria-label="Previous image"
                                 className="p-3 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-black/60 backdrop-blur border border-white/10 transition-all pointer-events-auto"
                             >
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={nextImage}
+                                aria-label="Next image"
                                 className="p-3 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-black/60 backdrop-blur border border-white/10 transition-all pointer-events-auto"
                             >
                                 <ChevronRight className="w-6 h-6" />
@@ -125,6 +128,7 @@ export default function BentoModal({ isOpen, onClose, category }: BentoModalProp
                                 <button
                                     key={idx}
                                     onClick={() => setCurrentIndex(idx)}
+                                    aria-label={`Go to slide ${idx + 1}`}
                                     className={`h-1 transition-all duration-300 rounded-full ${currentIndex === idx ? 'w-8 bg-fibi-purple' : 'w-2 bg-white/20'}`}
                                 />
                             ))}

@@ -24,8 +24,7 @@ describe('BentoModal Navigation', () => {
         const user = userEvent.setup();
         render(<BentoModal {...defaultProps} />);
 
-        const buttons = screen.getAllByRole('button');
-        const nextButton = buttons[2]; // Next button
+        const nextButton = screen.getByRole('button', { name: /next image/i });
 
         await user.click(nextButton);
 
@@ -40,8 +39,7 @@ describe('BentoModal Navigation', () => {
         const user = userEvent.setup();
         render(<BentoModal {...defaultProps} />);
 
-        const buttons = screen.getAllByRole('button');
-        const prevButton = buttons[1]; // Prev button
+        const prevButton = screen.getByRole('button', { name: /previous image/i });
 
         await user.click(prevButton);
 
@@ -56,8 +54,7 @@ describe('BentoModal Navigation', () => {
         const user = userEvent.setup();
         render(<BentoModal {...defaultProps} />);
 
-        const buttons = screen.getAllByRole('button');
-        const nextButton = buttons[2]; // Next button
+        const nextButton = screen.getByRole('button', { name: /next image/i });
 
         for (let i = 0; i < 5; i++) {
             await user.click(nextButton);
@@ -74,8 +71,7 @@ describe('BentoModal Navigation', () => {
         const user = userEvent.setup();
         render(<BentoModal {...defaultProps} />);
 
-        const buttons = screen.getAllByRole('button');
-        const progressButton3 = buttons[5]; // Index 3 is the 3rd progress dot
+        const progressButton3 = screen.getByRole('button', { name: /go to slide 3/i });
 
         await user.click(progressButton3);
 
