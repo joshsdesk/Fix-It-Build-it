@@ -25,11 +25,14 @@
 .DS_Store
 *.pem
 
-# debug
+# debug & temporary files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
+/verification
+check_*.py
 
 # env files
 .env
