@@ -70,14 +70,6 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
                     className="flex flex-col justify-between py-1 items-center text-center lg:items-start lg:text-left h-full"
                 >
                     <div className="flex flex-col gap-8">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fibi-purple/10 border border-fibi-purple/20 text-fibi-purple text-[10px] md:text-xs font-bold uppercase tracking-wider w-fit mx-auto lg:mx-0">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fibi-purple opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-fibi-purple"></span>
-                            </span>
-                            Sensory-Informed Technician
-                        </div>
-
                         <div className="space-y-4">
                             <h1 className="text-4xl md:text-6xl lg:text-6xl xl:text-7xl font-thin tracking-tight leading-[1.05]">
                                 Precision Installation for<br />
@@ -134,14 +126,6 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
                         ))}
                     </div>
 
-                    {/* Mirrored Experience Badge */}
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-fibi-purple/10 border border-fibi-purple/20 text-fibi-purple text-[9px] md:text-sm font-bold uppercase tracking-wider w-fit absolute bottom-2 right-0 lg:bottom-0">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fibi-purple opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-fibi-purple"></span>
-                        </span>
-                        15+ Yrs. Experience
-                    </div>
                 </motion.div>
             </div>
 

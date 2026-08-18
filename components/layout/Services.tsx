@@ -63,17 +63,6 @@ const bentoTabs = [
 export default function Services() {
     return (
         <section id="services" className="snap-start min-h-screen relative flex flex-col justify-center py-12 bg-gradient-to-b from-background to-stone-900 overflow-hidden">
-            {/* Branding Badges: Mirrored Symmetry */}
-            <div className="absolute top-8 left-6 lg:left-8 z-20">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fibi-purple/10 border border-fibi-purple/20 text-fibi-purple text-[10px] md:text-xs font-bold uppercase tracking-wider w-fit">
-                    <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fibi-purple opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-fibi-purple"></span>
-                    </span>
-                    Specialized Adaptations
-                </div>
-            </div>
-
             <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 relative z-10">
                 <div className="flex flex-col gap-6">
                     {/* Header Section: Centered Narrative */}
@@ -151,18 +140,6 @@ export default function Services() {
                                         </p>
                                     </div>
 
-                                    {/* Experience Badge (Mirrored under Specialized Install) */}
-                                    {idx === 3 && (
-                                        <div className="mt-4 pt-2 border-t border-white/5">
-                                            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-fibi-purple/10 border border-fibi-purple/20 text-fibi-purple text-[9px] md:text-xs font-bold uppercase tracking-wider w-fit mx-auto">
-                                                <span className="relative flex h-2 w-2">
-                                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fibi-purple opacity-75"></span>
-                                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-fibi-purple"></span>
-                                                </span>
-                                                15+ Yrs. Experience
-                                            </div>
-                                        </div>
-                                    )}
                                 </div>
                             ))}
                         </div>

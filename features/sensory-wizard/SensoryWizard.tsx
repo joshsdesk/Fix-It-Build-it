@@ -50,11 +50,6 @@ export default function SensoryNeedsWizard({ onRequestConsultation }: SensoryWiz
                                 We don&apos;t quote square footage. We solve friction points. Let&apos;s find your baseline.
                             </p>
                         </div>
-
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card border-fibi-purple/30 text-[10px] text-fibi-purple font-bold w-fit mx-auto uppercase tracking-wider">
-                            <Info className="w-3 h-3" />
-                            Specialized Adaptations
-                        </div>
                     </div>
 
                     <div className="card-container w-full max-w-2xl p-6 md:p-10 min-h-[350px] flex flex-col justify-center relative overflow-hidden bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
