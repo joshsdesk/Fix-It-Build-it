@@ -134,10 +134,13 @@ describe('contact API', () => {
       expect(data).toEqual({ success: false, error: 'Failed to send email' });
     });
 
-    it('should return 500 if an unexpected error is thrown', async () => {
+    it('should return 500 if an unexpected error is thrown and log it internally', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const testError = new Error('Sensitive database connection string leaked');
+
       // Force request.json() to throw
       const mockRequest = {
-        json: vi.fn().mockRejectedValue(new Error('Failed to parse JSON')),
+        json: vi.fn().mockRejectedValue(testError),
         headers: {
           get: vi.fn().mockReturnValue('127.0.0.1'),
         },
@@ -147,13 +150,16 @@ describe('contact API', () => {
 
       expect(response.status).toBe(500);
       const data = await response.json();
-      expect(data).toEqual({ success: false, error: 'Failed to parse JSON' });
+      expect(data).toEqual({ success: false, error: 'Internal Server Error' });
+      expect(consoleErrorSpy).toHaveBeenCalledWith('Internal server error:', testError);
     });
 
-    it('should return 500 for generic non-Error thrown values', async () => {
+    it('should return generic 500 for non-Error thrown values and log it internally', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
       // Force request.json() to throw a string
       const mockRequest = {
-        json: vi.fn().mockRejectedValue('Some string error'),
+        json: vi.fn().mockRejectedValue('Some internal error'),
         headers: {
           get: vi.fn().mockReturnValue('127.0.0.1'),
         },
@@ -163,7 +169,8 @@ describe('contact API', () => {
 
       expect(response.status).toBe(500);
       const data = await response.json();
-      expect(data).toEqual({ success: false, error: 'Unknown error' });
+      expect(data).toEqual({ success: false, error: 'Internal Server Error' });
+      expect(consoleErrorSpy).toHaveBeenCalledWith('Internal server error:', 'Some internal error');
     });
   });
 });
