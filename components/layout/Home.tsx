@@ -61,13 +61,13 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
             <div className="absolute top-1/4 -left-20 w-80 h-80 bg-fibi-accent/10 rounded-full blur-[100px]" />
             <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-fibi-accent/10 rounded-full blur-[100px]" />
 
-            <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[42%_58%] gap-12 lg:gap-16 items-center relative z-10">
+            <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[42%_58%] gap-12 lg:gap-16 items-stretch relative z-10">
                 {/* Left Column */}
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="flex flex-col gap-6 py-6 items-center text-center lg:items-start lg:text-left"
+                    className="flex flex-col justify-between py-1 items-center text-center lg:items-start lg:text-left h-full"
                 >
                     <div className="flex flex-col gap-8">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fibi-purple/10 border border-fibi-purple/20 text-fibi-purple text-[10px] md:text-xs font-bold uppercase tracking-wider w-fit mx-auto lg:mx-0">
