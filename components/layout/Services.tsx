@@ -62,7 +62,7 @@ const bentoTabs = [
 
 export default function Services() {
     return (
-        <section id="services" className="snap-start min-h-screen relative flex flex-col justify-center py-12 bg-gradient-to-b from-background to-stone-900 overflow-hidden">
+        <section id="services" className="relative flex-1 flex flex-col justify-center py-8 lg:py-12 bg-gradient-to-b from-background to-stone-900 overflow-hidden">
             <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 relative z-10">
                 <div className="flex flex-col gap-6">
                     {/* Header Section: Centered Narrative */}
