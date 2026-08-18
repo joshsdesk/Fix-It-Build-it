@@ -174,7 +174,6 @@ export default function AdminDashboard() {
                                 <div className="text-xs text-slate-400 space-y-1 mb-6">
                                     <p>• Valid for 7 Days</p>
                                     <p>• Non-Structural Disclaimer Included</p>
-                                    <p>• HAA Specialist Certified</p>
                                 </div>
                             </div>
                             <button className="btn-action-primary w-full text-sm">Generate PDF Quote</button>
