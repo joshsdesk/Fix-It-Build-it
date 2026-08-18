@@ -29,7 +29,7 @@ export default function SectionDivider({ variant = "default", className = "" }: 
             <div className={`relative w-full z-20 pointer-events-none ${className}`}>
                 <div className="max-w-[90rem] mx-auto px-6">
                     <svg
-                        className="w-full h-16 -mt-8 text-[#1A1A1A]"
+                        className="w-full h-8 sm:h-12 -mt-4 text-[#1A1A1A]"
                         preserveAspectRatio="none"
                         viewBox="0 0 1200 48"
                         fill="none"
@@ -52,13 +52,13 @@ export default function SectionDivider({ variant = "default", className = "" }: 
     return (
         <div className={`relative w-full z-20 pointer-events-none ${className}`}>
             <div className="max-w-[90rem] mx-auto px-6">
-                <div className="-mt-12 sm:-mt-16 md:-mt-20">
+                <div className="-mt-6 sm:-mt-10 md:-mt-12">
                     <Image
                         src={asset.src}
                         width={asset.width}
                         height={asset.height}
                         alt={`${variant} divider`}
-                        className="w-full h-auto object-contain object-bottom"
+                        className="w-full h-auto max-h-10 sm:max-h-14 md:max-h-16 object-contain object-bottom opacity-80"
                     />
                 </div>
             </div>
