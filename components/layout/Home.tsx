@@ -54,39 +54,37 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
     ];
 
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden">
+        <section id="home" className="relative min-h-screen flex items-center justify-center pt-16 sm:pt-20 pb-16 lg:pb-12 overflow-hidden">
             {/* Background Elements */}
             <Background />
 
             <div className="absolute top-1/4 -left-20 w-80 h-80 bg-fibi-accent/10 rounded-full blur-[100px]" />
             <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-fibi-accent/10 rounded-full blur-[100px]" />
 
-            <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[42%_58%] gap-12 lg:gap-16 items-stretch relative z-10">
+            <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[42%_58%] gap-6 sm:gap-8 lg:gap-16 items-center relative z-10">
                 {/* Left Column */}
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="flex flex-col justify-between py-1 items-center text-center lg:items-start lg:text-left h-full"
+                    className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left gap-6 sm:gap-8"
                 >
-                    <div className="flex flex-col gap-8">
-                        <div className="space-y-4">
-                            <h1 className="text-4xl md:text-6xl lg:text-6xl xl:text-7xl font-thin tracking-tight leading-[1.05]">
-                                Precision Installation for<br />
-                                <span className="font-normal text-gradient">Specialized Environments.</span>
-                            </h1>
+                    <div className="space-y-3 sm:space-y-4">
+                        <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-thin tracking-tight leading-[1.1] sm:leading-[1.05]">
+                            Precision Installation for<br className="hidden sm:inline" />{" "}
+                            <span className="font-normal text-gradient">Specialized Environments.</span>
+                        </h1>
 
-                            <p className="text-sm md:text-lg lg:text-xl text-slate-300 max-w-lg leading-relaxed font-light mx-auto lg:mx-0">
-                                Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in the Denver Metro Front Range.
-                            </p>
-                        </div>
+                        <p className="text-xs sm:text-base lg:text-xl text-slate-300 max-w-lg leading-relaxed font-light mx-auto lg:mx-0">
+                            Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in the Denver Metro Front Range.
+                        </p>
                     </div>
 
                     <button
                         onClick={onOpenModal}
-                        className="btn-action-primary flex items-center justify-center gap-2 text-base lg:text-xl px-8 py-3 lg:px-12 lg:py-4 w-fit mx-auto lg:mx-0"
+                        className="btn-action-primary flex items-center justify-center gap-2 text-sm sm:text-base lg:text-xl px-6 py-2.5 sm:px-8 sm:py-3 lg:px-12 lg:py-4 w-fit mx-auto lg:mx-0"
                     >
-                        Request Installation Quote <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6" />
+                        Request Installation Quote <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
                     </button>
                 </motion.div>
 
@@ -95,7 +93,7 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.2 }}
-                    className="relative w-full flex flex-col items-center lg:items-end gap-8 pb-12 lg:pb-0"
+                    className="relative w-full flex flex-col items-center lg:items-end gap-6 sm:gap-8"
                 >
                     {/* Bento Photo Gallery - Fluid Scaling */}
                     <div className="grid grid-cols-2 gap-3 lg:gap-4 w-full">
