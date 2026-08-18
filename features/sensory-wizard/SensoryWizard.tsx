@@ -37,7 +37,7 @@ export default function SensoryNeedsWizard({ onRequestConsultation }: SensoryWiz
     };
 
     return (
-        <section id="estimator" className="snap-start min-h-screen relative flex flex-col justify-center py-12 bg-background overflow-hidden font-sans">
+        <section id="estimator" className="relative flex-1 flex flex-col justify-center py-8 lg:py-12 bg-background overflow-hidden font-sans">
             <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 relative z-10">
                 <div className="flex flex-col gap-6 items-center">
                     {/* Header Section: Centered Narrative */}
@@ -49,11 +49,6 @@ export default function SensoryNeedsWizard({ onRequestConsultation }: SensoryWiz
                             <p className="text-slate-400 text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed">
                                 We don&apos;t quote square footage. We solve friction points. Let&apos;s find your baseline.
                             </p>
-                        </div>
-
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card border-fibi-purple/30 text-[10px] text-fibi-purple font-bold w-fit mx-auto uppercase tracking-wider">
-                            <Info className="w-3 h-3" />
-                            Specialized Adaptations
                         </div>
                     </div>
 

@@ -5,7 +5,7 @@ import { Hammer, History, Heart, Shield, Volume2, LogOut, Instagram, Linkedin, F
 
 export default function About() {
     return (
-        <section id="about" className="min-h-screen flex flex-col justify-center py-12 relative overflow-hidden">
+        <section id="about" className="relative flex-1 flex flex-col justify-center py-8 lg:py-12 overflow-hidden">
             <div className="max-w-7xl w-full mx-auto px-6 lg:px-8">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-thin tracking-tight leading-[1.1] mb-2">The Lead <span className="font-normal text-gradient">Craftsman</span></h2>

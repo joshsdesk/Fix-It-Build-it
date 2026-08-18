@@ -17,16 +17,17 @@ export default function Header() {
     return (
         <nav
             className={cn(
-                "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4 md:py-5",
+                "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 sm:px-6 py-3 lg:py-4",
                 "bg-[#1A1A1A]/95 backdrop-blur-md border-b border-white/5"
             )}
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between relative">
                 {/* Left: Mobile Menu Trigger + Desktop Nav */}
-                <div className="flex items-center gap-8 md:w-2/3">
+                <div className="flex items-center gap-4 lg:gap-8">
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="md:hidden text-white p-2 z-[60] relative"
+                        className="lg:hidden text-white p-2 z-[60] relative"
+                        aria-label="Toggle navigation menu"
                     >
                         <span className="sr-only">Menu</span>
                         <div className="space-y-1.5">
@@ -36,12 +37,12 @@ export default function Header() {
                         </div>
                     </button>
 
-                    <nav className="hidden md:flex items-center gap-8">
+                    <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
                         {navItems.map((item) => (
                             <a
                                 key={item.name}
                                 href={item.href}
-                                className="text-3xl font-thin tracking-widest text-slate-300 hover:text-fibi-purple transition-colors uppercase whitespace-nowrap"
+                                className="text-sm xl:text-base font-light tracking-widest text-slate-300 hover:text-fibi-purple transition-colors uppercase whitespace-nowrap"
                             >
                                 {item.name}
                             </a>
@@ -49,28 +50,28 @@ export default function Header() {
                     </nav>
                 </div>
 
-                {/* Right: Logo */}
-                <div className="flex items-center justify-end gap-3 w-full md:w-1/3">
-                    <span className="text-3xl tracking-[0.2em] uppercase font-bold text-white leading-none">
+                {/* Right: Logo (Paused / Hidden temporarily as requested) */}
+                <div className="hidden flex items-center justify-end gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl lg:text-3xl tracking-[0.15em] sm:tracking-[0.2em] uppercase font-bold text-white leading-none">
                         FIX-IT
                     </span>
-                    <span className="text-3xl tracking-[0.2em] uppercase font-normal text-fibi-purple leading-none">
+                    <span className="text-xl sm:text-2xl lg:text-3xl tracking-[0.15em] sm:tracking-[0.2em] uppercase font-normal text-fibi-purple leading-none">
                         BUILD-IT
                     </span>
                 </div>
 
                 {/* Mobile Menu Overlay */}
                 <div className={cn(
-                    "fixed inset-0 min-h-screen bg-[#1A1A1A]/98 backdrop-blur-2xl md:hidden transition-all duration-500 ease-in-out transform z-50",
+                    "fixed inset-0 min-h-screen bg-[#1A1A1A]/98 backdrop-blur-2xl lg:hidden transition-all duration-500 ease-in-out transform z-50 overflow-y-auto",
                     isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
                 )}>
-                    <div className="flex flex-col items-center justify-center min-h-screen pt-20 gap-12 p-8">
+                    <div className="flex flex-col items-center justify-center min-h-screen pt-20 pb-12 gap-6 sm:gap-8 p-6">
                         {navItems.map((item) => (
                             <a
                                 key={item.name}
                                 href={item.href}
                                 onClick={() => setIsMenuOpen(false)}
-                                className="text-2xl font-thin tracking-[0.3em] text-white hover:text-fibi-purple transition-colors uppercase group"
+                                className="text-xl sm:text-2xl font-thin tracking-[0.25em] text-white hover:text-fibi-purple transition-colors uppercase group"
                             >
                                 <span className="group-hover:text-orange-400 transition-colors">
                                     {item.name}
@@ -79,7 +80,7 @@ export default function Header() {
                         ))}
 
                         {/* Mobile Social Links */}
-                        <div className="flex gap-8 mt-4 pt-8 border-t border-white/10 w-full justify-center">
+                        <div className="flex gap-8 mt-2 pt-6 border-t border-white/10 w-full justify-center max-w-xs">
                             <a href="https://www.instagram.com/fixitbuildit?igsh=MTh5eHI5bXAwc2V5Yw==" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
                                 <Instagram size={24} />
                             </a>

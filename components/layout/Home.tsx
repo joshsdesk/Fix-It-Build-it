@@ -54,47 +54,48 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
     ];
 
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden">
+        <section id="home" className="relative flex-1 flex items-center justify-center pt-14 sm:pt-16 pb-4 lg:pb-12 overflow-hidden">
             {/* Background Elements */}
             <Background />
 
             <div className="absolute top-1/4 -left-20 w-80 h-80 bg-fibi-accent/10 rounded-full blur-[100px]" />
             <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-fibi-accent/10 rounded-full blur-[100px]" />
 
-            <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[42%_58%] gap-12 lg:gap-16 items-stretch relative z-10">
+            <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[42%_58%] gap-4 sm:gap-6 lg:gap-16 items-center relative z-10">
                 {/* Left Column */}
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="flex flex-col justify-between py-1 items-center text-center lg:items-start lg:text-left h-full"
+                    className="flex flex-col justify-center items-center text-center lg:items-start lg:text-left gap-3 sm:gap-5"
                 >
-                    <div className="flex flex-col gap-8">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fibi-purple/10 border border-fibi-purple/20 text-fibi-purple text-[10px] md:text-xs font-bold uppercase tracking-wider w-fit mx-auto lg:mx-0">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fibi-purple opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-fibi-purple"></span>
-                            </span>
-                            Sensory-Informed Technician
-                        </div>
+                    {/* Gold Logo Branding */}
+                    <div className="relative w-36 sm:w-56 lg:w-72 h-12 sm:h-16 lg:h-24 mx-auto lg:mx-0">
+                        <Image
+                            src="/imgs/UI/GoldLogo.png"
+                            alt="Fix-It Build-It Logo"
+                            fill
+                            className="object-contain"
+                            priority
+                        />
+                    </div>
 
-                        <div className="space-y-4">
-                            <h1 className="text-4xl md:text-6xl lg:text-6xl xl:text-7xl font-thin tracking-tight leading-[1.05]">
-                                Precision Installation for<br />
-                                <span className="font-normal text-gradient">Specialized Environments.</span>
-                            </h1>
+                    <div className="space-y-1.5 sm:space-y-3">
+                        <h1 className="text-xl sm:text-3xl lg:text-5xl xl:text-6xl font-thin tracking-tight leading-[1.1] sm:leading-[1.05]">
+                            Precision Installation for<br className="hidden sm:inline" />{" "}
+                            <span className="font-normal text-gradient">Specialized Environments.</span>
+                        </h1>
 
-                            <p className="text-sm md:text-lg lg:text-xl text-slate-300 max-w-lg leading-relaxed font-light mx-auto lg:mx-0">
-                                Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in the Denver Metro Front Range.
-                            </p>
-                        </div>
+                        <p className="text-[11px] sm:text-sm lg:text-xl text-slate-300 max-w-lg leading-relaxed font-light mx-auto lg:mx-0">
+                            Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in the Denver Metro Front Range.
+                        </p>
                     </div>
 
                     <button
                         onClick={onOpenModal}
-                        className="btn-action-primary flex items-center justify-center gap-2 text-base lg:text-xl px-8 py-3 lg:px-12 lg:py-4 w-fit mx-auto lg:mx-0"
+                        className="btn-action-primary flex items-center justify-center gap-2 text-xs sm:text-base lg:text-xl px-5 py-2 sm:px-8 sm:py-3 lg:px-12 lg:py-4 w-fit mx-auto lg:mx-0"
                     >
-                        Request Installation Quote <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6" />
+                        Request Installation Quote <ArrowRight className="w-3.5 h-3.5 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
                     </button>
                 </motion.div>
 
@@ -103,15 +104,15 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.2 }}
-                    className="relative w-full flex flex-col items-center lg:items-end gap-8 pb-12 lg:pb-0"
+                    className="relative w-full flex flex-col items-center lg:items-end gap-4 sm:gap-8"
                 >
                     {/* Bento Photo Gallery - Fluid Scaling */}
-                    <div className="grid grid-cols-2 gap-3 lg:gap-4 w-full">
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4 w-full">
                         {gridItems.map((item) => (
                             <div
                                 key={item.id}
                                 onClick={() => setSelectedCategory(item.category)}
-                                className="relative aspect-[16/10] lg:aspect-[4/3] cursor-pointer overflow-hidden border border-fibi-accent/20 group/item transition-all duration-500 rounded-[1.2rem] lg:rounded-[2rem] glass-card !bg-black/20 hover:z-20 shadow-2xl"
+                                className="relative aspect-[16/9] sm:aspect-[16/10] lg:aspect-[4/3] cursor-pointer overflow-hidden border border-fibi-accent/20 group/item transition-all duration-500 rounded-xl sm:rounded-[1.2rem] lg:rounded-[2rem] glass-card !bg-black/20 hover:z-20 shadow-2xl"
                             >
                                 <div className="absolute inset-0 bg-slate-900 group-hover/item:scale-105 transition-transform duration-700">
                                     {item.img && (
@@ -134,14 +135,6 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
                         ))}
                     </div>
 
-                    {/* Mirrored Experience Badge */}
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-fibi-purple/10 border border-fibi-purple/20 text-fibi-purple text-[9px] md:text-sm font-bold uppercase tracking-wider w-fit absolute bottom-2 right-0 lg:bottom-0">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fibi-purple opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-fibi-purple"></span>
-                        </span>
-                        15+ Yrs. Experience
-                    </div>
                 </motion.div>
             </div>
 

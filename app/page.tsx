@@ -23,31 +23,31 @@ export default function Page() {
     <main className="min-h-screen selection:bg-fibi-accent selection:text-white snap-y snap-mandatory overflow-y-auto overflow-x-hidden">
       <Header />
 
-      <section className="snap-start min-h-screen relative">
+      <section className="snap-start min-h-screen lg:min-h-screen flex flex-col justify-between relative">
         <Home onOpenModal={() => openContact()} />
-        <div className="absolute bottom-0 left-0 w-full z-20">
+        <div className="w-full z-20 relative -mt-8 sm:-mt-12 lg:absolute lg:bottom-0 lg:left-0">
           <SectionDivider variant="mountains" />
         </div>
       </section>
 
       {/* Dividers are integrated into the snap flow to avoid bleeding */}
-      <section className="snap-start min-h-screen relative">
+      <section className="snap-start min-h-screen lg:min-h-screen flex flex-col justify-between relative">
         <Services />
-        <div className="absolute bottom-0 left-0 w-full z-20">
+        <div className="w-full z-20 relative -mt-8 sm:-mt-12 lg:absolute lg:bottom-0 lg:left-0">
           <SectionDivider variant="trees" />
         </div>
       </section>
 
-      <section className="snap-start min-h-screen relative">
+      <section className="snap-start min-h-screen lg:min-h-screen flex flex-col justify-between relative">
         <SensoryNeedsWizard onRequestConsultation={(prefill) => openContact(prefill)} />
-        <div className="absolute bottom-0 left-0 w-full z-20">
+        <div className="w-full z-20 relative -mt-8 sm:-mt-12 lg:absolute lg:bottom-0 lg:left-0">
           <SectionDivider variant="mountains" />
         </div>
       </section>
 
-      <section className="snap-start min-h-screen relative">
+      <section className="snap-start min-h-screen lg:min-h-screen flex flex-col justify-between relative">
         <About />
-        <div className="absolute bottom-0 left-0 w-full z-20">
+        <div className="w-full z-20 relative -mt-8 sm:-mt-12 lg:absolute lg:bottom-0 lg:left-0">
           <SectionDivider variant="mtns-trees" />
         </div>
       </section>
