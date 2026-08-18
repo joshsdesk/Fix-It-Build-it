@@ -94,7 +94,7 @@ export const onRequestPost = async (context: { request: Request; env: Env }) => 
 
         return jsonResponse({ success: true }, 200);
     } catch (err: unknown) {
-        const errorMessage = err instanceof Error ? err.message : "Unknown error";
-        return jsonResponse({ success: false, error: errorMessage }, 500);
+        console.error("Internal server error:", err);
+        return jsonResponse({ success: false, error: "Internal Server Error" }, 500);
     }
 };
