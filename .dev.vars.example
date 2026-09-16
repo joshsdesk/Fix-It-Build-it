@@ -1,0 +1,10 @@
+# Copy to .dev.vars for local `wrangler pages dev` testing of functions/api/contact.ts.
+# In production, set these as Cloudflare Pages environment variables/secrets instead
+# (Pages dashboard -> Settings -> Environment variables, or `wrangler pages secret put`).
+
+# Cloudflare Turnstile secret key (server-side verification)
+TURNSTILE_SECRET_KEY=
+
+# Resend API key for server-side email dispatch. Keep this in Cloudflare Pages
+# environment variables or secrets only.
+RESEND_API_KEY=

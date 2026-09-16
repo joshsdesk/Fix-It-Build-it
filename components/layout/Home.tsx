@@ -1,0 +1,194 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import Background from "@/components/Background";
+import BentoModal from "@/features/bento-grid/BentoModal";
+
+export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
+    const [selectedCategory, setSelectedCategory] = useState<"past" | "future" | null>(null);
+    const [pastImages, setPastImages] = useState<string[]>([]);
+    const [futureImages, setFutureImages] = useState<string[]>([]);
+    const [bentoImages, setBentoImages] = useState<string[]>([]);
+
+    useEffect(() => {
+        const defaultPastImages = [
+            "/imgs/Portfolio/Jobs/20260311_213221-COLLAGE.jpg",
+            "/imgs/Portfolio/Jobs/20260226_202316-COLLAGE.jpg",
+            "/imgs/Portfolio/Jobs/20200110_171720.jpg",
+            "/imgs/Portfolio/Jobs/20181109_161737~2.jpg"
+        ];
+        const defaultBlueprintImages = [
+            "/imgs/Portfolio/Blueprints/Screenshot_20260312_025357.png",
+            "/imgs/Portfolio/Blueprints/il_794xN.5910131741_6ou1.webp",
+            "/imgs/Portfolio/Blueprints/Untitled.jpg",
+            "/imgs/Portfolio/Blueprints/Untitled1.jpg"
+        ];
+
+        let isMounted = true;
+
+        const loadJobsImages = async () => {
+            try {
+                const response = await fetch("/imgs/Portfolio/jobs-manifest.json", { cache: "no-store" });
+
+                if (!response.ok) {
+                    return defaultPastImages;
+                }
+
+                const data = (await response.json()) as unknown;
+                if (!Array.isArray(data)) {
+                    return defaultPastImages;
+                }
+
+                return data.filter((item): item is string => typeof item === "string" && item.length > 0);
+            } catch {
+                return defaultPastImages;
+            }
+        };
+
+        const loadBlueprintImages = async () => {
+            try {
+                const response = await fetch("/imgs/Portfolio/blueprints-manifest.json", { cache: "no-store" });
+
+                if (!response.ok) {
+                    return defaultBlueprintImages;
+                }
+
+                const data = (await response.json()) as unknown;
+                if (!Array.isArray(data)) {
+                    return defaultBlueprintImages;
+                }
+
+                return data.filter((item): item is string => typeof item === "string" && item.length > 0);
+            } catch {
+                return defaultBlueprintImages;
+            }
+        };
+
+        // Pick 2 random from each
+        const shuffle = (arr: string[]) => {
+            const newArr = [...arr];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        };
+        void Promise.all([loadJobsImages(), loadBlueprintImages()]).then(([jobsImages, blueprintImages]) => {
+            if (!isMounted) {
+                return;
+            }
+
+            setPastImages(jobsImages);
+            setFutureImages(blueprintImages);
+
+            const selectedPast = shuffle(jobsImages.length ? jobsImages : defaultPastImages).slice(0, 2);
+            const selectedBlueprints = shuffle(blueprintImages.length ? blueprintImages : defaultBlueprintImages).slice(0, 2);
+
+            // Grid layout:
+            // [Past 0] [Blue 0]
+            // [Blue 1] [Past 1]
+            // Deferred to an effect (rather than computed during render) so the random
+            // selection runs client-side only, after hydration, avoiding a server/client mismatch.
+            setBentoImages([selectedPast[0], selectedBlueprints[0], selectedBlueprints[1], selectedPast[1]]);
+        });
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    const gridItems = [
+        { id: "past-1", category: "past" as const, img: bentoImages[0] },
+        { id: "future-1", category: "future" as const, img: bentoImages[1] },
+        { id: "future-2", category: "future" as const, img: bentoImages[2] },
+        { id: "past-2", category: "past" as const, img: bentoImages[3] }
+    ];
+
+    return (
+        <section id="home" className="relative h-full min-h-0 flex items-start lg:items-center justify-center pt-20 sm:pt-20 pb-20 sm:pb-24 lg:pb-12 overflow-hidden scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
+            {/* Background Elements */}
+            <Background />
+
+            <div className="absolute top-1/4 -left-20 w-80 h-80 bg-fibi-accent/10 rounded-full blur-[100px]" />
+            <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-fibi-accent/10 rounded-full blur-[100px]" />
+
+            <div className="layout-container grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 xl:gap-16 items-center relative z-10">
+                {/* Left Column */}
+                <motion.div
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="mx-auto flex w-full max-w-xl flex-col justify-center items-center text-center gap-6 sm:gap-8"
+                >
+                    <div className="space-y-3 sm:space-y-4">
+                        <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-thin tracking-tight leading-[1.1] sm:leading-[1.05]">
+                            Precision Installation for<br className="hidden sm:inline" />{" "}
+                            <span className="font-normal text-gradient">Specialized Environments.</span>
+                        </h1>
+
+                        <p className="text-xs sm:text-base lg:text-xl text-slate-300 max-w-lg leading-relaxed font-light mx-auto">
+                            Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in the Denver Metro Front Range.
+                        </p>
+                    </div>
+
+                    <button
+                        onClick={onOpenModal}
+                        className="btn-action-primary flex items-center justify-center gap-2 text-sm sm:text-base lg:text-xl px-6 py-2.5 sm:px-8 sm:py-3 lg:px-12 lg:py-4 w-fit mx-auto"
+                    >
+                        Request Installation Quote <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+                    </button>
+                </motion.div>
+
+                {/* Right Column */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1, delay: 0.2 }}
+                    className="relative mx-auto flex w-full max-w-[40rem] flex-col items-center gap-6 sm:gap-8"
+                >
+                    {/* Bento Photo Gallery - Fluid Scaling */}
+                    <div className="grid grid-cols-2 gap-3 lg:gap-4 w-full">
+                        {gridItems.map((item) => (
+                            <div
+                                key={item.id}
+                                onClick={() => setSelectedCategory(item.category)}
+                                className="relative aspect-[16/10] lg:aspect-[4/3] cursor-pointer overflow-hidden border border-fibi-accent/20 group/item transition-all duration-500 rounded-[1.2rem] lg:rounded-[2rem] glass-card !bg-black/20 hover:z-20 shadow-2xl"
+                            >
+                                <div className="absolute inset-0 bg-slate-900 group-hover/item:scale-105 transition-transform duration-700">
+                                    {item.img && (
+                                        <Image
+                                            src={item.img}
+                                            alt=""
+                                            fill
+                                            sizes="(max-width: 1024px) 50vw, 25vw"
+                                            className="object-cover opacity-60 group-hover/item:opacity-90 transition-all duration-500"
+                                        />
+                                    )}
+                                </div>
+                                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 via-fibi-purple/0 to-fibi-purple/0 group-hover/item:from-orange-500/20 group-hover/item:via-fibi-purple/20 group-hover/item:to-fibi-purple/40 transition-all duration-500" />
+                                <div className="absolute bottom-4 right-4 lg:bottom-6 lg:right-6 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                                    <div className="p-2 lg:p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                                        <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                </motion.div>
+            </div>
+
+            {/* Modal */}
+            <BentoModal
+                isOpen={selectedCategory !== null}
+                onClose={() => setSelectedCategory(null)}
+                category={selectedCategory}
+                pastImages={pastImages.length ? pastImages : undefined}
+                futureImages={futureImages.length ? futureImages : undefined}
+            />
+        </section>
+    );
+}

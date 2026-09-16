@@ -1,0 +1,166 @@
+@layer components {
+    .layout-container {
+        @apply max-w-[90rem] w-full mx-auto px-6;
+    }
+
+    .glass-card,
+    .card-surface,
+    .card-container {
+        background: var(--color-glass);
+        backdrop-filter: blur(16px);
+        border: 1px solid var(--color-glass-border);
+        border-radius: 1rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, var(--fibi-purple) 0%, var(--fibi-accent-muted) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Button Protocol */
+    .btn-action-primary {
+        @apply relative px-8 py-3 bg-fibi-purple text-white font-bold rounded-full overflow-hidden transition-all duration-300 active:scale-95 text-white;
+    }
+
+    .btn-action-primary:hover {
+        @apply scale-105;
+        box-shadow: 0 0 25px rgba(209, 136, 94, 0.4);
+    }
+
+    .btn-action-ghost {
+        @apply px-8 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center font-bold;
+    }
+
+    .about-pinboard {
+        position: relative;
+        height: 100%;
+        min-height: 0;
+        padding: 0.15rem 0.05rem 0.35rem;
+        overflow: visible;
+    }
+
+    .about-pinboard-note {
+        --pin-rotate: 0deg;
+        --pin-color: #d1885e;
+        position: absolute;
+        aspect-ratio: 0.92 / 1;
+        border: 0;
+        border-radius: 0.8rem;
+        background: transparent;
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.28), 0 6px 10px rgba(0, 0, 0, 0.18);
+        cursor: pointer;
+        overflow: visible;
+        padding: 0.42rem 0.08rem 0.08rem;
+        transform: rotate(var(--pin-rotate));
+        transform-origin: center 0.4rem;
+        transition: box-shadow 180ms ease, transform 180ms ease, z-index 180ms ease;
+    }
+
+    .about-pinboard-note::before {
+        position: absolute;
+        top: 0.35rem;
+        left: 50%;
+        width: 0.85rem;
+        height: 0.85rem;
+        content: "";
+        background: var(--pin-color);
+        border-radius: 9999px;
+        box-shadow: inset -0.12rem -0.12rem 0.22rem rgba(0, 0, 0, 0.35), 0 0.4rem 0.7rem rgba(0, 0, 0, 0.35);
+        transform: translateX(-50%);
+        z-index: 2;
+    }
+
+    .about-pinboard-note::after {
+        position: absolute;
+        inset: 0.38rem 0.08rem 0.08rem;
+        content: "";
+        background:
+            linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 34%),
+            radial-gradient(circle at 85% 12%, rgba(0, 0, 0, 0.08), transparent 24%),
+            radial-gradient(circle at 14% 84%, rgba(0, 0, 0, 0.07), transparent 22%),
+            repeating-linear-gradient(168deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 11px),
+            repeating-linear-gradient(28deg, rgba(0, 0, 0, 0.03) 0 1px, transparent 1px 13px);
+        mix-blend-mode: soft-light;
+        opacity: 0.8;
+        pointer-events: none;
+        border-radius: 0.72rem;
+    }
+
+    .about-pinboard-note:hover {
+        animation: about-pinboard-sway 1.45s cubic-bezier(0.18, 0.82, 0.2, 1);
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.38), 0 8px 18px rgba(0, 0, 0, 0.22);
+        z-index: 9 !important;
+    }
+
+    .about-pinboard-paper {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.72rem;
+        background: transparent;
+        box-shadow: none;
+        overflow: hidden;
+    }
+
+    .about-pinboard-paper::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        background: none;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .about-pinboard-photo {
+        position: absolute;
+        inset: 0;
+        display: block;
+        overflow: hidden;
+        border-radius: 0.72rem;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14);
+    }
+
+    @keyframes about-pinboard-sway {
+        0% {
+            transform: rotate(var(--pin-rotate));
+        }
+
+        12% {
+            transform: rotate(calc(var(--pin-rotate) + 5.25deg));
+        }
+
+        24% {
+            transform: rotate(calc(var(--pin-rotate) - 3.6deg));
+        }
+
+        38% {
+            transform: rotate(calc(var(--pin-rotate) + 2.35deg));
+        }
+
+        55% {
+            transform: rotate(calc(var(--pin-rotate) - 1.45deg));
+        }
+
+        72% {
+            transform: rotate(calc(var(--pin-rotate) + 0.8deg));
+        }
+
+        88% {
+            transform: rotate(calc(var(--pin-rotate) - 0.3deg));
+        }
+
+        100% {
+            transform: rotate(var(--pin-rotate));
+        }
+    }
+
+    @media (max-width: 1023px) {
+        .about-pinboard-note {
+            aspect-ratio: 1 / 1;
+        }
+    }
+}
