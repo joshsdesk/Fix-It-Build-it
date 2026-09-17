@@ -10,10 +10,28 @@ const outfit = Outfit({
   preload: true,
 });
 
+import { vcardData } from "@/components/layout/BusinessInfo";
+
 export const metadata: Metadata = {
-  title: "Fix-It Build-It Colorado, LLC | Neuro-Inclusive Home Adaptations",
-  description: "Sensory-Informed Carpentry Technician serving the Denver Metro Front Range. Specialized in tactile hardware, environmental zoning, and psycho-proof home modifications.",
-  keywords: ["Neuro-Inclusive Colorado", "Westminster Sensory Rooms", "Front Range Home Mods", "Sensory-Informed Technician", "Autism Home Safety Colorado", "Westminster Specialized Carpentry"],
+  title: vcardData.seoTitle,
+  description: vcardData.seoDescription,
+  keywords: vcardData.seoKeywords,
+  openGraph: {
+    title: vcardData.seoTitle,
+    description: vcardData.seoDescription,
+    url: vcardData.website,
+    siteName: vcardData.company,
+    images: [
+      {
+        url: vcardData.logoImage, // This acts as the thumbnail for shares
+        width: 1200,
+        height: 630,
+        alt: `${vcardData.company} Logo`,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

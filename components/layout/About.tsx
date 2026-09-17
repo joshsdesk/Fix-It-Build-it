@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { Hammer, History, Heart, Instagram, Linkedin, Facebook, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { vcardData } from "@/components/layout/BusinessInfo";
 
 const DEFAULT_ABOUT_IMAGES = [
     "/imgs/Portfolio/about/20200202_201313.jpg",
@@ -191,14 +192,14 @@ export default function About() {
                                     <div className="grid grid-cols-[minmax(0,1.25fr)_minmax(0,0.9fr)_minmax(0,0.9fr)] gap-2 items-start sm:block">
                                         <div className="min-w-0 pr-1">
                                             <div className="flex items-center gap-3 mb-1">
-                                                <div className="font-bold text-xl uppercase tracking-wider text-white">Josh</div>
+                                                <div className="font-bold text-xl uppercase tracking-wider text-white">{vcardData.firstName} {vcardData.lastName}</div>
                                                 <div className="flex gap-3 text-slate-400">
-                                                    <a href="https://www.instagram.com/fixitbuildit?igsh=MTh5eHI5bXAwc2V5Yw==" target="_blank" rel="noopener noreferrer" className="hover:text-fibi-purple transition-all hover:scale-110"><Instagram size={16} /></a>
-                                                    <a href="https://www.linkedin.com/in/josh-bourassa-375a3948?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className="hover:text-fibi-purple transition-all hover:scale-110"><Linkedin size={16} /></a>
-                                                    <a href="https://www.facebook.com/fixitbuilditcolorado/" target="_blank" rel="noopener noreferrer" className="hover:text-fibi-purple transition-all hover:scale-110"><Facebook size={16} /></a>
+                                                    <a href={vcardData.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-fibi-purple transition-all hover:scale-110"><Instagram size={16} /></a>
+                                                    <a href={vcardData.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-fibi-purple transition-all hover:scale-110"><Linkedin size={16} /></a>
+                                                    <a href={vcardData.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-fibi-purple transition-all hover:scale-110"><Facebook size={16} /></a>
                                                 </div>
                                             </div>
-                                            <div className="text-fibi-accent text-xs sm:text-sm font-bold">Sensory-Informed Technician</div>
+                                            <div className="text-fibi-accent text-xs sm:text-sm font-bold">{vcardData.title}</div>
                                         </div>
 
                                         <div className="sm:hidden rounded-2xl border border-white/10 bg-white/5 px-2 py-2.5 min-w-0">
@@ -215,10 +216,10 @@ export default function About() {
                                 </div>
                             </div>
                             <p className="text-slate-400 text-base sm:text-lg leading-relaxed mb-4 sm:mb-6">
-                                I didn&apos;t just learn these skills; I lived the need for them. As a father navigating the trials and triumphs of the ASD world, I saw the gaps in standard home construction. I am not a doctor or a lawyer—I am a Technician. I applied my trade to solve the friction points my own family faced. Now, I build those solutions for you.
+                                {vcardData.about}
                             </p>
                             <p className="text-fibi-accent font-bold text-base sm:text-lg mb-4 sm:mb-6">
-                                &quot;All-Access&quot; Policy: We do not filter by &quot;Level&quot; or support needs. If you&apos;ve been told your needs are &quot;too much,&quot; you&apos;re in the right place.
+                                {vcardData.accessibilityPolicy}
                             </p>
                         </div>
 
