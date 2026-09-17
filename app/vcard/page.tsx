@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import ProfileHeader from "@/components/vcard/ProfileHeader";
 import ContactActionRow from "@/components/vcard/ContactActionRow";
 import AboutCard from "@/components/vcard/AboutCard";
-import ContactInfoCard from "@/components/vcard/ContactInfoCard";
 import WebLinksCard from "@/components/vcard/WebLinksCard";
 import ScheduleMeetingCard from "@/components/vcard/ScheduleMeetingCard";
 import FloatingBottomBar from "@/components/vcard/FloatingBottomBar";
@@ -45,8 +44,6 @@ export default function ProfilePage() {
         <ContactActionRow />
         
         <AboutCard />
-        
-        <ContactInfoCard />
         
         <WebLinksCard />
         

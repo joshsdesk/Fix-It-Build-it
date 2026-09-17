@@ -58,12 +58,10 @@ export default function FloatingBottomBar() {
         {/* Add to Contact Button */}
         <button 
           onClick={handleDownload}
-          className="flex-1 h-14 rounded-full bg-fibi-accent text-white flex items-center justify-center gap-2 shadow-lg hover:bg-fibi-accent-muted transition-colors px-4"
+          className="w-14 h-14 rounded-full bg-fibi-accent text-white flex items-center justify-center shadow-lg hover:bg-fibi-accent-muted transition-colors"
+          title="Add to Contacts"
         >
-          <span className="font-semibold text-lg">Add to Contact</span>
-          <div className="w-8 h-8 bg-white text-fibi-accent rounded-full flex items-center justify-center">
-            <FontAwesomeIcon icon={faPlus} />
-          </div>
+          <FontAwesomeIcon icon={faPlus} className="text-xl" />
         </button>
 
       </div>

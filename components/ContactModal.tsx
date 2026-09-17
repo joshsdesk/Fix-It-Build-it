@@ -143,7 +143,7 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
             try {
                 if (window.turnstile && turnstileRef.current && !widgetId) {
                     widgetId = window.turnstile.render(turnstileRef.current, {
-                        sitekey: process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY,
+                        sitekey: process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || "1x00000000000000000000AA",
                         callback: (token: string) => {
                             setTurnstileToken(token);
                             setTurnstileError(false);
