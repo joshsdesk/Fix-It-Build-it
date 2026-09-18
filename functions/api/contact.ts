@@ -17,7 +17,7 @@ interface ContactRequestBody {
     specs?: string;
 }
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_RE = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 const CONTACT_RECIPIENT = "FixitBuilditColorado@gmail.com";
 const CONTACT_SENDER = "Fix-It Build-It <onboarding@resend.dev>";
 const GENERIC_CLIENT_ERROR = "Unable to submit the form. Please try again.";
