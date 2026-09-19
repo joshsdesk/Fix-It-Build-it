@@ -22,11 +22,7 @@ export const vcardData = {
   customUrlLabel: "Learn More", // button text shown for customUrl
 
   // Bio / About
-  about: [
-    "Lived Experience: As an ASD father, I know the gaps in standard home construction firsthand.",
-    "Practical Solutions: I'm a Technician, not a doctor. I solve real friction points in your home.",
-    "Tailored For You: I build the exact safety and sensory solutions my own family needed."
-  ],
+  about: "I didn't just learn these skills; I lived the need for them. As a father navigating the trials and triumphs of the ASD world, I saw the gaps in standard home construction. I am not a doctor or a lawyer—I am a Technician. I applied my trade to solve the friction points my own family faced. Now, I build those solutions for you.",
 
   // Web Links
   website: "https://fixitbuilditcolorado.com",
