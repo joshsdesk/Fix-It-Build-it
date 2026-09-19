@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import ProfileHeader from "@/components/vcard/ProfileHeader";
 import ContactActionRow from "@/components/vcard/ContactActionRow";
 import AboutCard from "@/components/vcard/AboutCard";
@@ -32,10 +33,13 @@ export default function ProfilePage() {
         
         {/* Top Logo - Floating without bento background */}
         <div className="flex justify-center mb-2 w-full px-2">
-          <img 
+          <Image 
             src={vcardData.logoImage} 
             alt={`${vcardData.company} Logo`} 
+            width={500}
+            height={200}
             className="w-full h-auto object-contain"
+            priority
           />
         </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { vcardData } from "@/components/layout/BusinessInfo";
 
 export default function ProfileHeader() {
@@ -8,10 +9,13 @@ export default function ProfileHeader() {
     <div className="component-surface p-0 flex flex-row items-stretch w-full overflow-hidden shadow-lg">
       {/* Profile Image (Left Side) */}
       <div className="w-2/5 relative flex-shrink-0 bg-slate-800 flex">
-        <img 
+        <Image 
           src={vcardData.profileImage} 
-          alt={`${vcardData.firstName} ${vcardData.lastName}`} 
-          className="w-full h-auto object-cover"
+          alt={`${vcardData.firstName} ${vcardData.lastName} profile picture`} 
+          width={300}
+          height={400}
+          className="w-full h-full object-cover"
+          priority
         />
       </div>
       

@@ -111,6 +111,8 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
 
     useEffect(() => {
         if (isOpen && !previousOpenRef.current) {
+            // Ref-guarded reset-on-open: intentional, runs at most once per open (not cascading).
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setFormData({ ...DEFAULT_FORM_DATA, ...prefill });
             setStatus("idle");
             setTurnstileToken(null);
