@@ -7,7 +7,17 @@ describe('contact API', () => {
     RESEND_API_KEY: 'test_resend_key',
   };
 
-  const invoke = (request: Request) => onRequestPost({ request, env: mockEnv });
+  const invoke = (request: Request) => {
+    const context = {
+      request,
+      env: mockEnv,
+      params: {},
+      waitUntil: () => {},
+      next: () => Promise.resolve(new Response()),
+    };
+
+    return onRequestPost(context);
+  };
 
   const validBody = {
     token: 'valid_token',
