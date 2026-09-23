@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import type { CSSProperties } from "react";
 import "./globals.css";
 
 import { vcardData } from "@/components/layout/BusinessInfo";
-
-const fallbackFontStack = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-const bodyStyle: CSSProperties & Record<"--font-outfit", string> = {
-  "--font-outfit": fallbackFontStack,
-};
 
 export const metadata: Metadata = {
   metadataBase: new URL(vcardData.website || 'https://fixitbuilditcolorado.com'),
@@ -65,10 +59,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className="antialiased"
-        style={bodyStyle}
-      >
+      <body className="antialiased">
         {children}
       </body>
     </html>
