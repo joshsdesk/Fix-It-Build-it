@@ -1,14 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
 import "./globals.css";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  display: "swap",
-  preload: true,
-});
 
 import { vcardData } from "@/components/layout/BusinessInfo";
 
@@ -68,9 +59,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${outfit.variable} antialiased`}
-      >
+      <body className="antialiased">
         {children}
       </body>
     </html>
