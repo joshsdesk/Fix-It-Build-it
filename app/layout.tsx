@@ -4,11 +4,9 @@ import "./globals.css";
 
 import { vcardData } from "@/components/layout/BusinessInfo";
 
-const fallbackFontToken = "system-ui";
 const fallbackFontStack = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
 const bodyStyle: CSSProperties & Record<"--font-outfit", string> = {
-  "--font-outfit": fallbackFontToken,
-  fontFamily: fallbackFontStack,
+  "--font-outfit": fallbackFontStack,
 };
 
 export const metadata: Metadata = {
