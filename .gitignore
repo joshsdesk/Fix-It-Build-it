@@ -61,3 +61,4 @@ git_check.txt
 # General Markdown Rule (Catch-all for any other notes)
 *.md
 !README.md
+!AUDIT_REPORT.md
