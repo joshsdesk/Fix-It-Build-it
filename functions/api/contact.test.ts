@@ -7,6 +7,18 @@ describe('contact API', () => {
     RESEND_API_KEY: 'test_resend_key',
   };
 
+  const invoke = (request: Request) => {
+    const context = {
+      request,
+      env: mockEnv,
+      params: {},
+      waitUntil: () => {},
+      next: () => Promise.resolve(new Response()),
+    };
+
+    return onRequestPost(context);
+  };
+
   const validBody = {
     token: 'valid_token',
     name: 'John Doe',
@@ -43,7 +55,7 @@ describe('contact API', () => {
         email: 'john@example.com',
       });
 
-      const response = await onRequestPost({ request: req, env: mockEnv, params: {}, waitUntil: () => {}, next: () => Promise.resolve(new Response()) });
+      const response = await invoke(req);
       expect(response.status).toBe(400);
 
       const data = await response.json();
@@ -56,7 +68,7 @@ describe('contact API', () => {
         email: 'john@example.com',
       });
 
-      const response = await onRequestPost({ request: req, env: mockEnv, params: {}, waitUntil: () => {}, next: () => Promise.resolve(new Response()) });
+      const response = await invoke(req);
       expect(response.status).toBe(400);
 
       const data = await response.json();
@@ -69,7 +81,7 @@ describe('contact API', () => {
         name: 'John Doe',
       });
 
-      const response = await onRequestPost({ request: req, env: mockEnv, params: {}, waitUntil: () => {}, next: () => Promise.resolve(new Response()) });
+      const response = await invoke(req);
       expect(response.status).toBe(400);
 
       const data = await response.json();
@@ -83,7 +95,7 @@ describe('contact API', () => {
         email: 'not-an-email',
       });
 
-      const response = await onRequestPost({ request: req, env: mockEnv, params: {}, waitUntil: () => {}, next: () => Promise.resolve(new Response()) });
+      const response = await invoke(req);
       expect(response.status).toBe(400);
 
       const data = await response.json();
@@ -119,7 +131,7 @@ describe('contact API', () => {
         body: JSON.stringify(validBody),
       });
 
-      const response = await onRequestPost({ request, env: mockEnv, params: {}, waitUntil: () => {}, next: () => Promise.resolve(new Response()) });
+      const response = await invoke(request);
 
       expect(response.status).toBe(200);
       const data = await response.json();
@@ -147,7 +159,7 @@ describe('contact API', () => {
         body: JSON.stringify(validBody),
       });
 
-      const response = await onRequestPost({ request, env: mockEnv, params: {}, waitUntil: () => {}, next: () => Promise.resolve(new Response()) });
+      const response = await invoke(request);
 
       expect(response.status).toBe(400);
       const data = await response.json();
@@ -184,7 +196,7 @@ describe('contact API', () => {
         body: JSON.stringify(validBody),
       });
 
-      const response = await onRequestPost({ request, env: mockEnv, params: {}, waitUntil: () => {}, next: () => Promise.resolve(new Response()) });
+      const response = await invoke(request);
 
       expect(response.status).toBe(502);
       const data = await response.json();
@@ -199,7 +211,7 @@ describe('contact API', () => {
         },
       } as unknown as Request;
 
-      const response = await onRequestPost({ request: mockRequest, env: mockEnv, params: {}, waitUntil: () => {}, next: () => Promise.resolve(new Response()) });
+      const response = await invoke(mockRequest);
 
       expect(response.status).toBe(500);
       const data = await response.json();
@@ -214,7 +226,7 @@ describe('contact API', () => {
         },
       } as unknown as Request;
 
-      const response = await onRequestPost({ request: mockRequest, env: mockEnv, params: {}, waitUntil: () => {}, next: () => Promise.resolve(new Response()) });
+      const response = await invoke(mockRequest);
 
       expect(response.status).toBe(500);
       const data = await response.json();
