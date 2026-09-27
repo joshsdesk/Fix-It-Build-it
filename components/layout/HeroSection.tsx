@@ -6,8 +6,10 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Background from "@/components/Background";
 import BentoModal from "@/features/bento-grid/BentoModal";
+import { vcardData } from "@/config/BusinessInfo";
+import { Button } from "@/components/ui/button";
 
-export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
+export default function HeroSection({ onOpenModal }: { onOpenModal: () => void }) {
     const [selectedCategory, setSelectedCategory] = useState<"past" | "future" | null>(null);
     const [pastImages, setPastImages] = useState<string[]>([]);
     const [futureImages, setFutureImages] = useState<string[]>([]);
@@ -125,21 +127,25 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
                 >
                     <div className="space-y-3 sm:space-y-4">
                         <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-thin tracking-tight leading-[1.1] sm:leading-[1.05]">
-                            Precision Installation for<br className="hidden sm:inline" />{" "}
-                            <span className="font-normal text-gradient">Specialized Environments.</span>
+                            {vcardData.heroTitleBase}<br className="hidden sm:inline" />{" "}
+                            <span className="font-normal text-gradient">{vcardData.heroTitleHighlight}</span>
                         </h1>
 
                         <p className="text-xs sm:text-base lg:text-xl text-slate-300 max-w-lg leading-relaxed font-light mx-auto">
-                            Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in the Denver Metro Front Range.
+                            {vcardData.heroSubtitle}
                         </p>
                     </div>
 
-                    <button
+                    <Button
+                        variant="primary"
+                        title={vcardData.heroCta}
+                        componentNamespace="home"
+                        elementIdentifier="hero-cta"
                         onClick={onOpenModal}
-                        className="btn-action-primary flex items-center justify-center gap-2 text-sm sm:text-base lg:text-xl px-6 py-2.5 sm:px-8 sm:py-3 lg:px-12 lg:py-4 w-fit mx-auto"
+                        className="flex items-center justify-center gap-2 text-sm sm:text-base lg:text-xl px-6 py-2.5 sm:px-8 sm:py-3 lg:px-12 lg:py-4 w-fit mx-auto"
                     >
-                        Request Installation Quote <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-                    </button>
+                        {vcardData.heroCta} <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+                    </Button>
                 </motion.div>
 
                 {/* Right Column */}
@@ -161,7 +167,7 @@ export default function Home({ onOpenModal }: { onOpenModal: () => void }) {
                                     {item.img && (
                                         <Image
                                             src={item.img}
-                                            alt=""
+                                            alt={`Project by Fix-It Build-It Colorado, LLC - EAA Specialist`}
                                             fill
                                             sizes="(max-width: 1024px) 50vw, 25vw"
                                             className="object-cover opacity-60 group-hover/item:opacity-90 transition-all duration-500"

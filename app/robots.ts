@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { vcardData } from '@/components/layout/BusinessInfo';
+import { vcardData } from '@/config/BusinessInfo';
 
 export const dynamic = 'force-static';
 

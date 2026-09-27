@@ -44,7 +44,7 @@ export function ModalCard({
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
                         className={cn(
-                            "relative w-full max-w-lg glass-card border-fibi-accent/30 overflow-hidden flex flex-col items-center text-center max-h-[90vh] overflow-y-auto p-8",
+                            "relative w-full max-w-lg glass-card border-fibi-accent/30 overflow-hidden flex flex-col items-center text-center max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] p-8",
                             className,
                         )}
                     >

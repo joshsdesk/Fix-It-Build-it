@@ -18,7 +18,7 @@ export default function ScheduleMeetingCard({ onOpenContact }: { onOpenContact: 
           onClick={onOpenContact}
           className="w-full max-w-[240px] bg-fibi-accent/20 hover:bg-fibi-purple/40 border border-fibi-accent/50 hover:border-fibi-purple/80 text-white font-medium py-3 px-4 rounded-md flex items-center justify-center gap-2 transition-all duration-300"
         >
-          <span>Get Your Adaptation Plan</span>
+          <span>Book Appointment</span>
         </button>
       </div>
     </div>

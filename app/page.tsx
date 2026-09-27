@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Header from "@/components/layout/Header";
-import Home from "@/components/layout/Home";
-import Services from "@/components/layout/Services";
-import About from "@/components/layout/About";
+import HeroSection from "@/components/layout/HeroSection";
+import ServicesSection from "@/components/layout/ServicesSection";
+import AboutSection from "@/components/layout/AboutSection";
 import Footer from "@/components/layout/Footer";
 import ContactModal, { type ContactFormData } from "@/components/ContactModal";
 import SensoryNeedsWizard from "@/features/sensory-wizard/SensoryWizard";
@@ -24,7 +24,7 @@ export default function Page() {
       <Header />
 
       <section className="snap-start h-[100svh] min-h-[100svh] overflow-hidden flex flex-col justify-between relative lg:min-h-screen">
-        <Home onOpenModal={() => openContact()} />
+        <HeroSection onOpenModal={() => openContact()} />
         <div className="w-full z-20 relative -mt-2 sm:-mt-12 lg:absolute lg:bottom-0 lg:left-0 lg:translate-y-[1px]">
           <SectionDivider variant="mountains" />
         </div>
@@ -32,7 +32,7 @@ export default function Page() {
 
       {/* Dividers are integrated into the snap flow to avoid bleeding */}
       <section className="snap-start h-[100svh] min-h-[100svh] overflow-hidden flex flex-col justify-between relative lg:min-h-screen">
-        <Services />
+        <ServicesSection onRequestConsultation={() => openContact()} />
         <div className="w-full z-20 relative -mt-2 sm:-mt-12 lg:absolute lg:bottom-0 lg:left-0 lg:translate-y-[1px]">
           <SectionDivider variant="trees" />
         </div>
@@ -46,7 +46,7 @@ export default function Page() {
       </section>
 
       <section className="snap-start h-[100svh] min-h-[100svh] overflow-hidden flex flex-col justify-between relative lg:min-h-screen">
-        <About />
+        <AboutSection />
         <div className="w-full z-20 relative -mt-2 sm:-mt-12 lg:absolute lg:bottom-0 lg:left-0 lg:translate-y-0">
           <SectionDivider variant="mtns-trees" />
         </div>

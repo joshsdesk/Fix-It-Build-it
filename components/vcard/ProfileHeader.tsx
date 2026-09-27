@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { vcardData } from "@/components/layout/BusinessInfo";
+import { vcardData } from "@/config/BusinessInfo";
 
 export default function ProfileHeader() {
   return (
@@ -11,7 +11,7 @@ export default function ProfileHeader() {
       <div className="w-2/5 relative flex-shrink-0 bg-slate-800 flex">
         <Image 
           src={vcardData.profileImage} 
-          alt={`${vcardData.firstName} ${vcardData.lastName} profile picture`} 
+          alt={`${vcardData.firstName} ${vcardData.lastName} - Neuro-inclusive Contractor and Founder of ${vcardData.company} in Colorado`} 
           width={300}
           height={400}
           className="w-full h-full object-cover"

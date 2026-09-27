@@ -6,13 +6,13 @@
 @source "../app";
 
 @theme {
-  --color-background: #1A1A1A;
+  --color-background: #171717;
   --color-foreground: #ffffff;
-  --color-fibi-accent: #d1885e;
+  --color-fibi-accent: #A64308;
   --color-fibi-purple: #6D28D9;
-  --color-fibi-accent-muted: #a66d4b;
-  --color-glass: rgba(51, 51, 51, 0.85);
-  --color-glass-border: rgba(209, 136, 94, 0.2);
+  --color-fibi-accent-muted: #8B3806;
+  --color-glass: rgba(23, 23, 23, 0.85);
+  --color-glass-border: rgba(166, 67, 8, 0.2);
   --spacing-fitts: 8px;
   /* >= 2mm physical spacing */
   --target-min: 44px;
@@ -152,6 +152,10 @@ body {
   font-family: var(--font-outfit), sans-serif;
   scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+html {
+  font-size: 120%;
 }
 
 html,

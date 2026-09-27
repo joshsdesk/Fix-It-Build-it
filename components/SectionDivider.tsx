@@ -52,12 +52,12 @@ export default function SectionDivider({ variant = "default", className = "" }: 
     return (
         <div className={`relative w-full z-20 pointer-events-none ${className}`}>
             <div className="max-w-[90rem] mx-auto px-6">
-                <div className="-mt-12 sm:-mt-16 md:-mt-20">
+                <div className="-mt-12 sm:-mt-16 md:-mt-20 flex justify-center scale-y-[0.8] origin-bottom">
                     <Image
                         src={asset.src}
                         width={asset.width}
                         height={asset.height}
-                        alt={`${variant} divider`}
+                        alt={`Colorado Front Range ${variant} - Fix-It Build-It Colorado, LLC`}
                         className="w-full h-auto object-contain object-bottom"
                     />
                 </div>

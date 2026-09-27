@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { vcardData } from "@/components/layout/BusinessInfo";
+import { vcardData } from "@/config/BusinessInfo";
 
 export default function ContactInfoCard() {
   return (

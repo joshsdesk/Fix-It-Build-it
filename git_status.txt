@@ -1,0 +1,114 @@
+On branch main
+Your branch is behind 'origin/main' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   app/globals.css
+	modified:   app/layout.tsx
+	modified:   app/page.tsx
+	modified:   app/robots.ts
+	modified:   app/sitemap.ts
+	modified:   app/vcard/layout.tsx
+	modified:   app/vcard/page.tsx
+	modified:   components/Background.tsx
+	deleted:    components/Button.tsx
+	modified:   components/ContactModal.tsx
+	modified:   components/ModalCard.tsx
+	modified:   components/SectionDivider.tsx
+	deleted:    components/layout/About.tsx
+	deleted:    components/layout/BusinessInfo.tsx
+	modified:   components/layout/Footer.tsx
+	modified:   components/layout/Header.tsx
+	deleted:    components/layout/Home.tsx
+	deleted:    components/layout/Services.tsx
+	modified:   components/vcard/AboutCard.tsx
+	modified:   components/vcard/ContactActionRow.tsx
+	modified:   components/vcard/ContactInfoCard.tsx
+	modified:   components/vcard/FloatingBottomBar.tsx
+	modified:   components/vcard/ProfileHeader.tsx
+	modified:   components/vcard/ScheduleMeetingCard.tsx
+	modified:   components/vcard/WebLinksCard.tsx
+	modified:   features/sensory-wizard/SensoryWizard.tsx
+	modified:   functions/api/contact.test.ts
+	modified:   functions/api/contact.ts
+	modified:   functions/generate-vcard.ts
+	modified:   package-lock.json
+	modified:   package.json
+	modified:   public/imgs/Logo/FIBI LOGO.png
+	modified:   public/imgs/Portfolio/Blueprints/Screenshot_20260312_025357.png
+	modified:   public/imgs/Portfolio/Blueprints/Untitled.jpg
+	modified:   public/imgs/Portfolio/Blueprints/Untitled1.jpg
+	modified:   public/imgs/Portfolio/Blueprints/Untitled2.jpg
+	modified:   public/imgs/Portfolio/Blueprints/Untitled3.jpg
+	modified:   public/imgs/Portfolio/Blueprints/il_794xN.5910131741_6ou1.webp
+	modified:   public/imgs/Portfolio/Jobs/20180809_091517.jpg
+	modified:   public/imgs/Portfolio/Jobs/20180920_125230.jpg
+	modified:   public/imgs/Portfolio/Jobs/20181009_101235-COLLAGE.jpg
+	modified:   public/imgs/Portfolio/Jobs/20181013_173229.jpg
+	modified:   public/imgs/Portfolio/Jobs/20181109_161737~2.jpg
+	modified:   public/imgs/Portfolio/Jobs/20200110_171720.jpg
+	modified:   public/imgs/Portfolio/Jobs/20260226_202316-COLLAGE.jpg
+	modified:   public/imgs/Portfolio/Jobs/20260226_205421-COLLAGE.jpg
+	modified:   public/imgs/Portfolio/Jobs/20260226_205734-COLLAGE.jpg
+	modified:   public/imgs/Portfolio/Jobs/20260311_213221-COLLAGE.jpg
+	modified:   public/imgs/Portfolio/about/20200202_201313.jpg
+	modified:   public/imgs/Portfolio/about/20200226_181420.jpg
+	modified:   public/imgs/Portfolio/about/20200619_181315.jpg
+	modified:   public/imgs/Portfolio/about/20200727_095029.jpg
+	modified:   public/imgs/Portfolio/about/20200731_140950.jpg
+	modified:   public/imgs/Portfolio/about/20200807_103820.jpg
+	modified:   public/imgs/Portfolio/about/20200903_170054.jpg
+	modified:   public/imgs/Portfolio/about/20220708_190610.jpg
+	modified:   public/imgs/Portfolio/about/20230819_113919.jpg
+	modified:   public/imgs/Portfolio/about/20230826_160449.jpg
+	modified:   public/imgs/Portfolio/about/20231216_165833.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20250128_194508115.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20250202_165648838.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20250209_175202653.MP.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20250919_011449773.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20251018_204141986.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20251024_233342686.MP.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20251231_234545618.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20260101_000551848.MP.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20260101_004225537.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20260105_213747693.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20260112_235134821.jpg
+	modified:   public/imgs/Portfolio/about/PXL_20260116_023240598.jpg
+	modified:   public/imgs/Portfolio/about/Screenshot_20200611-092232_Messenger.jpg
+	modified:   public/imgs/Portfolio/about/VideoCapture_20230805-161050.jpg
+	modified:   public/imgs/Portfolio/about/download_20200208_194129.jpg
+	deleted:    public/imgs/UI/Background Mobile.png
+	modified:   public/imgs/UI/Background.png
+	modified:   public/imgs/UI/FIBILOGO.png
+	deleted:    public/imgs/UI/GoldLogo.png
+	modified:   public/imgs/UI/ME.png
+	modified:   public/imgs/UI/Mtns Trees.png
+	modified:   public/imgs/UI/Mtns.png
+	modified:   public/imgs/UI/Trees.png
+	modified:   styles/design-system.css
+	modified:   wrangler.toml
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.vscode/
+	app/portal/
+	components/layout/AboutSection.tsx
+	components/layout/HeroSection.tsx
+	components/layout/ServicesSection.tsx
+	components/modals/
+	components/ui/
+	config/
+	db/
+	functions/api/checkout.ts
+	functions/api/confirm-booking.ts
+	functions/api/intake.ts
+	functions/api/listmonk-webhook.ts
+	git_status.txt
+	lib/businessinfo.ts
+	public/imgs/Portfolio/meta these photos/
+	public/imgs/UI/BackgroundMobile.png
+	scripts/inject_image_metadata.py
+
+no changes added to commit (use "git add" and/or "git commit -a")

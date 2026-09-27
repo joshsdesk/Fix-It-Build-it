@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { vcardData } from '@/components/layout/BusinessInfo';
+import { vcardData } from '@/config/BusinessInfo';
 
 export const metadata: Metadata = {
   title: `${vcardData.firstName} ${vcardData.lastName} - Digital Business Card`,

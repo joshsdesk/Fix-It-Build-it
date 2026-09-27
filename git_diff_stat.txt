@@ -1,0 +1,85 @@
+ app/globals.css                                    |   14 +-
+ app/layout.tsx                                     |   36 +-
+ app/page.tsx                                       |   12 +-
+ app/robots.ts                                      |    2 +-
+ app/sitemap.ts                                     |    2 +-
+ app/vcard/layout.tsx                               |    2 +-
+ app/vcard/page.tsx                                 |   12 +-
+ components/Background.tsx                          |    6 +-
+ components/Button.tsx                              |   72 -
+ components/ContactModal.tsx                        |  551 +-
+ components/ModalCard.tsx                           |    2 +-
+ components/SectionDivider.tsx                      |    4 +-
+ components/layout/About.tsx                        |  363 -
+ components/layout/BusinessInfo.tsx                 |   62 -
+ components/layout/Footer.tsx                       |   57 +-
+ components/layout/Header.tsx                       |   83 +-
+ components/layout/Home.tsx                         |  194 -
+ components/layout/Services.tsx                     |  151 -
+ components/vcard/AboutCard.tsx                     |    7 +-
+ components/vcard/ContactActionRow.tsx              |   45 +-
+ components/vcard/ContactInfoCard.tsx               |    2 +-
+ components/vcard/FloatingBottomBar.tsx             |    5 +-
+ components/vcard/ProfileHeader.tsx                 |    4 +-
+ components/vcard/ScheduleMeetingCard.tsx           |    2 +-
+ components/vcard/WebLinksCard.tsx                  |   25 +-
+ features/sensory-wizard/SensoryWizard.tsx          |  319 +-
+ functions/api/contact.test.ts                      |  160 +-
+ functions/api/contact.ts                           |  157 +-
+ functions/generate-vcard.ts                        |    2 +-
+ package-lock.json                                  | 9046 ++++++++++++--------
+ package.json                                       |   12 +-
+ public/imgs/Logo/FIBI LOGO.png                     |  Bin 899873 -> 841769 bytes
+ .../Blueprints/Screenshot_20260312_025357.png      |  Bin 871587 -> 851490 bytes
+ public/imgs/Portfolio/Blueprints/Untitled.jpg      |  Bin 7259 -> 14858 bytes
+ public/imgs/Portfolio/Blueprints/Untitled1.jpg     |  Bin 16141 -> 20176 bytes
+ public/imgs/Portfolio/Blueprints/Untitled2.jpg     |  Bin 14946 -> 18825 bytes
+ public/imgs/Portfolio/Blueprints/Untitled3.jpg     |  Bin 15330 -> 20091 bytes
+ .../Blueprints/il_794xN.5910131741_6ou1.webp       |  Bin 181516 -> 147680 bytes
+ public/imgs/Portfolio/Jobs/20180809_091517.jpg     |  Bin 2618165 -> 2334961 bytes
+ public/imgs/Portfolio/Jobs/20180920_125230.jpg     |  Bin 2449110 -> 2186457 bytes
+ .../Portfolio/Jobs/20181009_101235-COLLAGE.jpg     |  Bin 767892 -> 506249 bytes
+ public/imgs/Portfolio/Jobs/20181013_173229.jpg     |  Bin 1281871 -> 1447814 bytes
+ public/imgs/Portfolio/Jobs/20181109_161737~2.jpg   |  Bin 2094642 -> 1596042 bytes
+ public/imgs/Portfolio/Jobs/20200110_171720.jpg     |  Bin 1180521 -> 1374616 bytes
+ .../Portfolio/Jobs/20260226_202316-COLLAGE.jpg     |  Bin 918256 -> 534080 bytes
+ .../Portfolio/Jobs/20260226_205421-COLLAGE.jpg     |  Bin 1490287 -> 860021 bytes
+ .../Portfolio/Jobs/20260226_205734-COLLAGE.jpg     |  Bin 1496352 -> 915591 bytes
+ .../Portfolio/Jobs/20260311_213221-COLLAGE.jpg     |  Bin 1449797 -> 847224 bytes
+ public/imgs/Portfolio/about/20200202_201313.jpg    |  Bin 2083557 -> 1999708 bytes
+ public/imgs/Portfolio/about/20200226_181420.jpg    |  Bin 4712664 -> 1650269 bytes
+ public/imgs/Portfolio/about/20200619_181315.jpg    |  Bin 1437084 -> 571940 bytes
+ public/imgs/Portfolio/about/20200727_095029.jpg    |  Bin 3948769 -> 1220797 bytes
+ public/imgs/Portfolio/about/20200731_140950.jpg    |  Bin 5974946 -> 2252336 bytes
+ public/imgs/Portfolio/about/20200807_103820.jpg    |  Bin 1867196 -> 705141 bytes
+ public/imgs/Portfolio/about/20200903_170054.jpg    |  Bin 4605884 -> 1411196 bytes
+ public/imgs/Portfolio/about/20220708_190610.jpg    |  Bin 7151837 -> 1179413 bytes
+ public/imgs/Portfolio/about/20230819_113919.jpg    |  Bin 8216023 -> 1374911 bytes
+ public/imgs/Portfolio/about/20230826_160449.jpg    |  Bin 4703885 -> 652694 bytes
+ public/imgs/Portfolio/about/20231216_165833.jpg    |  Bin 7015862 -> 1132130 bytes
+ .../Portfolio/about/PXL_20250128_194508115.jpg     |  Bin 3758335 -> 1710909 bytes
+ .../Portfolio/about/PXL_20250202_165648838.jpg     |  Bin 2213050 -> 1061099 bytes
+ .../Portfolio/about/PXL_20250209_175202653.MP.jpg  |  Bin 4324057 -> 1581842 bytes
+ .../Portfolio/about/PXL_20250919_011449773.jpg     |  Bin 3570556 -> 1659383 bytes
+ .../Portfolio/about/PXL_20251018_204141986.jpg     |  Bin 2714027 -> 1125832 bytes
+ .../Portfolio/about/PXL_20251024_233342686.MP.jpg  |  Bin 5589435 -> 1068969 bytes
+ .../Portfolio/about/PXL_20251231_234545618.jpg     |  Bin 3673619 -> 1660858 bytes
+ .../Portfolio/about/PXL_20260101_000551848.MP.jpg  |  Bin 3810336 -> 1159249 bytes
+ .../Portfolio/about/PXL_20260101_004225537.jpg     |  Bin 3104683 -> 1347981 bytes
+ .../Portfolio/about/PXL_20260105_213747693.jpg     |  Bin 1334438 -> 828238 bytes
+ .../Portfolio/about/PXL_20260112_235134821.jpg     |  Bin 2299061 -> 1081972 bytes
+ .../Portfolio/about/PXL_20260116_023240598.jpg     |  Bin 2024823 -> 916694 bytes
+ .../about/Screenshot_20200611-092232_Messenger.jpg |  Bin 1556007 -> 265299 bytes
+ .../about/VideoCapture_20230805-161050.jpg         |  Bin 671916 -> 293553 bytes
+ .../Portfolio/about/download_20200208_194129.jpg   |  Bin 1351679 -> 1269486 bytes
+ public/imgs/UI/Background Mobile.png               |  Bin 1529905 -> 0 bytes
+ public/imgs/UI/Background.png                      |  Bin 1236446 -> 1197045 bytes
+ public/imgs/UI/FIBILOGO.png                        |  Bin 2950037 -> 2919933 bytes
+ public/imgs/UI/GoldLogo.png                        |    1 -
+ public/imgs/UI/ME.png                              |  Bin 124745 -> 126749 bytes
+ public/imgs/UI/Mtns Trees.png                      |  Bin 294566 -> 290975 bytes
+ public/imgs/UI/Mtns.png                            |  Bin 84135 -> 95474 bytes
+ public/imgs/UI/Trees.png                           |  Bin 288912 -> 267847 bytes
+ styles/design-system.css                           |    4 +-
+ wrangler.toml                                      |    9 +
+ 84 files changed, 6160 insertions(+), 5265 deletions(-)

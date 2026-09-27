@@ -2,26 +2,31 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { AlertTriangle, CheckCircle2, Mail, Phone } from "lucide-react";
+import { z } from "zod";
 
-import { Button } from "@/components/Button";
+import { Button } from "@/components/ui/button";
 import { FormCard } from "@/components/FormCard";
 import { FormInput } from "@/components/FormInput";
 import { ModalCard } from "@/components/ModalCard";
 
-export type LeadCategory = "residential" | "commercial";
+export const contactFormSchema = z.object({
+    leadType: z.enum(["Private Pay", "Unmet Needs", "Health First Colorado Medicaid Waiver (CES/SLS)"]),
+    privatePaySession: z.enum(["30-minute Video Consultation ($115)", "60-minute On-Site Audit ($250)"]).optional(),
+    unmetNeedsApproved: z.boolean().optional(),
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Invalid email address"),
+    phone: z.string().min(1, "Phone number is required"),
+    contactMethod: z.enum(["Phone", "Email", "Text"]),
+    propertyType: z.string().optional(),
+    specs: z.string().optional(),
+    
+    // CMA Details (Optional/Conditional)
+    caseManagerName: z.string().optional(),
+    cmaAgency: z.enum(["RMHS", "Pathways", "Imagine!", "JeffCo", "Other"]).optional(),
+    waiverType: z.enum(["CES", "SLS", "Other"]).optional(),
+});
 
-export interface ContactFormData {
-    category: LeadCategory;
-    name: string;
-    email: string;
-    phone: string;
-    organization: string;
-    siteType: string;
-    projectType: string;
-    fundingType: string;
-    hasLMN: boolean;
-    specs: string;
-}
+export type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export interface BaseModalProps {
     isOpen: boolean;
@@ -31,190 +36,56 @@ export interface BaseModalProps {
 
 export type SubmissionStatus = "idle" | "submitting" | "success" | "error";
 
-const RESIDENTIAL_PROJECT_TYPES = [
-    "Sensory Sanctuary / Playroom",
-    "Vestibular Swing / Climbing Wall",
-    "Safety & Padding (Z-Clip) Installation",
-    "Quiet / Low-Stimulus Bedroom",
-    "Adaptive Storage",
-    "General Consultation",
-];
-
-const COMMERCIAL_PROJECT_TYPES = [
-    "Acoustic Dampening / Quiet Waiting Area",
-    "Focus Pod / Recharge Space",
-    "Low-Flicker Lighting Retrofit",
-    "General Consultation",
-];
-
-const SITE_TYPES = [
-    "Pediatric / Therapy Clinic",
-    "School / Classroom",
-    "Office / Workplace",
-    "Waiting Room / Lobby",
-    "Other",
-];
-
 const DEFAULT_FORM_DATA: ContactFormData = {
-    category: "residential",
+    leadType: "Private Pay",
+    privatePaySession: "30-minute Video Consultation ($115)",
     name: "",
     email: "",
     phone: "",
-    organization: "",
-    siteType: SITE_TYPES[0],
-    projectType: RESIDENTIAL_PROJECT_TYPES[0],
-    fundingType: "Private Pay",
-    hasLMN: false,
+    contactMethod: "Email",
+    propertyType: "",
     specs: "",
+    caseManagerName: "",
+    cmaAgency: "RMHS",
+    waiverType: "CES",
 };
 
-const PROJECT_TYPE_OPTIONS = {
-    residential: RESIDENTIAL_PROJECT_TYPES.map((type) => ({ label: type, value: type })),
-    commercial: COMMERCIAL_PROJECT_TYPES.map((type) => ({ label: type, value: type })),
-};
 
-const SITE_TYPE_OPTIONS = SITE_TYPES.map((type) => ({ label: type, value: type }));
-
-const FUNDING_OPTIONS = [
-    { label: "Private Pay", value: "Private Pay" },
-    { label: "Unsure / Need Guidance", value: "Unsure / Need Guidance" },
-    { label: "CES Waiver (Coming Soon)", value: "CES Waiver", disabled: true },
-    { label: "SLS Waiver (Coming Soon)", value: "SLS Waiver", disabled: true },
-    { label: "CHRP Waiver (Coming Soon)", value: "CHRP Waiver", disabled: true },
-    { label: "HCBS-DD Waiver (Coming Soon)", value: "HCBS-DD Waiver", disabled: true },
-];
-
-declare global {
-    interface Window {
-        turnstile: {
-            render: (
-                container: string | HTMLElement,
-                options: {
-                    sitekey?: string;
-                    callback?: (token: string) => void;
-                    "error-callback"?: () => void;
-                    theme?: "light" | "dark" | "auto";
-                }
-            ) => string;
-            remove: (widgetId: string) => void;
-        };
-    }
-}
 
 export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProps) {
     const [status, setStatus] = useState<SubmissionStatus>("idle");
-    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-    const [turnstileError, setTurnstileError] = useState(false);
     const [formData, setFormData] = useState<ContactFormData>(DEFAULT_FORM_DATA);
-    const turnstileRef = useRef<HTMLDivElement>(null);
+    const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
     const previousOpenRef = useRef(false);
 
     useEffect(() => {
         if (isOpen && !previousOpenRef.current) {
-            // Ref-guarded reset-on-open: intentional, runs at most once per open (not cascading).
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             setFormData({ ...DEFAULT_FORM_DATA, ...prefill });
             setStatus("idle");
-            setTurnstileToken(null);
-            setTurnstileError(false);
+            setValidationErrors({});
         }
-
         previousOpenRef.current = isOpen;
     }, [isOpen, prefill]);
 
-    useEffect(() => {
-        if (!isOpen || !turnstileRef.current) {
-            return;
-        }
-
-        let widgetId: string | null = null;
-        let interval: ReturnType<typeof setInterval> | undefined;
-        let attempts = 0;
-
-        const initTurnstile = () => {
-            attempts += 1;
-
-            if (attempts > 15) {
-                if (interval) {
-                    clearInterval(interval);
-                }
-                setTurnstileError(true);
-                return;
-            }
-
-            try {
-                if (window.turnstile && turnstileRef.current && !widgetId) {
-                    widgetId = window.turnstile.render(turnstileRef.current, {
-                        sitekey: process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY || "1x00000000000000000000AA",
-                        callback: (token: string) => {
-                            setTurnstileToken(token);
-                            setTurnstileError(false);
-                        },
-                        "error-callback": () => {
-                            console.error("Turnstile error-callback triggered");
-                            setTurnstileError(true);
-                        },
-                        theme: "dark",
-                    });
-
-                    if (interval) {
-                        clearInterval(interval);
-                    }
-                }
-            } catch (error) {
-                console.error("Turnstile render error:", error);
-            }
-        };
-
-        const timeout = setTimeout(() => {
-            initTurnstile();
-            if (!widgetId) {
-                interval = setInterval(initTurnstile, 1000);
-            }
-        }, 500);
-
-        return () => {
-            clearTimeout(timeout);
-            if (interval) {
-                clearInterval(interval);
-            }
-            if (widgetId && window.turnstile) {
-                window.turnstile.remove(widgetId);
-            }
-            setTurnstileToken(null);
-        };
-    }, [isOpen]);
-
-    const isResidential = formData.category === "residential";
-
-    const setCategory = (category: LeadCategory) => {
-        setFormData((current) => ({
-            ...current,
-            category,
-            projectType: category === "residential" ? RESIDENTIAL_PROJECT_TYPES[0] : COMMERCIAL_PROJECT_TYPES[0],
-        }));
-    };
-
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-
-        if (!turnstileToken) {
-            alert("Please complete the security check.");
-            return;
-        }
-
-        setStatus("submitting");
-
+    const submitForm = async () => {
         try {
             const response = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ token: turnstileToken, ...formData }),
+                body: JSON.stringify(formData),
             });
 
-            const result: { success: boolean; error?: string } = await response.json();
+            let resData: { success: boolean; error?: string };
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                resData = await response.json();
+            } else {
+                const textData = await response.text();
+                console.error("Server returned non-JSON response:", textData);
+                throw new Error("Server returned an invalid response. Check server logs.");
+            }
 
-            if (result.success) {
+            if (resData.success) {
                 setStatus("success");
                 setTimeout(() => {
                     setStatus("idle");
@@ -223,7 +94,7 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
                 return;
             }
 
-            console.warn("Contact submission failed:", result.error);
+            console.warn("Contact submission failed:", resData.error);
             setStatus("error");
         } catch (error) {
             console.error("Contact submission error:", error);
@@ -231,13 +102,28 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
         }
     };
 
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+        setValidationErrors({});
+
+        const result = contactFormSchema.safeParse(formData);
+        if (!result.success) {
+            const errors: Record<string, string> = {};
+            (result.error as z.ZodError).issues.forEach(err => {
+                if (err.path[0]) errors[err.path[0].toString()] = err.message;
+            });
+            setValidationErrors(errors);
+            return;
+        }
+
+        setStatus("submitting");
+        await submitForm();
+    };
+
+    const isMedicaid = formData.leadType === "Health First Colorado Medicaid Waiver (CES/SLS)";
+
     return (
-        <ModalCard
-            isOpen={isOpen}
-            onClose={onClose}
-            componentNamespace="contact-modal"
-            elementIdentifier="modal-card"
-        >
+        <ModalCard isOpen={isOpen} onClose={onClose} componentNamespace="contact-modal" elementIdentifier="modal-card" className="text-[83.33%]">
             {status === "success" ? (
                 <div className="py-12 flex flex-col items-center text-center space-y-6">
                     <div className="flex h-20 w-20 items-center justify-center rounded-full bg-green-500/20">
@@ -251,13 +137,7 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
                             Our team will contact you shortly to discuss next steps.
                         </p>
                     </div>
-                    <Button
-                        title="Close"
-                        variant="secondary"
-                        componentNamespace="contact-modal"
-                        elementIdentifier="success-close-button"
-                        onClick={onClose}
-                    />
+                    <Button title="Close" variant="secondary" onClick={onClose} componentNamespace="contact-modal" elementIdentifier="close-button" />
                 </div>
             ) : status === "error" ? (
                 <div className="py-10 flex flex-col items-center text-center space-y-6">
@@ -271,190 +151,189 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
                         </p>
                     </div>
                     <div className="flex w-full max-w-sm flex-col gap-3 sm:flex-row">
-                        <a
-                            href="mailto:FixitBuilditColorado@gmail.com"
-                            className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold transition-colors hover:bg-white/10"
-                        >
+                        <a href="mailto:FixitBuilditColorado@gmail.com" className="flex flex-1 items-center justify-center gap-2 rounded-md bg-fibi-purple px-4 py-3 text-sm font-bold text-white shadow-md shadow-black/20 transition-all hover:brightness-110">
                             <Mail className="h-4 w-4" /> Email Us
                         </a>
-                        <a
-                            href="tel:7205153348"
-                            className="flex flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold transition-colors hover:bg-white/10"
-                        >
+                        <a href="tel:7205153348" className="flex flex-1 items-center justify-center gap-2 rounded-md bg-fibi-purple px-4 py-3 text-sm font-bold text-white shadow-md shadow-black/20 transition-all hover:brightness-110">
                             <Phone className="h-4 w-4" /> Call Us
                         </a>
                     </div>
-                    <Button
-                        title="Try the form again"
-                        variant="secondary"
-                        componentNamespace="contact-modal"
-                        elementIdentifier="retry-button"
-                        onClick={() => setStatus("idle")}
-                    />
+                    <Button title="Try the form again" variant="secondary" onClick={() => setStatus("idle")} componentNamespace="contact-modal" elementIdentifier="retry-button" />
                 </div>
             ) : (
-                <FormCard
-                    onSubmit={handleSubmit}
-                    componentNamespace="contact-modal"
-                    elementIdentifier="contact-form"
-                >
-                    <div className="space-y-2 text-center">
-                        <h3 className="text-2xl font-bold">
-                            Start Your <span className="text-gradient">Intake</span>
+                <FormCard onSubmit={handleSubmit} componentNamespace="contact-modal" elementIdentifier="contact-form">
+                    <div className="space-y-4 text-center mb-6">
+                        <h3 className="text-3xl font-bold text-white">
+                            Book Your <span className="text-gradient">Consultation</span>
                         </h3>
                         <p className="mx-auto max-w-md text-sm text-slate-400">
-                            Let&apos;s coordinate your Home Accessibility Adaptation project.
+                            Building Specialized Environments with Precision and Empathy.
                         </p>
                     </div>
 
-                    <div className="grid gap-3 sm:grid-cols-2">
-                        <Button
-                            title="Residential / Family"
-                            variant={isResidential ? "primary" : "secondary"}
-                            componentNamespace="contact-modal"
-                            elementIdentifier="residential-toggle"
-                            onClick={() => setCategory("residential")}
-                            aria-pressed={isResidential}
-                            className="w-full"
-                            type="button"
-                        />
-                        <Button
-                            title="Commercial / Business"
-                            variant={!isResidential ? "primary" : "secondary"}
-                            componentNamespace="contact-modal"
-                            elementIdentifier="commercial-toggle"
-                            onClick={() => setCategory("commercial")}
-                            aria-pressed={!isResidential}
-                            className="w-full"
-                            type="button"
-                        />
-                    </div>
-
-                    <div className="grid gap-4 sm:grid-cols-2">
-                        <FormInput
-                            label={isResidential ? "Name" : "Contact Name"}
-                            value={formData.name}
-                            onChange={(value) => setFormData({ ...formData, name: value })}
-                            required
-                            placeholder="Full Name"
-                            componentNamespace="contact-modal"
-                            elementIdentifier="name"
-                        />
-                        <FormInput
-                            label="Email"
-                            type="email"
-                            value={formData.email}
-                            onChange={(value) => setFormData({ ...formData, email: value })}
-                            required
-                            placeholder="guardian@example.com"
-                            componentNamespace="contact-modal"
-                            elementIdentifier="email"
-                        />
-                    </div>
-
-                    <FormInput
-                        label="Phone (Optional)"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(value) => setFormData({ ...formData, phone: value })}
-                        placeholder="720-000-0000"
-                        componentNamespace="contact-modal"
-                        elementIdentifier="phone"
-                    />
-
-                    {!isResidential ? (
-                        <div className="grid gap-4 sm:grid-cols-2">
-                            <FormInput
-                                label="Organization"
-                                value={formData.organization}
-                                onChange={(value) => setFormData({ ...formData, organization: value })}
-                                required
-                                placeholder="Business / Clinic Name"
-                                componentNamespace="contact-modal"
-                                elementIdentifier="organization"
-                            />
-                            <FormInput
-                                label="Site Type"
-                                as="select"
-                                value={formData.siteType}
-                                onChange={(value) => setFormData({ ...formData, siteType: value })}
-                                options={SITE_TYPE_OPTIONS}
-                                componentNamespace="contact-modal"
-                                elementIdentifier="site-type"
-                            />
-                        </div>
-                    ) : null}
-
-                    <FormInput
-                        label="Project Type"
+                    <FormInput componentNamespace="contact-modal" elementIdentifier="form-input"
+                        label="Funding / Intake Path"
                         as="select"
-                        value={formData.projectType}
-                        onChange={(value) => setFormData({ ...formData, projectType: value })}
-                        options={PROJECT_TYPE_OPTIONS[formData.category]}
-                        componentNamespace="contact-modal"
-                        elementIdentifier="project-type"
+                        value={formData.leadType}
+                        onChange={(val) => setFormData({ ...formData, leadType: val as ContactFormData["leadType"] })}
+                        options={[
+                            { label: "Private Pay", value: "Private Pay" },
+                            { label: "Unmet Needs", value: "Unmet Needs" },
+                            /* { label: "Health First Colorado Medicaid Waiver (CES/SLS)", value: "Health First Colorado Medicaid Waiver (CES/SLS)" } */
+                        ]}
                     />
 
-                    {isResidential ? (
-                        <>
-                            <FormInput
-                                label="Funding Source"
-                                as="select"
-                                value={formData.fundingType}
-                                onChange={(value) => setFormData({ ...formData, fundingType: value })}
-                                options={FUNDING_OPTIONS}
-                                componentNamespace="contact-modal"
-                                elementIdentifier="funding-source"
-                            />
+                    {formData.leadType === "Private Pay" && (
+                        <div className="mt-2 flex flex-col gap-2">
+                            <label className="text-xs font-bold text-white uppercase tracking-wider">Session Length</label>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Button
+                                    title="30-min Video ($115)"
+                                    variant={formData.privatePaySession === "30-minute Video Consultation ($115)" ? "accent" : "secondary"}
+                                    onClick={() => setFormData({ ...formData, privatePaySession: "30-minute Video Consultation ($115)" })}
+                                    componentNamespace="contact-modal"
+                                    elementIdentifier="session-30"
+                                    className="w-full text-xs"
+                                />
+                                <Button
+                                    title="60-min On-Site ($250)"
+                                    variant={formData.privatePaySession === "60-minute On-Site Audit ($250)" ? "accent" : "secondary"}
+                                    onClick={() => setFormData({ ...formData, privatePaySession: "60-minute On-Site Audit ($250)" })}
+                                    componentNamespace="contact-modal"
+                                    elementIdentifier="session-60"
+                                    className="w-full text-xs"
+                                />
+                            </div>
+                        </div>
+                    )}
 
-                            <label className="flex items-center gap-3 text-sm text-slate-300" data-component-namespace="contact-modal" data-element-identifier="has-lmn">
+                    {formData.leadType === "Unmet Needs" && (
+                        <div className="mt-2 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                            <label className="flex items-start gap-3 cursor-pointer">
                                 <input
                                     type="checkbox"
-                                    checked={formData.hasLMN}
-                                    onChange={(event) => setFormData({ ...formData, hasLMN: event.target.checked })}
-                                    className="h-4 w-4 accent-fibi-accent"
-                                    style={{ minHeight: "var(--target-min)" }}
+                                    checked={formData.unmetNeedsApproved || false}
+                                    onChange={(e) => setFormData({ ...formData, unmetNeedsApproved: e.target.checked })}
+                                    className="mt-1 w-5 h-5 rounded border-amber-500/50 bg-black/50 text-amber-500 focus:ring-amber-500"
                                 />
-                                <span>I have a Letter of Medical Necessity (LMN) from an OT/therapist</span>
+                                <div className="space-y-1">
+                                    <span className="text-sm font-bold text-amber-500">I am already approved for Unmet Needs funding.</span>
+                                    <p className="text-xs text-amber-500/70">Note: We do not assist with the approval process. You must be pre-approved to proceed via this path.</p>
+                                </div>
                             </label>
-                        </>
-                    ) : null}
-
-                    <FormInput
-                        label="Message"
-                        as="textarea"
-                        rows={5}
-                        value={formData.specs}
-                        onChange={(value) => setFormData({ ...formData, specs: value })}
-                        placeholder="Tell us about your adaptation needs..."
-                        componentNamespace="contact-modal"
-                        elementIdentifier="message"
-                    />
-
-                    {status === "submitting" ? (
-                        <div className="wait-state-container active" data-component-namespace="contact-modal" data-element-identifier="submission-state">
-                            <p className="wait-state-text">Sending your request — no need to refresh, this only takes a moment.</p>
                         </div>
-                    ) : null}
+                    )}
 
-                    <div className="flex min-h-[var(--target-min)] flex-col items-center justify-center py-2">
-                        <div ref={turnstileRef} data-component-namespace="contact-modal" data-element-identifier="turnstile" />
-                        {turnstileError ? (
-                            <p className="mt-2 text-[10px] text-red-400 animate-pulse">
-                                Security check blocked. Please refresh and try again.
-                            </p>
-                        ) : null}
+                    <div className="grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <FormInput componentNamespace="contact-modal" elementIdentifier="form-input"
+                                label="Name"
+                                value={formData.name}
+                                onChange={(val) => setFormData({ ...formData, name: val })}
+                            />
+                            {validationErrors.name && <p className="text-red-400 text-xs mt-1">{validationErrors.name}</p>}
+                        </div>
+                        <div>
+                            <FormInput componentNamespace="contact-modal" elementIdentifier="form-input"
+                                label="Email"
+                                type="email"
+                                value={formData.email}
+                                onChange={(val) => setFormData({ ...formData, email: val })}
+                            />
+                            {validationErrors.email && <p className="text-red-400 text-xs mt-1">{validationErrors.email}</p>}
+                        </div>
                     </div>
 
+                    <div className="grid gap-4 sm:grid-cols-2 mt-4">
+                        <div>
+                            <FormInput componentNamespace="contact-modal" elementIdentifier="form-input"
+                                label="Phone"
+                                type="tel"
+                                value={formData.phone}
+                                onChange={(val) => setFormData({ ...formData, phone: val })}
+                            />
+                            {validationErrors.phone && <p className="text-red-400 text-xs mt-1">{validationErrors.phone}</p>}
+                        </div>
+                        <FormInput componentNamespace="contact-modal" elementIdentifier="form-input"
+                            label="Preferred Contact Method"
+                            as="select"
+                            value={formData.contactMethod}
+                            onChange={(val) => setFormData({ ...formData, contactMethod: val as ContactFormData["contactMethod"] })}
+                            options={[
+                                { label: "Phone", value: "Phone" },
+                                { label: "Email", value: "Email" },
+                                { label: "Text", value: "Text" }
+                            ]}
+                        />
+                    </div>
+
+                    {/* Property Type has been removed from the Modal per user request, as it is captured in the Sensory Wizard */}
+
+                    {isMedicaid && (
+                        <div className="mt-4 p-4 rounded-xl bg-white/5 border border-white/10 space-y-4">
+                            <h4 className="text-white font-bold text-sm">CMA / Case Manager Details</h4>
+                            <FormInput componentNamespace="contact-modal" elementIdentifier="form-input"
+                                label="Case Manager Name"
+                                value={formData.caseManagerName || ""}
+                                onChange={(val) => setFormData({ ...formData, caseManagerName: val })}
+                            />
+                            <div className="grid gap-4 sm:grid-cols-2">
+                                <FormInput componentNamespace="contact-modal" elementIdentifier="form-input"
+                                    label="CMA Agency"
+                                    as="select"
+                                    value={formData.cmaAgency || "RMHS"}
+                                    onChange={(val) => setFormData({ ...formData, cmaAgency: val as ContactFormData["cmaAgency"] })}
+                                    options={[
+                                        { label: "RMHS", value: "RMHS" },
+                                        { label: "Pathways", value: "Pathways" },
+                                        { label: "Imagine!", value: "Imagine!" },
+                                        { label: "JeffCo", value: "JeffCo" },
+                                        { label: "Other", value: "Other" }
+                                    ]}
+                                />
+                                <FormInput componentNamespace="contact-modal" elementIdentifier="form-input"
+                                    label="Member Waiver Type"
+                                    as="select"
+                                    value={formData.waiverType || "CES"}
+                                    onChange={(val) => setFormData({ ...formData, waiverType: val as ContactFormData["waiverType"] })}
+                                    options={[
+                                        { label: "CES", value: "CES" },
+                                        { label: "SLS", value: "SLS" },
+                                        { label: "Other", value: "Other" }
+                                    ]}
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="mt-4">
+                        <FormInput componentNamespace="contact-modal" elementIdentifier="form-input"
+                            label="Project Scope / Message"
+                            as="textarea"
+                            rows={2}
+                            value={formData.specs || ""}
+                            onChange={(val) => setFormData({ ...formData, specs: val })}
+                            placeholder="Tell us about your adaptation needs..."
+                        />
+                    </div>
+
+                    {status === "submitting" && (
+                        <div className="wait-state-container active mt-4">
+                            <p className="wait-state-text">Sending your request — no need to refresh, this only takes a moment.</p>
+                        </div>
+                    )}
+
+
+
                     <Button
+                        componentNamespace="contact-modal"
+                        elementIdentifier="submit-button"
                         title="Send"
                         variant="primary"
                         loading={status === "submitting"}
                         disabled={status === "submitting"}
-                        componentNamespace="contact-modal"
-                        elementIdentifier="submit-button"
                         type="submit"
-                        className="w-full"
+                        className="w-full mt-2"
                     />
                 </FormCard>
             )}

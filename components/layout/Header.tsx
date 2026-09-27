@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Instagram, Linkedin, Facebook } from "lucide-react";
+import { faLinkedin, faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { SocialIcon } from "@/components/ui/SocialIcon";
+import { vcardData } from "@/config/BusinessInfo";
 
 const navItems = [
     { name: "Home", href: "#home" },
@@ -22,8 +24,51 @@ export default function Header() {
             )}
         >
             <div className="max-w-[90rem] w-full mx-auto flex items-center justify-between relative">
-                {/* Left: Mobile Menu Trigger + Desktop Nav */}
-                <div className="flex items-center gap-4 lg:gap-8">
+                {/* Left: Logo */}
+                <div className="flex items-center justify-start gap-2 sm:gap-3">
+                    {(() => {
+                        // Dynamically parse "Fix it, Build it Colorado" to color "Build it" purple
+                        const parts = vcardData.company.split(/(Build it)/i);
+                        if (parts.length === 3) {
+                            return (
+                                <>
+                                    <span className="text-xl sm:text-2xl lg:text-3xl tracking-[0.15em] sm:tracking-[0.2em] uppercase font-bold text-white leading-none">
+                                        {parts[0].trim()}
+                                    </span>
+                                    {" "}
+                                    <span className="text-xl sm:text-2xl lg:text-3xl tracking-[0.15em] sm:tracking-[0.2em] uppercase font-normal text-fibi-purple leading-none">
+                                        {parts[1].trim()}
+                                    </span>
+                                    {" "}
+                                    <span className="text-xl sm:text-2xl lg:text-3xl tracking-[0.15em] sm:tracking-[0.2em] uppercase font-bold text-white leading-none">
+                                        {parts[2].trim()}
+                                    </span>
+                                </>
+                            );
+                        }
+                        // Fallback if they change the name completely
+                        return (
+                            <span className="text-xl sm:text-2xl lg:text-3xl tracking-[0.15em] sm:tracking-[0.2em] uppercase font-bold text-white leading-none">
+                                {vcardData.company}
+                            </span>
+                        );
+                    })()}
+                </div>
+
+                {/* Right: Mobile Menu Trigger + Desktop Nav */}
+                <div className="flex items-center justify-end gap-4 lg:gap-8">
+                    <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+                        {navItems.map((item) => (
+                            <a
+                                key={item.name}
+                                href={item.href}
+                                className="text-sm xl:text-base font-light tracking-widest text-slate-300 hover:text-fibi-purple transition-colors uppercase whitespace-nowrap"
+                            >
+                                {item.name}
+                            </a>
+                        ))}
+                    </nav>
+
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         className="lg:hidden text-white p-2 z-[60] relative"
@@ -36,28 +81,6 @@ export default function Header() {
                             <span className={cn("block w-6 h-0.5 bg-white transition-all", isMenuOpen && "-rotate-45 -translate-y-2")}></span>
                         </div>
                     </button>
-
-                    <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-                        {navItems.map((item) => (
-                            <a
-                                key={item.name}
-                                href={item.href}
-                                className="text-sm xl:text-base font-light tracking-widest text-slate-300 hover:text-fibi-purple transition-colors uppercase whitespace-nowrap"
-                            >
-                                {item.name}
-                            </a>
-                        ))}
-                    </nav>
-                </div>
-
-                {/* Right: Logo */}
-                <div className="flex items-center justify-end gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl lg:text-3xl tracking-[0.15em] sm:tracking-[0.2em] uppercase font-bold text-white leading-none">
-                        FIX-IT
-                    </span>
-                    <span className="text-xl sm:text-2xl lg:text-3xl tracking-[0.15em] sm:tracking-[0.2em] uppercase font-normal text-fibi-purple leading-none">
-                        BUILD-IT
-                    </span>
                 </div>
 
                 {/* Mobile Menu Overlay */}
@@ -81,15 +104,9 @@ export default function Header() {
 
                         {/* Mobile Social Links */}
                         <div className="flex gap-8 mt-2 pt-6 border-t border-white/10 w-full justify-center max-w-xs">
-                            <a href="https://www.instagram.com/fixitbuildit?igsh=MTh5eHI5bXAwc2V5Yw==" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
-                                <Instagram size={24} />
-                            </a>
-                            <a href="https://www.linkedin.com/in/josh-bourassa-375a3948?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
-                                <Linkedin size={24} />
-                            </a>
-                            <a href="https://www.facebook.com/fixitbuilditcolorado/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
-                                <Facebook size={24} />
-                            </a>
+                            <SocialIcon href={vcardData.instagram} target="_blank" rel="noopener noreferrer" icon={faInstagram} label="Instagram" size="2xl" />
+                            <SocialIcon href={vcardData.linkedin} target="_blank" rel="noopener noreferrer" icon={faLinkedin} label="LinkedIn" size="2xl" />
+                            <SocialIcon href={vcardData.facebook} target="_blank" rel="noopener noreferrer" icon={faFacebook} label="Facebook" size="2xl" />
                         </div>
                     </div>
                 </div>

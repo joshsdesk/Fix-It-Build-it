@@ -7,13 +7,16 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const buttonStyles = cva(
-    "inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-tight transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fibi-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex items-center justify-center gap-2 rounded-md min-h-[48px] font-semibold tracking-tight transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fibi-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent disabled:pointer-events-none disabled:opacity-50",
     {
         variants: {
             variant: {
                 primary: "bg-fibi-purple text-white shadow-md shadow-black/20 hover:brightness-110",
+                "primary-cta": "bg-fibi-purple text-white shadow-md shadow-black/20 hover:brightness-110 px-8 py-4 text-lg",
+                accent: "bg-fibi-accent text-white shadow-md shadow-black/20 hover:brightness-110",
                 secondary: "border border-white/10 bg-white/5 text-white hover:bg-white/10",
                 destructive: "bg-red-600 text-white shadow-md shadow-black/20 hover:bg-red-500",
+                "wizard-selectable": "bg-white/5 border border-white/10 hover:border-fibi-purple hover:bg-fibi-purple/10 cursor-pointer min-h-[48px]",
             },
             size: {
                 default: "px-5 py-3 text-sm",

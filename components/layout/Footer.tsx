@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { Instagram, Linkedin, Facebook } from "lucide-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLinkedin, faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faAddressCard } from "@fortawesome/free-solid-svg-icons";
-import { vcardData } from "@/components/layout/BusinessInfo";
+import { SocialIcon } from "@/components/ui/SocialIcon";
+import { vcardData } from "@/config/BusinessInfo";
 
 export default function Footer() {
     return (
@@ -13,13 +13,34 @@ export default function Footer() {
 
                 {/* Tier 1: Brand Details */}
                 <div className="flex flex-col items-center mb-12 text-center">
-                    <div className="flex items-center gap-3 mb-4">
-                        <span className="text-3xl tracking-[0.2em] font-light text-white leading-none">
-                            FIX-IT
-                        </span>
-                        <span className="text-3xl tracking-[0.2em] font-normal text-fibi-purple leading-none">
-                            BUILD-IT
-                        </span>
+                    <div className="flex items-center justify-center mb-4">
+                        {(() => {
+                            // Dynamically parse "Fix it, Build it Colorado" to color "Build it" purple
+                            const parts = vcardData.company.split(/(Build it)/i);
+                            if (parts.length === 3) {
+                                return (
+                                    <>
+                                        <span className="text-3xl tracking-[0.2em] font-light text-white leading-none">
+                                            {parts[0].trim()}
+                                        </span>
+                                        {" "}
+                                        <span className="text-3xl tracking-[0.2em] font-normal text-fibi-purple leading-none">
+                                            {parts[1].trim()}
+                                        </span>
+                                        {" "}
+                                        <span className="text-3xl tracking-[0.2em] font-light text-white leading-none">
+                                            {parts[2].trim()}
+                                        </span>
+                                    </>
+                                );
+                            }
+                            // Fallback
+                            return (
+                                <span className="text-3xl tracking-[0.2em] font-light text-white leading-none">
+                                    {vcardData.company}
+                                </span>
+                            );
+                        })()}
                     </div>
                     <p className="text-slate-400 text-sm max-w-sm mb-4 leading-relaxed font-light">
                         {vcardData.seoDescription}
@@ -43,16 +64,10 @@ export default function Footer() {
                         <div className="hidden md:block w-px h-4 bg-white/20"></div>
 
                         <div className="flex gap-6 text-slate-400">
-                            <a href={vcardData.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:scale-110 transition-all"><Instagram size={18} /></a>
-                            <a href={vcardData.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:scale-110 transition-all"><Linkedin size={18} /></a>
-                            <a href={vcardData.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:scale-110 transition-all"><Facebook size={18} /></a>
-                            <a href="#" className="hover:text-white hover:scale-110 transition-all flex items-center justify-center">
-                                {/* TikTok icon fallback */}
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" /></svg>
-                            </a>
-                            <a href="/vcard" className="hover:text-fibi-accent hover:scale-110 transition-all flex items-center justify-center" aria-label="Digital Business Card">
-                                <FontAwesomeIcon icon={faAddressCard} className="text-[18px]" />
-                            </a>
+                            <SocialIcon href={vcardData.instagram} target="_blank" rel="noopener noreferrer" icon={faInstagram} label="Instagram" size="lg" />
+                            <SocialIcon href={vcardData.linkedin} target="_blank" rel="noopener noreferrer" icon={faLinkedin} label="LinkedIn" size="lg" />
+                            <SocialIcon href={vcardData.facebook} target="_blank" rel="noopener noreferrer" icon={faFacebook} label="Facebook" size="lg" />
+                            <SocialIcon href="/vcard" icon={faAddressCard} label="Digital Business Card" size="lg" />
                         </div>
                     </div>
                 </div>
@@ -60,7 +75,7 @@ export default function Footer() {
                 {/* Tier 3: Admin & Dashboard */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
                     <p className="text-slate-500 uppercase tracking-widest text-center md:text-left">
-                        © 2026 Fix-It Build-It Colorado LLC.
+                        © {new Date().getFullYear()} {vcardData.company}
                     </p>
                     <div className="flex gap-6 font-bold text-fibi-purple/60 uppercase tracking-widest">
                         <a href="https://fixitbuildit-portal.cloudflareaccess.com" className="hover:text-fibi-purple transition-colors">Client Portal</a>

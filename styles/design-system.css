@@ -22,7 +22,7 @@
 
     /* Button Protocol */
     .btn-action-primary {
-        @apply relative px-8 py-3 bg-fibi-purple text-white font-bold rounded-full overflow-hidden transition-all duration-300 active:scale-95 text-white;
+        @apply relative px-8 py-3 bg-fibi-purple text-white font-bold rounded-md overflow-hidden transition-all duration-300 active:scale-95 text-white;
     }
 
     .btn-action-primary:hover {
@@ -31,7 +31,7 @@
     }
 
     .btn-action-ghost {
-        @apply px-8 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center font-bold;
+        @apply px-8 py-3 rounded-md border border-white/10 bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center font-bold;
     }
 
     .about-pinboard {

@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin, faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { vcardData } from "@/components/layout/BusinessInfo";
+import { vcardData } from "@/config/BusinessInfo";
+import { SocialIcon } from "@/components/ui/SocialIcon";
 
 export default function WebLinksCard() {
   const links = [
@@ -17,16 +18,16 @@ export default function WebLinksCard() {
   return (
     <div className="component-surface p-4 flex justify-around items-center bg-slate-900/80 backdrop-blur-md">
       {links.map((link, idx) => (
-        <a 
-          key={idx} 
-          href={link.url} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="flex items-center justify-center w-14 h-14 rounded-full border border-fibi-accent/30 text-white hover:bg-fibi-purple/20 hover:border-fibi-purple hover:text-white transition-all duration-300"
-          aria-label={link.label}
-        >
-          <FontAwesomeIcon icon={link.icon} className="text-2xl" />
-        </a>
+        <SocialIcon
+          key={idx}
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          icon={link.icon}
+          label={link.label}
+          size="4xl"
+          className="w-14 h-14"
+        />
       ))}
     </div>
   );

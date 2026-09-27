@@ -1,4 +1,4 @@
-import { vcardData } from "@/components/layout/BusinessInfo";
+import { vcardData } from "@/config/BusinessInfo";
 
 export function generateVCard(): Blob {
   const vcard = `BEGIN:VCARD

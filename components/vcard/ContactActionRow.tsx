@@ -12,7 +12,8 @@ import {
   faCartShopping,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
-import { vcardData, getCtaLinks, type CtaKey } from "@/components/layout/BusinessInfo";
+import { vcardData, getCtaLinks, type CtaKey } from "@/config/BusinessInfo";
+import { SocialIcon } from "@/components/ui/SocialIcon";
 
 const CTA_ICONS: Record<CtaKey, typeof faLink> = {
   appointment: faCalendarCheck,
@@ -30,30 +31,28 @@ export default function ContactActionRow() {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="component-surface p-4 flex justify-around items-center bg-fibi-accent">
-        <a 
+      <div className="component-surface p-4 flex justify-around items-center bg-slate-900/80 backdrop-blur-md">
+        <SocialIcon 
           href={phoneNumber} 
-          className="flex items-center justify-center w-14 h-14 rounded-full border-2 border-white text-white hover:bg-white hover:text-fibi-accent transition-colors"
-          aria-label="Call"
-        >
-          <FontAwesomeIcon icon={faMobileScreen} className="text-2xl" />
-        </a>
-        
-        <a 
+          icon={faMobileScreen} 
+          label="Call" 
+          size="4xl"
+          className="w-14 h-14"
+        />
+        <SocialIcon 
           href={emailAddress} 
-          className="flex items-center justify-center w-14 h-14 rounded-full border-2 border-white text-white hover:bg-white hover:text-fibi-accent transition-colors"
-          aria-label="Email"
-        >
-          <FontAwesomeIcon icon={faEnvelope} className="text-2xl" />
-        </a>
-        
-        <a 
+          icon={faEnvelope} 
+          label="Email" 
+          size="4xl"
+          className="w-14 h-14"
+        />
+        <SocialIcon 
           href={smsNumber} 
-          className="flex items-center justify-center w-14 h-14 rounded-full border-2 border-white text-white hover:bg-white hover:text-fibi-accent transition-colors"
-          aria-label="Text Message"
-        >
-          <FontAwesomeIcon icon={faCommentDots} className="text-2xl" />
-        </a>
+          icon={faCommentDots} 
+          label="Text Message" 
+          size="4xl"
+          className="w-14 h-14"
+        />
       </div>
 
       {ctaLinks.length > 0 ? (
@@ -64,7 +63,7 @@ export default function ContactActionRow() {
               href={cta.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-fibi-accent/50 bg-fibi-accent/20 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-fibi-purple/80 hover:bg-fibi-purple/40"
+              className="flex items-center gap-2 rounded-md border border-fibi-accent/50 bg-fibi-accent/20 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-fibi-purple/80 hover:bg-fibi-purple/40"
             >
               <FontAwesomeIcon icon={CTA_ICONS[cta.key]} className="text-sm" />
               {cta.label}

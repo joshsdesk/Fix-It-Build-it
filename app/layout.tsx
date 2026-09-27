@@ -10,7 +10,7 @@ const outfit = Outfit({
   preload: true,
 });
 
-import { vcardData } from "@/components/layout/BusinessInfo";
+import { vcardData } from "@/config/BusinessInfo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(vcardData.website || 'https://fixitbuilditcolorado.com'),
@@ -46,24 +46,46 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'LocalBusiness',
-              name: vcardData.company,
-              image: vcardData.logoImage,
-              description: vcardData.seoDescription,
-              url: vcardData.website,
+              '@type': 'HomeAndConstructionBusiness',
+              name: 'Fix-It Build-It Colorado, LLC',
+              legalName: 'FIX-IT BUILD-IT COLORADO, LLC',
+              url: 'https://fixitbuilditcolorado.com',
               telephone: vcardData.phone,
               email: vcardData.email,
+              image: vcardData.logoImage,
+              description: vcardData.seoDescription,
               sameAs: [
                 vcardData.facebook,
                 vcardData.linkedin,
                 vcardData.instagram,
               ].filter(Boolean),
+              areaServed: [
+                "Denver Metro Area",
+                "Arvada",
+                "Lakewood",
+                "Aurora",
+                "Centennial",
+                "Jefferson County",
+                "Arapahoe County",
+                "Adams County"
+              ],
+              keywords: [
+                "Sensory Room Builder Denver",
+                "Environmental Accessibility Adaptations (EAA)",
+                "Autism Home Modifications Colorado",
+                "Sensory Swing Joist Installation"
+              ],
+              knowsAbout: [
+                "Environmental Accessibility Adaptations (EAA)",
+                "Specialized Medical Equipment",
+                "Winnie Dunn Sensory Framework"
+              ]
             }),
           }}
         />

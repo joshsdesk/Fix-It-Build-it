@@ -1,0 +1,6 @@
+services:
+  fixitbuilditmain:
+    image: fixitbuilditmain
+    build:
+      context: .
+      dockerfile: ./Dockerfile

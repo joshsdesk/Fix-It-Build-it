@@ -9,7 +9,7 @@ import WebLinksCard from "@/components/vcard/WebLinksCard";
 import ScheduleMeetingCard from "@/components/vcard/ScheduleMeetingCard";
 import FloatingBottomBar from "@/components/vcard/FloatingBottomBar";
 import ContactModal from "@/components/ContactModal";
-import { vcardData } from "@/components/layout/BusinessInfo";
+import { vcardData } from "@/config/BusinessInfo";
 
 export default function ProfilePage() {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -18,13 +18,19 @@ export default function ProfilePage() {
     <main 
       className="min-h-screen w-full relative overflow-x-hidden pb-24"
       style={{
-        backgroundImage: "url('/imgs/UI/Background Mobile.png')",
+        backgroundImage: "url('/imgs/UI/BackgroundMobile.png')",
         backgroundSize: "100% auto",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "top center",
         backgroundAttachment: "fixed",
       }}
     >
+      <style>{`
+        html, body {
+          font-size: 100% !important;
+        }
+      `}</style>
+
       {/* Semi-transparent overlay to ensure readability if background is busy */}
       <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none"></div>
 
@@ -35,7 +41,7 @@ export default function ProfilePage() {
         <div className="flex justify-center mb-2 w-full px-2">
           <Image 
             src={vcardData.logoImage} 
-            alt={`${vcardData.company} Logo`} 
+            alt={`${vcardData.company} Logo - Denver Metro Area EAA Specialist`} 
             width={500}
             height={200}
             className="w-full h-auto object-contain"

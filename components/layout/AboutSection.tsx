@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { Hammer, History, Heart, Instagram, Linkedin, Facebook, ChevronLeft, ChevronRight, X } from "lucide-react";
-import { vcardData } from "@/components/layout/BusinessInfo";
+import { vcardData } from "@/config/BusinessInfo";
 
 const DEFAULT_ABOUT_IMAGES = [
     "/imgs/Portfolio/about/20200202_201313.jpg",
@@ -79,7 +79,7 @@ function shuffleImages(images: string[]) {
     return items;
 }
 
-export default function About() {
+export default function AboutSection() {
     const [aboutImages, setAboutImages] = useState<string[]>([]);
     const [boardImages, setBoardImages] = useState<string[]>(DEFAULT_ABOUT_IMAGES.slice(0, MAX_VISIBLE_BOARD_IMAGES));
     const [viewportWidth, setViewportWidth] = useState<number>(1600);
@@ -174,7 +174,7 @@ export default function About() {
         <section id="about" className="relative h-full min-h-0 flex flex-col justify-start lg:justify-center py-20 sm:py-20 lg:py-12 pb-20 sm:pb-24 lg:pb-12 overflow-hidden scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-28">
             <div className="mx-auto flex h-full w-full max-w-[90rem] flex-col px-4 sm:px-6 lg:pt-4 lg:px-6">
                 <div className="text-center mb-4 lg:mb-2 shrink-0">
-                    <h2 className="text-[2.35rem] leading-[1.05] sm:text-5xl md:text-5xl lg:text-6xl font-thin tracking-tight mb-1.5 sm:mb-2">The Lead <span className="font-normal text-gradient">Craftsman</span></h2>
+                    <h2 className="text-[2.35rem] leading-[1.05] sm:text-5xl md:text-5xl lg:text-6xl font-thin tracking-tight mb-1.5 sm:mb-2">The Clinical <span className="font-normal text-gradient">Builder</span></h2>
                     <p className="text-base leading-snug sm:text-xl md:text-xl text-slate-300 font-light mx-auto max-w-none md:max-w-2xl">
                         Building specialized environments with precision and empathy.
                     </p>
@@ -235,7 +235,7 @@ export default function About() {
                                 >
                                     <Image
                                         src={image}
-                                        alt={`About mobile gallery image ${index + 1}`}
+                                        alt={`Baltic birch French cleat sensory wall and EAA adaptations in Denver Metro by Fix-It Build-It Colorado, LLC - EAA Specialist`}
                                         fill
                                         sizes="50vw"
                                         className="object-cover"
@@ -283,7 +283,7 @@ export default function About() {
                                             <span className="about-pinboard-photo">
                                                 <Image
                                                     src={image}
-                                                    alt={`About photo ${index + 1}`}
+                                                    alt={`Sensory decompression nook and EAA modifications in Arvada, CO by Fix-It Build-It Colorado, LLC - EAA Specialist`}
                                                     fill
                                                     sizes="(max-width: 1024px) 50vw, 25vw"
                                                     className="object-cover"
@@ -332,7 +332,7 @@ export default function About() {
                         <div className="flex-1 relative bg-black flex items-center justify-center overflow-hidden">
                             <Image
                                 src={galleryImages[currentIndex]}
-                                alt={`About gallery image ${currentIndex + 1}`}
+                                alt={`Joist-anchored sensory swing installation in Lakewood, CO by Fix-It Build-It Colorado, LLC - EAA Specialist`}
                                 fill
                                 sizes="100vw"
                                 className="object-contain"

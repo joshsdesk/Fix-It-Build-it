@@ -1,104 +1,85 @@
 interface Env {
-    TURNSTILE_SECRET_KEY: string;
-    RESEND_API_KEY: string;
+    RESEND_API_KEY?: string;
 }
 
-interface ContactRequestBody {
-    token?: string;
-    category?: "residential" | "commercial";
-    name?: string;
-    email?: string;
-    phone?: string;
-    projectType?: string;
-    fundingType?: string;
-    organization?: string;
-    siteType?: string;
-    hasLMN?: boolean;
-    specs?: string;
-}
-
-const EMAIL_RE = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-const CONTACT_RECIPIENT = "FixitBuilditColorado@gmail.com";
-const CONTACT_SENDER = "Fix-It Build-It <onboarding@resend.dev>";
-const GENERIC_CLIENT_ERROR = "Unable to submit the form. Please try again.";
-const SECURITY_ERROR = "Security verification failed.";
-
-function jsonResponse(body: unknown, status: number) {
-    return new Response(JSON.stringify(body), {
-        status,
-        headers: { "Content-Type": "application/json" },
-    });
-}
-
-// Verifies the Turnstile token server-side, then sends the lead via Resend.
-export const onRequestPost = async (context: { request: Request; env: Env }) => {
-    const { request, env } = context;
-
+export async function onRequestPost(context: { request: Request; env: Env }) {
     try {
-        const body: ContactRequestBody = await request.json();
-        const { token, name, email } = body;
+        const { request, env } = context;
+        const data = await request.json() as Record<string, unknown>;
+        const { leadType, privatePaySession, name, phone, email, contactMethod, propertyType, specs, caseManagerName, cmaAgency, waiverType } = data as Record<string, string>;
 
-        if (!token || !name?.trim() || !email?.trim() || !EMAIL_RE.test(email)) {
-            return jsonResponse({ success: false, error: GENERIC_CLIENT_ERROR }, 400);
+
+
+        // 2. Format Structured Ledger Email
+        const isMedicaid = leadType === "Health First Colorado Medicaid Waiver (CES/SLS)";
+        
+        let primaryEnergy = "N/A";
+        let spatialGoals = "N/A";
+        const projectScope = specs || "No message provided.";
+
+        if (specs && specs.includes("Sensory Wizard results")) {
+            const energyMatch = specs.match(/Energy: (.*?),/);
+            const sensoryMatch = specs.match(/Sensory Profile: (.*?),/);
+            const goalMatch = specs.match(/Build Goal: (.*?)\./);
+            
+            if (energyMatch) primaryEnergy = energyMatch[1];
+            if (sensoryMatch && goalMatch) spatialGoals = `${sensoryMatch[1]} - ${goalMatch[1]}`;
         }
 
-        const ip = request.headers.get("CF-Connecting-IP") || "";
+        const emailText = `
+================================──────────────────────────────
+🚨 NEW INTAKE LEAD / CONTACT REQUEST - FIX-IT BUILD-IT COLORADO
+================================──────────────────────────────
+• Timestamp: ${new Date().toISOString()}
+• Lead Type: ${leadType === "Private Pay" ? `Private Pay - ${privatePaySession}` : leadType || "Private Pay"}
+• Contact Name: ${name || "N/A"}
+• Phone: ${phone || "N/A"}
+• Email: ${email || "N/A"}
+• Preferred Contact Method: ${contactMethod || "N/A"}
+• Property Type: ${propertyType || "N/A"}
 
-        const turnstileForm = new FormData();
-        turnstileForm.append("secret", env.TURNSTILE_SECRET_KEY);
-        turnstileForm.append("response", token);
-        turnstileForm.append("remoteip", ip);
+--- SENSORY WIZARD INTAKE SUMMARY ---
+• Primary Energy Profile: ${primaryEnergy}
+• Spatial Goals: ${spatialGoals}
+• Project Scope / Message: ${projectScope}
+${isMedicaid ? `
+--- CMA / CASE MANAGER DETAILS (IF APPLICABLE) ---
+• Case Manager Name: ${caseManagerName || "N/A"}
+• CMA Agency: ${cmaAgency || "N/A"}
+• Member Waiver Type: ${waiverType || "N/A"}
+` : ''}
+================================──────────────────────────────
+`.trim();
 
-        const turnstileResult = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-            method: "POST",
-            body: turnstileForm,
-        });
-        const turnstileOutcome = (await turnstileResult.json()) as { success: boolean; [key: string]: unknown };
-
-        if (!turnstileResult.ok || !turnstileOutcome.success) {
-            console.error("Turnstile verification failed:", {
-                status: turnstileResult.status,
-                outcome: turnstileOutcome,
+        // 3. Dispatch Email via Resend
+        if (env.RESEND_API_KEY) {
+            const resendRes = await fetch("https://api.resend.com/emails", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    from: "Fix-It Build-It Intake <onboarding@resend.dev>",
+                    to: ["FixitBuilditColorado@gmail.com"],
+                    subject: `New Lead: ${name} - ${leadType}`,
+                    text: emailText,
+                }),
             });
-            return jsonResponse({ success: false, error: SECURITY_ERROR }, 400);
+
+            if (!resendRes.ok) {
+                const errorData = await resendRes.json();
+                console.error("Resend API error:", errorData);
+                return Response.json({ success: false, error: "Failed to dispatch email" }, { status: 500 });
+            }
+        } else {
+            console.error("RESEND_API_KEY is not set. Failing request to prevent silent drop.");
+            return Response.json({ success: false, error: "Email provider configuration missing" }, { status: 500 });
         }
 
-        const emailResult = await fetch("https://api.resend.com/emails", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${env.RESEND_API_KEY}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                from: CONTACT_SENDER,
-                to: [CONTACT_RECIPIENT],
-                reply_to: email,
-                subject: `Fix-It Build-It contact: ${body.category === "commercial" ? "Commercial / Business" : "Residential / Family"}`,
-                text: [
-                    `Name: ${name}`,
-                    `Email: ${email}`,
-                    `Phone: ${body.phone || ""}`,
-                    `Category: ${body.category === "commercial" ? "Commercial / Business" : "Residential / Family"}`,
-                    `Organization: ${body.organization || ""}`,
-                    `Site Type: ${body.siteType || ""}`,
-                    `Project Type: ${body.projectType || ""}`,
-                    `Funding Type: ${body.fundingType || ""}`,
-                    `Has LMN: ${body.hasLMN ? "Yes" : "No"}`,
-                    "",
-                    body.specs || "",
-                ].join("\n"),
-            }),
-        });
-
-        if (!emailResult.ok) {
-            const errText = await emailResult.text();
-            console.error("Resend send failed:", emailResult.status, errText);
-            return jsonResponse({ success: false, error: GENERIC_CLIENT_ERROR }, 502);
-        }
-
-        return jsonResponse({ success: true }, 200);
-    } catch (err: unknown) {
-        console.error("Contact submission error:", err);
-        return jsonResponse({ success: false, error: GENERIC_CLIENT_ERROR }, 500);
+        return Response.json({ success: true });
+    } catch (error) {
+        console.error("API route error:", error);
+        return Response.json({ success: false, error: "Internal Server Error" }, { status: 500 });
     }
-};
+}
