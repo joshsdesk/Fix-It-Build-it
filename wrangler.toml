@@ -6,6 +6,7 @@ pages_build_output_dir = "out"
 binding = "DB"
 database_name = "fibi-db"
 database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "db/migrations"
 
 [[r2_buckets]]
 binding = "RAW_PAYLOADS"
