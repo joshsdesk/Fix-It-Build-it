@@ -6,13 +6,9 @@ import {
     Activity, Shield, Ear, Eye, 
     VolumeX, ArrowRightLeft, DoorOpen, 
     Layers, Milestone, Focus, ShieldCheck, 
-    Wrench, ArrowRight, Hammer
+    Wrench, Hammer
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface ServicesSectionProps {
-    onRequestConsultation?: () => void;
-}
 
 const quadrants = [
   {
@@ -71,7 +67,7 @@ const principles = [
     { title: "Safety & Durability", desc: "Ensuring all fixtures, anchors, and padding exceed residential impact standards for peace of mind.", icon: ShieldCheck }
 ];
 
-export default function ServicesSection({ onRequestConsultation }: ServicesSectionProps) {
+export default function ServicesSection() {
     const [activeQuadrant, setActiveQuadrant] = useState(0);
     const [activePrinciple, setActivePrinciple] = useState(0);
 
@@ -234,14 +230,14 @@ export default function ServicesSection({ onRequestConsultation }: ServicesSecti
                             </h3>
                             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                                 <button 
-                                    onClick={onRequestConsultation}
-                                    className="bg-fibi-accent hover:brightness-110 hover:scale-[1.02] text-white font-bold py-3 px-6 rounded-lg text-sm transition-all shadow-lg flex items-center justify-center gap-2"
+                                    type="button"
+                                    disabled
+                                    className="bg-fibi-accent text-white font-bold py-3 px-6 rounded-lg text-sm shadow-lg flex items-center justify-center gap-2 opacity-50 cursor-not-allowed"
                                 >
-                                    Book Your In-Home Sensory Audit
-                                    <ArrowRight className="w-4 h-4" />
+                                    In-Home Audits Temporarily Paused
                                 </button>
                                 <button 
-                                    onClick={() => document.getElementById("sensory-wizard")?.scrollIntoView({ behavior: "smooth" })}
+                                    onClick={() => document.getElementById("estimator")?.scrollIntoView({ behavior: "smooth" })}
                                     className="bg-white/10 hover:bg-white/20 hover:scale-[1.02] backdrop-blur-sm border border-white/20 text-white font-bold py-3 px-6 rounded-lg text-sm transition-all flex items-center justify-center gap-2"
                                 >
                                     Run the Smart Sensory Wizard

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { FormCard } from "@/components/FormCard";
 import { FormInput } from "@/components/FormInput";
 import { ModalCard } from "@/components/ModalCard";
+import { vcardData } from "@/config/BusinessInfo";
 
 export const contactFormSchema = z.object({
     leadType: z.enum(["Private Pay", "Unmet Needs", "Health First Colorado Medicaid Waiver (CES/SLS)"]),
@@ -38,7 +39,6 @@ export type SubmissionStatus = "idle" | "submitting" | "success" | "error";
 
 const DEFAULT_FORM_DATA: ContactFormData = {
     leadType: "Private Pay",
-    privatePaySession: "30-minute Video Consultation ($115)",
     name: "",
     email: "",
     phone: "",
@@ -56,6 +56,7 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
     const [status, setStatus] = useState<SubmissionStatus>("idle");
     const [formData, setFormData] = useState<ContactFormData>(DEFAULT_FORM_DATA);
     const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+    const [submissionError, setSubmissionError] = useState("");
     const previousOpenRef = useRef(false);
 
     useEffect(() => {
@@ -63,6 +64,7 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
             setFormData({ ...DEFAULT_FORM_DATA, ...prefill });
             setStatus("idle");
             setValidationErrors({});
+            setSubmissionError("");
         }
         previousOpenRef.current = isOpen;
     }, [isOpen, prefill]);
@@ -87,6 +89,7 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
 
             if (resData.success) {
                 setStatus("success");
+                setSubmissionError("");
                 setTimeout(() => {
                     setStatus("idle");
                     onClose();
@@ -95,9 +98,11 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
             }
 
             console.warn("Contact submission failed:", resData.error);
+            setSubmissionError(resData.error || "The email service could not send your message. Please try again.");
             setStatus("error");
         } catch (error) {
             console.error("Contact submission error:", error);
+            setSubmissionError("We could not reach the contact service. Check your connection and try again.");
             setStatus("error");
         }
     };
@@ -132,7 +137,7 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
                     <div className="space-y-2">
                         <h3 className="text-3xl font-bold">Request Submitted</h3>
                         <p className="text-slate-400">
-                            We have received your project intake.
+                            We have received your message.
                             <br />
                             Our team will contact you shortly to discuss next steps.
                         </p>
@@ -149,22 +154,23 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
                         <p className="text-slate-400">
                             Something went wrong sending your request. Please try again or reach out directly.
                         </p>
+                        <p role="alert" className="text-sm text-red-300">{submissionError}</p>
                     </div>
                     <div className="flex w-full max-w-sm flex-col gap-3 sm:flex-row">
-                        <a href="mailto:FixitBuilditColorado@gmail.com" className="flex flex-1 items-center justify-center gap-2 rounded-md bg-fibi-purple px-4 py-3 text-sm font-bold text-white shadow-md shadow-black/20 transition-all hover:brightness-110">
+                        <a href={`mailto:${vcardData.email}`} className="flex flex-1 items-center justify-center gap-2 rounded-md bg-fibi-purple px-4 py-3 text-sm font-bold text-white shadow-md shadow-black/20 transition-all hover:brightness-110">
                             <Mail className="h-4 w-4" /> Email Us
                         </a>
-                        <a href="tel:7205153348" className="flex flex-1 items-center justify-center gap-2 rounded-md bg-fibi-purple px-4 py-3 text-sm font-bold text-white shadow-md shadow-black/20 transition-all hover:brightness-110">
+                        <a href={`tel:${vcardData.phone}`} className="flex flex-1 items-center justify-center gap-2 rounded-md bg-fibi-purple px-4 py-3 text-sm font-bold text-white shadow-md shadow-black/20 transition-all hover:brightness-110">
                             <Phone className="h-4 w-4" /> Call Us
                         </a>
                     </div>
-                    <Button title="Try the form again" variant="secondary" onClick={() => setStatus("idle")} componentNamespace="contact-modal" elementIdentifier="retry-button" />
+                    <Button title="Try the form again" variant="secondary" onClick={() => { setSubmissionError(""); setStatus("idle"); }} componentNamespace="contact-modal" elementIdentifier="retry-button" />
                 </div>
             ) : (
                 <FormCard onSubmit={handleSubmit} componentNamespace="contact-modal" elementIdentifier="contact-form">
                     <div className="space-y-4 text-center mb-6">
                         <h3 className="text-3xl font-bold text-white">
-                            Book Your <span className="text-gradient">Consultation</span>
+                            Send Us a <span className="text-gradient">Message</span>
                         </h3>
                         <p className="mx-auto max-w-md text-sm text-slate-400">
                             Building Specialized Environments with Precision and Empathy.
@@ -182,30 +188,6 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
                             /* { label: "Health First Colorado Medicaid Waiver (CES/SLS)", value: "Health First Colorado Medicaid Waiver (CES/SLS)" } */
                         ]}
                     />
-
-                    {formData.leadType === "Private Pay" && (
-                        <div className="mt-2 flex flex-col gap-2">
-                            <label className="text-xs font-bold text-white uppercase tracking-wider">Session Length</label>
-                            <div className="grid grid-cols-2 gap-2">
-                                <Button
-                                    title="30-min Video ($115)"
-                                    variant={formData.privatePaySession === "30-minute Video Consultation ($115)" ? "accent" : "secondary"}
-                                    onClick={() => setFormData({ ...formData, privatePaySession: "30-minute Video Consultation ($115)" })}
-                                    componentNamespace="contact-modal"
-                                    elementIdentifier="session-30"
-                                    className="w-full text-xs"
-                                />
-                                <Button
-                                    title="60-min On-Site ($250)"
-                                    variant={formData.privatePaySession === "60-minute On-Site Audit ($250)" ? "accent" : "secondary"}
-                                    onClick={() => setFormData({ ...formData, privatePaySession: "60-minute On-Site Audit ($250)" })}
-                                    componentNamespace="contact-modal"
-                                    elementIdentifier="session-60"
-                                    className="w-full text-xs"
-                                />
-                            </div>
-                        </div>
-                    )}
 
                     {formData.leadType === "Unmet Needs" && (
                         <div className="mt-2 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">

@@ -1,12 +1,11 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi } from 'vitest';
-import SensoryNeedsWizard from './SensoryWizard';
+import { describe, it, expect } from 'vitest';
+import SensoryNeedsWizard from '@/features/sensory-wizard/SensoryWizard';
 
 describe('SensoryNeedsWizard', () => {
     it('renders initial step correctly', () => {
-        render(<SensoryNeedsWizard onRequestConsultation={vi.fn()} />);
+        render(<SensoryNeedsWizard />);
 
         expect(screen.getByText('The Energy Check', { exact: false })).toBeInTheDocument();
         expect(screen.getByText('High Energy')).toBeInTheDocument();
@@ -14,9 +13,8 @@ describe('SensoryNeedsWizard', () => {
     });
 
     it('builds and submits a high-energy sensory recommendation', async () => {
-        const mockRequestConsultation = vi.fn();
         const user = userEvent.setup();
-        render(<SensoryNeedsWizard onRequestConsultation={mockRequestConsultation} />);
+        render(<SensoryNeedsWizard />);
 
         await user.click(screen.getByText('High Energy'));
         expect(screen.getByText('Sensory Profile & Behavior', { exact: false })).toBeInTheDocument();
@@ -37,17 +35,12 @@ describe('SensoryNeedsWizard', () => {
         expect(screen.getByText('Recommendation Found', { exact: false })).toBeInTheDocument();
         expect(screen.getByText(/Heavy-duty climbing holds/i)).toBeInTheDocument();
 
-        await user.click(screen.getByText(/Request Consultation/i));
-
-        expect(mockRequestConsultation).toHaveBeenCalledWith({
-            specs: 'Sensory Wizard Results — Energy: Big Body, Sensory Profile: Proprio, Friction: Sleep Disruption, Environment: Homeowner (No HOA), Funding: Private Pay. Recommendation: Tier 2 Sensory: Light and noise reduction for circadian regulation. | Tier 3 Structural: Heavy-duty climbing holds and deep-pressure compression zones.'
-        });
+        expect(screen.getByRole('button', { name: 'Consultations Temporarily Paused' })).toBeDisabled();
     });
 
     it('builds and submits a recharge-focused sensory recommendation', async () => {
-        const mockRequestConsultation = vi.fn();
         const user = userEvent.setup();
-        render(<SensoryNeedsWizard onRequestConsultation={mockRequestConsultation} />);
+        render(<SensoryNeedsWizard />);
 
         await user.click(screen.getByText('Battery Recharge'));
         expect(screen.getByText('Sensory Profile & Behavior', { exact: false })).toBeInTheDocument();
@@ -62,16 +55,12 @@ describe('SensoryNeedsWizard', () => {
         await user.click(screen.getByText('Private Pay'));
         await user.click(screen.getByRole('button', { name: /Generate Recommendation/ }));
 
-        await user.click(screen.getByText(/Request Consultation/i));
-
-        expect(mockRequestConsultation).toHaveBeenCalledWith({
-            specs: 'Sensory Wizard Results — Energy: Recharge, Sensory Profile: Auditory, Friction: Meltdown Recovery, Environment: Renter, Funding: Private Pay. Recommendation: Tier 2 Sensory: Escape Spaces, Decompression nooks with <50 Lux capability. | Tier 2 Sensory: NRC ≥ 0.75 acoustic panels and sound isolation. | Tier 1 Baseline: Flat-Pack Solution, Zero-penetration, free-standing structures due to Renter status.'
-        });
+        expect(screen.getByRole('button', { name: 'Consultations Temporarily Paused' })).toBeDisabled();
     });
 
     it('allows starting over from step 4', async () => {
         const user = userEvent.setup();
-        render(<SensoryNeedsWizard onRequestConsultation={vi.fn()} />);
+        render(<SensoryNeedsWizard />);
 
         await user.click(screen.getByText('High Energy'));
         await user.click(screen.getByText('Constant Motion', { exact: false }));

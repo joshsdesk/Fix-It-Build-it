@@ -4,6 +4,8 @@ import { onRequestPost } from './contact';
 describe('contact API', () => {
   const mockEnv = {
     RESEND_API_KEY: 'test_resend_key',
+    RESEND_FROM_EMAIL: 'Fix-It Build-It <intake@example.com>',
+    RESEND_TO_EMAIL: 'owner@example.com',
   };
 
   const validBody = {
@@ -36,9 +38,11 @@ describe('contact API', () => {
 
   describe('Resend Success', () => {
     it('should return success when email send succeeds', async () => {
-      global.fetch = vi.fn().mockImplementation((url: string | URL | Request) => {
+      let sentPayload: Record<string, unknown> | undefined;
+      global.fetch = vi.fn().mockImplementation((url: string | URL | Request, init?: RequestInit) => {
         const urlStr = url.toString();
         if (urlStr.includes('resend')) {
+          sentPayload = JSON.parse(init?.body as string) as Record<string, unknown>;
           return Promise.resolve({
             ok: true,
             json: () => Promise.resolve({ id: 'email_123' }),
@@ -53,6 +57,11 @@ describe('contact API', () => {
       expect(response.status).toBe(200);
       const data = await response.json();
       expect(data).toEqual({ success: true });
+      expect(sentPayload).toMatchObject({
+        from: 'Fix-It Build-It <intake@example.com>',
+        to: ['owner@example.com'],
+        reply_to: validBody.email,
+      });
     });
   });
 
@@ -65,6 +74,7 @@ describe('contact API', () => {
             ok: false,
             status: 500,
             json: () => Promise.resolve({ message: 'Resend internal error' }),
+            text: () => Promise.resolve(JSON.stringify({ message: 'Resend internal error' })),
           } as Response);
         }
         return Promise.reject(new Error(`Unexpected fetch to ${urlStr}`));
@@ -73,9 +83,9 @@ describe('contact API', () => {
       const request = createRequest(validBody);
       const response = await onRequestPost({ request, env: mockEnv });
 
-      expect(response.status).toBe(500);
+      expect(response.status).toBe(502);
       const data = await response.json();
-      expect(data).toEqual({ success: false, error: 'Failed to dispatch email' });
+      expect(data).toEqual({ success: false, error: 'Resend rejected the email: Resend internal error' });
     });
 
     it('should return 500 if RESEND_API_KEY is missing', async () => {
@@ -84,7 +94,10 @@ describe('contact API', () => {
 
       expect(response.status).toBe(500);
       const data = await response.json();
-      expect(data).toEqual({ success: false, error: 'Email provider configuration missing' });
+      expect(data).toEqual({
+        success: false,
+        error: 'Email is not configured yet. Add RESEND_API_KEY to the Cloudflare Pages environment.',
+      });
     });
 
     it('should return 500 if an unexpected error is thrown', async () => {

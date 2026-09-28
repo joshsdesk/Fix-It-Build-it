@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import BentoModal from './BentoModal';
+import BentoModal from '@/features/bento-grid/BentoModal';
 import { expect, test, describe, vi } from 'vitest';
 
 describe('BentoModal Navigation', () => {

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Info, Lock, ArrowRight } from "lucide-react";
+import { Info, Lock } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { WizardAction, WizardState } from "../WizardReducer";
 import { Turnstile } from '@marsidev/react-turnstile';
 
-export function Step6Recommendations({ state, dispatch, onRequestConsultation }: { state: WizardState, dispatch: React.Dispatch<WizardAction>, onRequestConsultation: (prefill: { specs: string }) => void }) {
+export function Step6Recommendations({ state, dispatch }: { state: WizardState, dispatch: React.Dispatch<WizardAction> }) {
     const [leadName, setLeadName] = useState("");
     const [leadEmail, setLeadEmail] = useState("");
     const [leadPhone, setLeadPhone] = useState("");
@@ -25,10 +25,6 @@ export function Step6Recommendations({ state, dispatch, onRequestConsultation }:
         
         if (recs.length === 0) return "Custom Sensory Adaptation: Tailored to your unique environmental friction points.";
         return recs.join(" | ");
-    };
-
-    const buildIntakeSummary = () => {
-        return `Sensory Wizard Results — Energy: ${state.energy}, Sensory Profile: ${state.sensoryNeeds.join(", ")}, Friction: ${state.behaviorFrictions.join(", ")}, Environment: ${state.environment}, Funding: ${state.funding}. Recommendation: ${getRecommendation()}`;
     };
 
     const handleUnlock = async (e: React.FormEvent) => {
@@ -85,8 +81,8 @@ export function Step6Recommendations({ state, dispatch, onRequestConsultation }:
                     </Card>
                     <div className="flex justify-center gap-4 pt-4">
                         <Button title="Start Over" onClick={() => dispatch({ type: 'RESET' })} variant="secondary" componentNamespace="wizard" elementIdentifier="step6-reset">Start Over</Button>
-                        <Button title="Request Consultation" onClick={() => onRequestConsultation({ specs: buildIntakeSummary() })} variant="primary-cta" componentNamespace="wizard" elementIdentifier="step6-request">
-                            Request Consultation <ArrowRight className="w-4 h-4 ml-2" />
+                        <Button title="Consultations Temporarily Paused" disabled variant="primary-cta" componentNamespace="wizard" elementIdentifier="step6-request">
+                            Consultations Temporarily Paused
                         </Button>
                     </div>
                 </>

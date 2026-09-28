@@ -39,7 +39,7 @@ export const vcardData = {
   heroTitleBase: "Precision Installation for",
   heroTitleHighlight: "Specialized Environments.",
   heroSubtitle: "Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in the Denver Metro Front Range.",
-  heroCta: "Book Appointment",
+  heroCta: "Contact Us",
 
   // Services Section
   servicesTitleBase: "Specialized",

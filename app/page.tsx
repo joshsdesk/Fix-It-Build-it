@@ -6,16 +6,14 @@ import HeroSection from "@/components/layout/HeroSection";
 import ServicesSection from "@/components/layout/ServicesSection";
 import AboutSection from "@/components/layout/AboutSection";
 import Footer from "@/components/layout/Footer";
-import ContactModal, { type ContactFormData } from "@/components/ContactModal";
+import ContactModal from "@/components/ContactModal";
 import SensoryNeedsWizard from "@/features/sensory-wizard/SensoryWizard";
 import SectionDivider from "@/components/SectionDivider";
 
 export default function Page() {
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const [contactPrefill, setContactPrefill] = useState<Partial<ContactFormData>>({});
 
-  const openContact = (prefill?: Partial<ContactFormData>) => {
-    setContactPrefill(prefill ?? {});
+  const openContact = () => {
     setIsContactOpen(true);
   };
 
@@ -32,14 +30,14 @@ export default function Page() {
 
       {/* Dividers are integrated into the snap flow to avoid bleeding */}
       <section className="snap-start h-[100svh] min-h-[100svh] overflow-hidden flex flex-col justify-between relative lg:min-h-screen">
-        <ServicesSection onRequestConsultation={() => openContact()} />
+        <ServicesSection />
         <div className="w-full z-20 relative -mt-2 sm:-mt-12 lg:absolute lg:bottom-0 lg:left-0 lg:translate-y-[1px]">
           <SectionDivider variant="trees" />
         </div>
       </section>
 
       <section className="snap-start h-[100svh] min-h-[100svh] overflow-hidden flex flex-col justify-between relative lg:min-h-screen">
-        <SensoryNeedsWizard onRequestConsultation={(prefill) => openContact(prefill)} />
+        <SensoryNeedsWizard />
         <div className="w-full z-20 relative -mt-2 sm:-mt-12 lg:absolute lg:bottom-0 lg:left-0 lg:translate-y-[1px]">
           <SectionDivider variant="mountains" />
         </div>
@@ -59,7 +57,6 @@ export default function Page() {
       <ContactModal
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}
-        prefill={contactPrefill}
       />
     </main>
   );

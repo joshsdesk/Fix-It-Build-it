@@ -1,5 +1,7 @@
 interface Env {
     RESEND_API_KEY?: string;
+    RESEND_FROM_EMAIL?: string;
+    RESEND_TO_EMAIL?: string;
 }
 
 export async function onRequestPost(context: { request: Request; env: Env }) {
@@ -31,7 +33,7 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
 🚨 NEW INTAKE LEAD / CONTACT REQUEST - FIX-IT BUILD-IT COLORADO
 ================================──────────────────────────────
 • Timestamp: ${new Date().toISOString()}
-• Lead Type: ${leadType === "Private Pay" ? `Private Pay - ${privatePaySession}` : leadType || "Private Pay"}
+• Lead Type: ${leadType === "Private Pay" && privatePaySession ? `Private Pay - ${privatePaySession}` : leadType || "General Contact"}
 • Contact Name: ${name || "N/A"}
 • Phone: ${phone || "N/A"}
 • Email: ${email || "N/A"}
@@ -52,29 +54,45 @@ ${isMedicaid ? `
 `.trim();
 
         // 3. Dispatch Email via Resend
-        if (env.RESEND_API_KEY) {
-            const resendRes = await fetch("https://api.resend.com/emails", {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${env.RESEND_API_KEY}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    from: "Fix-It Build-It Intake <onboarding@resend.dev>",
-                    to: ["FixitBuilditColorado@gmail.com"],
-                    subject: `New Lead: ${name} - ${leadType}`,
-                    text: emailText,
-                }),
-            });
-
-            if (!resendRes.ok) {
-                const errorData = await resendRes.json();
-                console.error("Resend API error:", errorData);
-                return Response.json({ success: false, error: "Failed to dispatch email" }, { status: 500 });
-            }
-        } else {
+        if (!env.RESEND_API_KEY) {
             console.error("RESEND_API_KEY is not set. Failing request to prevent silent drop.");
-            return Response.json({ success: false, error: "Email provider configuration missing" }, { status: 500 });
+            return Response.json({
+                success: false,
+                error: "Email is not configured yet. Add RESEND_API_KEY to the Cloudflare Pages environment.",
+            }, { status: 500 });
+        }
+
+        const resendRes = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                from: env.RESEND_FROM_EMAIL || "Fix-It Build-It Intake <onboarding@resend.dev>",
+                to: [env.RESEND_TO_EMAIL || "FixitBuilditColorado@gmail.com"],
+                reply_to: email,
+                subject: `New Lead: ${name} - ${leadType}`,
+                text: emailText,
+            }),
+        });
+
+        if (!resendRes.ok) {
+            const responseText = await resendRes.text();
+            let providerMessage: string | undefined;
+            try {
+                const errorData = JSON.parse(responseText) as { message?: unknown };
+                if (typeof errorData.message === "string") providerMessage = errorData.message;
+            } catch {
+                providerMessage = undefined;
+            }
+            console.error("Resend API error:", responseText);
+            return Response.json({
+                success: false,
+                error: providerMessage
+                    ? `Resend rejected the email: ${providerMessage.slice(0, 300)}`
+                    : "Resend rejected the email. Check the API key, verified sender, and allowed recipient.",
+            }, { status: 502 });
         }
 
         return Response.json({ success: true });
