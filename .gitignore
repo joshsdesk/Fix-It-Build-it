@@ -62,3 +62,4 @@ git_check.txt
 *.md
 !README.md
 !AUDIT_REPORT.md
+!ADMIN_AUTH_SETUP.md

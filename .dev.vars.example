@@ -8,3 +8,8 @@ TURNSTILE_SECRET_KEY=
 # Resend API key for server-side email dispatch. Keep this in Cloudflare Pages
 # environment variables or secrets only.
 RESEND_API_KEY=
+
+# Admin login session signing secret and one-time account setup token.
+# Generate separate random values (at least 32 characters) and keep them secret.
+ADMIN_SESSION_SECRET=
+ADMIN_BOOTSTRAP_TOKEN=

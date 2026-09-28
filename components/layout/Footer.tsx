@@ -79,7 +79,7 @@ export default function Footer() {
                     </p>
                     <div className="flex gap-6 font-bold text-fibi-purple/60 uppercase tracking-widest">
                         <a href="https://fixitbuildit-portal.cloudflareaccess.com" className="hover:text-fibi-purple transition-colors">Client Portal</a>
-                        <a href="https://fixitbuildit-portal.cloudflareaccess.com" className="hover:text-fibi-purple transition-colors">Admin Login</a>
+                        <a href="/admin" className="hover:text-fibi-purple transition-colors">Admin Login</a>
                     </div>
                 </div>
 
