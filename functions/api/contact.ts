@@ -70,7 +70,7 @@ ${isMedicaid ? `
             },
             body: JSON.stringify({
                 from: env.RESEND_FROM_EMAIL || "Fix-It Build-It Intake <onboarding@resend.dev>",
-                to: [env.RESEND_TO_EMAIL || "FixitBuilditColorado@gmail.com"],
+                to: [env.RESEND_TO_EMAIL || "fixitbuilditcolorado@gmail.com"],
                 reply_to: email,
                 subject: `New Lead: ${name} - ${leadType}`,
                 text: emailText,
