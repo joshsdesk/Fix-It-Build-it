@@ -4,10 +4,13 @@ pages_build_output_dir = "out"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "fibi-db"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_name = "purple-db"
+database_id = "1bafd063-7656-49d9-bab2-f5b857f697a6"
 migrations_dir = "db/migrations"
 
 [[r2_buckets]]
 binding = "RAW_PAYLOADS"
 bucket_name = "fibi-raw-payloads"
+
+[ai]
+binding = "AI"
