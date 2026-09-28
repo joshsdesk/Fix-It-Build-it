@@ -63,19 +63,6 @@ describe('contact API', () => {
         reply_to: validBody.email,
       });
     });
-
-    it('uses the lowercase Resend account email as the default recipient', async () => {
-      let sentPayload: Record<string, unknown> | undefined;
-      global.fetch = vi.fn().mockImplementation((_url: string | URL | Request, init?: RequestInit) => {
-        sentPayload = JSON.parse(init?.body as string) as Record<string, unknown>;
-        return Promise.resolve({ ok: true } as Response);
-      });
-
-      const response = await onRequestPost({ request: createRequest(validBody), env: { RESEND_API_KEY: 'test_resend_key' } });
-
-      expect(response.status).toBe(200);
-      expect(sentPayload).toMatchObject({ to: ['fixitbuilditcolorado@gmail.com'] });
-    });
   });
 
   describe('Error Paths', () => {

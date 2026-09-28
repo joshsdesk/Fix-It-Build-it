@@ -69,6 +69,7 @@ export default function AdminDashboard() {
                             <div className={`h-2 w-2 rounded-full ${dashboardData ? "bg-green-500" : loadError ? "bg-red-500" : "bg-amber-400"}`} />
                             <span className="text-xs font-mono">{dashboardData ? "D1_CONNECTED" : loadError ? "D1_UNAVAILABLE" : "LOADING_D1"}</span>
                         </div>
+                        <Link href="/admin/search" className="min-h-12 inline-flex items-center rounded-md border border-white/10 px-4 py-2 text-sm text-slate-200 hover:bg-white/5">Provider search</Link>
                         <Link href="/admin/settings" className="min-h-12 inline-flex items-center rounded-md border border-white/10 px-4 py-2 text-sm text-slate-200 hover:bg-white/5">Admin settings</Link>
                     </div>
                 </header>
