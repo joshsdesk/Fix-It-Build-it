@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import SensoryNeedsWizard from '@/features/sensory-wizard/SensoryWizard';
 
 describe('SensoryNeedsWizard', () => {
     it('renders initial step correctly', () => {
-        render(<SensoryNeedsWizard />);
+        render(<SensoryNeedsWizard onRequestConsultation={vi.fn()} />);
 
         expect(screen.getByText('The Energy Check', { exact: false })).toBeInTheDocument();
         expect(screen.getByText('High Energy')).toBeInTheDocument();
@@ -13,8 +13,9 @@ describe('SensoryNeedsWizard', () => {
     });
 
     it('builds and submits a high-energy sensory recommendation', async () => {
+        const onRequestConsultation = vi.fn();
         const user = userEvent.setup();
-        render(<SensoryNeedsWizard />);
+        render(<SensoryNeedsWizard onRequestConsultation={onRequestConsultation} />);
 
         await user.click(screen.getByText('High Energy'));
         expect(screen.getByText('Sensory Profile & Behavior', { exact: false })).toBeInTheDocument();
@@ -35,12 +36,16 @@ describe('SensoryNeedsWizard', () => {
         expect(screen.getByText('Recommendation Found', { exact: false })).toBeInTheDocument();
         expect(screen.getByText(/Heavy-duty climbing holds/i)).toBeInTheDocument();
 
-        expect(screen.getByRole('button', { name: 'Consultations Temporarily Paused' })).toBeDisabled();
+        await user.click(screen.getByRole('button', { name: /Request Consultation/i }));
+        expect(onRequestConsultation).toHaveBeenCalledWith({
+            specs: expect.stringContaining('Sensory Profile: Proprio'),
+        });
     });
 
     it('builds and submits a recharge-focused sensory recommendation', async () => {
+        const onRequestConsultation = vi.fn();
         const user = userEvent.setup();
-        render(<SensoryNeedsWizard />);
+        render(<SensoryNeedsWizard onRequestConsultation={onRequestConsultation} />);
 
         await user.click(screen.getByText('Battery Recharge'));
         expect(screen.getByText('Sensory Profile & Behavior', { exact: false })).toBeInTheDocument();
@@ -55,12 +60,15 @@ describe('SensoryNeedsWizard', () => {
         await user.click(screen.getByText('Private Pay'));
         await user.click(screen.getByRole('button', { name: /Generate Recommendation/ }));
 
-        expect(screen.getByRole('button', { name: 'Consultations Temporarily Paused' })).toBeDisabled();
+        await user.click(screen.getByRole('button', { name: /Request Consultation/i }));
+        expect(onRequestConsultation).toHaveBeenCalledWith({
+            specs: expect.stringContaining('Environment: Renter'),
+        });
     });
 
     it('allows starting over from step 4', async () => {
         const user = userEvent.setup();
-        render(<SensoryNeedsWizard />);
+        render(<SensoryNeedsWizard onRequestConsultation={vi.fn()} />);
 
         await user.click(screen.getByText('High Energy'));
         await user.click(screen.getByText('Constant Motion', { exact: false }));

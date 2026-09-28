@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { WizardAction, WizardState } from "../WizardReducer";
 import { Turnstile } from '@marsidev/react-turnstile';
 
-export function Step6Recommendations({ state, dispatch }: { state: WizardState, dispatch: React.Dispatch<WizardAction> }) {
+export function Step6Recommendations({ state, dispatch, onRequestConsultation }: { state: WizardState, dispatch: React.Dispatch<WizardAction>, onRequestConsultation: (prefill: { specs: string }) => void }) {
     const [leadName, setLeadName] = useState("");
     const [leadEmail, setLeadEmail] = useState("");
     const [leadPhone, setLeadPhone] = useState("");
@@ -26,6 +26,9 @@ export function Step6Recommendations({ state, dispatch }: { state: WizardState, 
         if (recs.length === 0) return "Custom Sensory Adaptation: Tailored to your unique environmental friction points.";
         return recs.join(" | ");
     };
+
+    const buildIntakeSummary = () =>
+        `Sensory Wizard results — Energy: ${state.energy}, Sensory Profile: ${state.sensoryNeeds.join(", ")}, Build Goal: ${state.behaviorFrictions.join(", ") || "Custom adaptation"}. Recommendation: ${getRecommendation()} Environment: ${state.environment}, Funding: ${state.funding}.`;
 
     const handleUnlock = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -81,8 +84,8 @@ export function Step6Recommendations({ state, dispatch }: { state: WizardState, 
                     </Card>
                     <div className="flex justify-center gap-4 pt-4">
                         <Button title="Start Over" onClick={() => dispatch({ type: 'RESET' })} variant="secondary" componentNamespace="wizard" elementIdentifier="step6-reset">Start Over</Button>
-                        <Button title="Consultations Temporarily Paused" disabled variant="primary-cta" componentNamespace="wizard" elementIdentifier="step6-request">
-                            Consultations Temporarily Paused
+                        <Button title="Request Consultation" onClick={() => onRequestConsultation({ specs: buildIntakeSummary() })} variant="primary-cta" componentNamespace="wizard" elementIdentifier="step6-request">
+                            Request Consultation
                         </Button>
                     </div>
                 </>

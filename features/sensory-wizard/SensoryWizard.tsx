@@ -11,7 +11,11 @@ import { Step5Funding } from "./steps/Step5Funding";
 import { Step6Recommendations } from "./steps/Step6Recommendations";
 import { Card } from "@/components/ui/card";
 
-export default function SensoryNeedsWizard() {
+interface SensoryWizardProps {
+    onRequestConsultation: (prefill: { specs: string }) => void;
+}
+
+export default function SensoryNeedsWizard({ onRequestConsultation }: SensoryWizardProps) {
     const [state, dispatch] = useReducer(wizardReducer, initialWizardState);
 
     useEffect(() => {
@@ -55,7 +59,7 @@ export default function SensoryNeedsWizard() {
                         {state.step === 3 && <Step3Spatial state={state} dispatch={dispatch} />}
                         {state.step === 4 && <Step4Housing state={state} dispatch={dispatch} />}
                         {state.step === 5 && <Step5Funding state={state} dispatch={dispatch} />}
-                        {state.step === 6 && <Step6Recommendations state={state} dispatch={dispatch} />}
+                        {state.step === 6 && <Step6Recommendations state={state} dispatch={dispatch} onRequestConsultation={onRequestConsultation} />}
                     </Card>
                 </div>
             </div>
