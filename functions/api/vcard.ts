@@ -1,6 +1,6 @@
-import { vcardData } from "@/config/BusinessInfo";
+import { vcardData } from "../../config/BusinessInfo";
 
-export function generateVCard(): Blob {
+export async function onRequestGet() {
   const vcard = `BEGIN:VCARD
 VERSION:3.0
 N:${vcardData.lastName};${vcardData.firstName};;;
@@ -13,5 +13,10 @@ EMAIL;TYPE=WORK:${vcardData.email}
 URL:${vcardData.website}
 END:VCARD`;
 
-  return new Blob([vcard], { type: "text/vcard" });
+  return new Response(vcard, {
+    headers: {
+      "Content-Type": "text/vcard",
+      "Content-Disposition": 'attachment; filename="contact.vcf"',
+    },
+  });
 }

@@ -1,14 +1,36 @@
+import { z } from "zod";
+
 interface Env {
     RESEND_API_KEY?: string;
     RESEND_FROM_EMAIL?: string;
     RESEND_TO_EMAIL?: string;
 }
 
+const contactSchema = z.object({
+    leadType: z.string().optional(),
+    privatePaySession: z.string().optional(),
+    name: z.string().optional(),
+    phone: z.string().optional(),
+    email: z.string().optional(),
+    contactMethod: z.string().optional(),
+    propertyType: z.string().optional(),
+    specs: z.string().optional(),
+    caseManagerName: z.string().optional(),
+    cmaAgency: z.string().optional(),
+    waiverType: z.string().optional(),
+}).catchall(z.unknown());
+
 export async function onRequestPost(context: { request: Request; env: Env }) {
     try {
         const { request, env } = context;
-        const data = await request.json() as Record<string, unknown>;
-        const { leadType, privatePaySession, name, phone, email, contactMethod, propertyType, specs, caseManagerName, cmaAgency, waiverType } = data as Record<string, string>;
+        const data = await request.json();
+        
+        const parsed = contactSchema.safeParse(data);
+        if (!parsed.success) {
+            return Response.json({ success: false, error: "Invalid request payload" }, { status: 400 });
+        }
+        
+        const { leadType, privatePaySession, name, phone, email, contactMethod, propertyType, specs, caseManagerName, cmaAgency, waiverType } = parsed.data;
 
 
 

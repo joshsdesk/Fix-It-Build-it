@@ -21,9 +21,9 @@ const DEFAULT_PAST_IMAGES = [
 ];
 
 const DEFAULT_FUTURE_IMAGES = [
-    { src: "/imgs/Portfolio/Blueprints/Screenshot_20260312_025357.png", alt: "Future Design 1" },
-    { src: "/imgs/Portfolio/Blueprints/il_794xN.5910131741_6ou1.webp", alt: "Future Design 2" },
-    { src: "/imgs/Portfolio/Blueprints/Untitled.jpg", alt: "Future Design 3" },
+    { src: "/imgs/Portfolio/Blueprints/Screenshot_20260312_025357.png", alt: "CAD blueprint of sensory room by Fix-It Build-It Colorado, LLC - EAA Specialist" },
+    { src: "/imgs/Portfolio/Blueprints/il_794xN.5910131741_6ou1.webp", alt: "Sensory room design rendering by Fix-It Build-It Colorado, LLC - EAA Specialist" },
+    { src: "/imgs/Portfolio/Blueprints/Untitled.jpg", alt: "Structural modification blueprint by Fix-It Build-It Colorado, LLC - EAA Specialist" },
 ];
 
 export default function BentoModal({ isOpen, onClose, category, pastImages, futureImages }: BentoModalProps) {
@@ -68,7 +68,7 @@ export default function BentoModal({ isOpen, onClose, category, pastImages, futu
         if (futureImages?.length) {
             return futureImages.map((src, index) => ({
                 src,
-                alt: `Blueprint image ${index + 1}`,
+                alt: `CAD blueprint rendering ${index + 1} by Fix-It Build-It Colorado, LLC - EAA Specialist`,
             }));
         }
 

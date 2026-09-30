@@ -51,40 +51,52 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'HomeAndConstructionBusiness',
-              name: 'Fix-It Build-It Colorado, LLC',
-              legalName: 'FIX-IT BUILD-IT COLORADO, LLC',
-              url: 'https://fixitbuilditcolorado.com',
-              telephone: vcardData.phone,
-              email: vcardData.email,
-              image: vcardData.logoImage,
-              description: vcardData.seoDescription,
-              sameAs: [
-                vcardData.facebook,
-                vcardData.linkedin,
-                vcardData.instagram,
-              ].filter(Boolean),
-              areaServed: [
-                "Denver Metro Area",
-                "Arvada",
-                "Lakewood",
-                "Aurora",
-                "Centennial",
-                "Jefferson County",
-                "Arapahoe County",
-                "Adams County"
-              ],
-              keywords: [
-                "Sensory Room Builder Denver",
-                "Environmental Accessibility Adaptations (EAA)",
-                "Autism Home Modifications Colorado",
-                "Sensory Swing Joist Installation"
-              ],
-              knowsAbout: [
-                "Environmental Accessibility Adaptations (EAA)",
-                "Specialized Medical Equipment",
-                "Winnie Dunn Sensory Framework"
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://fixitbuilditcolorado.com/#website",
+                  "url": "https://fixitbuilditcolorado.com",
+                  "name": "FIX IT, BUILD IT COLORADO LLC",
+                  "publisher": {
+                    "@type": "HomeAndConstructionBusiness",
+                    "name": "Fix-It Build-It Colorado, LLC",
+                    "legalName": "FIX IT, BUILD IT COLORADO LLC",
+                    "url": "https://fixitbuilditcolorado.com",
+                    "telephone": vcardData.phone,
+                    "email": vcardData.email,
+                    "image": vcardData.logoImage,
+                    "description": vcardData.seoDescription,
+                    "sameAs": [
+                      vcardData.facebook,
+                      vcardData.linkedin,
+                      vcardData.instagram,
+                    ].filter(Boolean),
+                    "areaServed": [
+                      "Denver Metro Area",
+                      "Arvada",
+                      "Lakewood",
+                      "Aurora",
+                      "Centennial",
+                      "Jefferson County",
+                      "Arapahoe County",
+                      "Adams County"
+                    ],
+                    "keywords": [
+                      "Sensory Room Builder Denver",
+                      "Environmental Accessibility Adaptations (EAA)",
+                      "Autism Home Modifications Colorado",
+                      "Sensory Swing Joist Installation"
+                    ],
+                    "knowsAbout": [
+                      "Environmental Accessibility Adaptations",
+                      "Specialty Code 677",
+                      "Procedure Code T2025",
+                      "Sensory-Informed Carpentry",
+                      "Winnie Dunn Sensory Framework"
+                    ]
+                  }
+                }
               ]
             }),
           }}

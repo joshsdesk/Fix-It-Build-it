@@ -33,24 +33,25 @@ export default function SensoryNeedsWizard({ onRequestConsultation }: SensoryWiz
 
     return (
         <section id="estimator" className="relative h-full min-h-0 flex flex-col justify-start lg:justify-center py-20 sm:py-20 lg:py-12 pb-20 sm:pb-24 lg:pb-12 bg-background overflow-hidden font-sans scroll-mt-16 sm:scroll-mt-20 lg:scroll-mt-24">
-            <div className="layout-container relative z-10 w-full">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch max-w-6xl mx-auto">
-                    <div className="text-center flex flex-col items-center justify-center space-y-2 h-full py-4">
-                        <div className="flex justify-center w-full mb-1">
-                            <Image 
-                                src="/imgs/UI/FIBILOGO.png" 
-                                alt="Fix It Build It Colorado Logo" 
-                                width={800} 
-                                height={300} 
-                                className="object-contain drop-shadow-2xl w-full max-w-[500px] sm:max-w-md lg:max-w-[700px] h-auto"
-                            />
-                        </div>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-thin tracking-tight leading-tight">
-                            Sensory <span className="font-normal text-gradient">Wizard</span>
-                        </h2>
-                        <p className="text-slate-400 text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed mt-2">
-                            We don&apos;t quote square footage. We solve friction points. Let&apos;s find your baseline.
-                        </p>
+            <div className="layout-container relative z-10 w-full flex flex-col gap-8 lg:gap-12">
+                <div className="flex flex-col items-center text-center gap-2 relative mt-4">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-thin tracking-tight leading-tight">
+                        Sensory <span className="font-normal text-gradient">Wizard</span>
+                    </h2>
+                    <p className="text-slate-400 text-sm md:text-lg font-light max-w-3xl leading-relaxed mx-auto">
+                        We don&apos;t quote square footage. We solve friction points. Let&apos;s find your baseline.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-6xl mx-auto w-full">
+                    <div className="flex justify-center items-center w-full h-full py-4">
+                        <Image 
+                            src="/imgs/UI/FIBILOGO.png" 
+                            alt="FIX IT, BUILD IT COLORADO LLC - EAA Specialist Logo" 
+                            width={1000} 
+                            height={400} 
+                            className="object-contain drop-shadow-2xl w-full max-w-md md:max-w-xl lg:max-w-[700px] h-auto"
+                        />
                     </div>
 
                     <Card variant="wizard" className="w-full h-full min-h-[400px] flex flex-col justify-center relative overflow-hidden">

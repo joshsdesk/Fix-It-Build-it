@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { Hammer, History, Heart, Instagram, Linkedin, Facebook, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { vcardData } from "@/config/BusinessInfo";
+import { PendingApprovalStamp } from "@/components/ui/rubber-stamp/PendingApprovalStamp";
 
 const DEFAULT_ABOUT_IMAGES = [
     "/imgs/Portfolio/about/20200202_201313.jpg",
@@ -246,17 +247,13 @@ export default function AboutSection() {
                             </div>
                         </div>
 
-                        <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div className="p-4 card-container group hover:border-fibi-purple/50 transition-colors">
-                                <History className="w-6 h-6 text-fibi-accent mb-3 group-hover:text-fibi-purple transition-colors" />
-                                <h4 className="font-bold mb-1 text-white">Structural Roots</h4>
-                                <p className="text-xs text-slate-500">15+ years of elite trade experience.</p>
-                            </div>
-                            <div className="p-4 card-container group hover:border-fibi-purple/50 transition-colors">
-                                <Heart className="w-6 h-6 text-fibi-accent mb-3 group-hover:text-fibi-purple transition-colors" />
-                                <h4 className="font-bold mb-1 text-white">Lived Experience</h4>
-                                <p className="text-xs text-slate-500">Parent-to-Parent understanding.</p>
-                            </div>
+                        <div className="relative hidden sm:block">
+                            <PendingApprovalStamp text="pending approval" />
+                            <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
+                                <span>FIX IT, BUILD IT COLORADO LLC specializes in sensory-informed, non-structural Environmental Accessibility Adaptations (EAA). Provider enrollment with Health First Colorado (Provider Type 36 / Specialty Code 677) is </span>
+                                <span className="text-fibi-accent font-bold">currently pending</span>
+                                <span>.</span>
+                            </p>
                         </div>
                     </div>
                     </div>

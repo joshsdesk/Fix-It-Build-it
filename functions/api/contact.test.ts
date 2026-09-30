@@ -111,5 +111,19 @@ describe('contact API', () => {
       const data = await response.json();
       expect(data).toEqual({ success: false, error: 'Internal Server Error' });
     });
+
+    it('should return 400 if payload fails validation', async () => {
+      const invalidBody = {
+        name: 12345, // invalid type
+        email: "john@example.com"
+      };
+      
+      const request = createRequest(invalidBody);
+      const response = await onRequestPost({ request, env: mockEnv });
+
+      expect(response.status).toBe(400);
+      const data = await response.json();
+      expect(data).toEqual({ success: false, error: 'Invalid request payload' });
+    });
   });
 });

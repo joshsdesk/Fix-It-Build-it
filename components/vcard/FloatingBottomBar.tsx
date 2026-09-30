@@ -3,20 +3,16 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQrcode, faArrowUpFromBracket, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { generateVCard } from "@/functions/generate-vcard";
+
 import { vcardData } from "@/config/BusinessInfo";
 
 export default function FloatingBottomBar() {
   const handleDownload = () => {
-    const blob = generateVCard();
-    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.href = url;
-    link.download = `${vcardData.firstName}${vcardData.lastName}.vcf`;
+    link.href = "/api/vcard";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   };
 
   const handleShare = async () => {

@@ -9,6 +9,7 @@ import {
     Wrench, Hammer
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { PendingApprovalStamp } from "@/components/ui/rubber-stamp/PendingApprovalStamp";
 
 const quadrants = [
   {
@@ -74,7 +75,7 @@ export default function ServicesSection() {
     const isOrange = quadrants[activeQuadrant].color === "orange";
 
     return (
-        <section id="services" className="relative h-full min-h-0 flex flex-col justify-start lg:justify-center pt-28 sm:pt-32 lg:pt-24 pb-20 sm:pb-24 lg:pb-12 bg-gradient-to-b from-background to-stone-900 overflow-hidden scroll-mt-28">
+        <section id="services" className="relative min-h-0 flex flex-col justify-start lg:justify-center pt-28 sm:pt-32 lg:pt-24 pb-32 sm:pb-40 lg:pb-32 bg-gradient-to-b from-background to-stone-900 scroll-mt-28">
             <div className="layout-container relative z-10 w-full overflow-y-auto">
                 <div className="flex flex-col gap-6 lg:gap-8">
                     
@@ -222,30 +223,15 @@ export default function ServicesSection() {
                     </div>
 
                     {/* Bottom CTA Banner */}
-                    <div className="w-full max-w-4xl mx-auto mt-6 rounded-2xl bg-gradient-to-r from-fibi-accent/20 to-fibi-purple/20 border border-white/10 p-6 md:p-10 text-center relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[url('/imgs/UI/noise.png')] opacity-20 mix-blend-overlay" />
-                        <div className="relative z-10 flex flex-col items-center">
-                            <h3 className="text-xl md:text-2xl font-bold text-white mb-6">
-                                Ready to map your home using Winnie Dunn and ASPECTSS™ principles?
-                            </h3>
-                            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                                <button 
-                                    type="button"
-                                    disabled
-                                    className="bg-fibi-accent text-white font-bold py-3 px-6 rounded-lg text-sm shadow-lg flex items-center justify-center gap-2 opacity-50 cursor-not-allowed"
-                                >
-                                    In-Home Audits Temporarily Paused
-                                </button>
-                                <button 
-                                    onClick={() => document.getElementById("estimator")?.scrollIntoView({ behavior: "smooth" })}
-                                    className="bg-white/10 hover:bg-white/20 hover:scale-[1.02] backdrop-blur-sm border border-white/20 text-white font-bold py-3 px-6 rounded-lg text-sm transition-all flex items-center justify-center gap-2"
-                                >
-                                    Run the Smart Sensory Wizard
-                                </button>
+                    <div className="relative w-full max-w-4xl mx-auto mt-6">
+                        <PendingApprovalStamp text="pending approval" />
+                        <div className="w-full rounded-2xl bg-gradient-to-r from-fibi-accent/20 to-fibi-purple/20 border border-white/10 p-3 md:p-5 text-center relative overflow-hidden">
+                            <div className="absolute inset-0 bg-[url('/imgs/UI/noise.png')] opacity-20 mix-blend-overlay" />
+                            <div className="relative z-10 flex flex-col items-center">
+                                <p className="text-slate-300 text-sm md:text-base leading-relaxed w-full">
+                                    Our <span className="text-fibi-accent font-bold">non-structural adaptations</span> are custom-designed to align with Health First Colorado Specialty Code 677 standards under 10 CCR 2505-10 § 8.7525. Services are available via private pay or through HCBS Medicaid Waivers (CES, SLS, BI) via Case Management Agency (CMA) Prior Authorization Requests (PARs) upon enrollment approval.
+                                </p>
                             </div>
-                            <p className="text-[10px] text-slate-400 mt-4 uppercase tracking-widest">
-                                * Audit cost is 100% credited toward your custom build.
-                            </p>
                         </div>
                     </div>
 

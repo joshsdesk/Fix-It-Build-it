@@ -21,9 +21,8 @@ export default function Page() {
 
   return (
     <main className="h-[100svh] selection:bg-fibi-accent selection:text-white snap-y snap-mandatory overflow-y-auto overflow-x-hidden lg:min-h-screen">
-      <Header />
-
       <section className="snap-start h-[100svh] min-h-[100svh] overflow-hidden flex flex-col justify-between relative lg:min-h-screen">
+        <Header />
         <HeroSection onOpenModal={() => openContact()} />
         <div className="w-full z-20 relative -mt-2 sm:-mt-12 lg:absolute lg:bottom-0 lg:left-0 lg:translate-y-[1px]">
           <SectionDivider variant="mountains" />
