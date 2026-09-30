@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin, faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { vcardData, SocialAccount } from "@/config/BusinessInfo";
@@ -8,51 +8,11 @@ import { SocialIcon } from "@/components/ui/SocialIcon";
 
 type PlatformId = 'website' | 'linkedin' | 'facebook' | 'instagram';
 
-// Interface for the dynamically scraped data
-interface LinkPreviewData {
-  title: string;
-  description: string;
-  image: string;
-}
-
-// A dedicated component for rendering a single dropdown item
-function DynamicLinkPreview({ acc }: { acc: SocialAccount }) {
-  const [data, setData] = useState<LinkPreviewData | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchPreview() {
-      try {
-        const res = await fetch(`/api/link-preview?url=${encodeURIComponent(acc.url)}`);
-        const json = await res.json();
-        setData(json as LinkPreviewData);
-      } catch (err) {
-        console.error("Failed to fetch link preview", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchPreview();
-  }, [acc.url]);
-
-  if (loading) {
-    return (
-      <div className="flex flex-row p-3 rounded-lg border border-slate-700/50 bg-slate-800/30 animate-pulse items-start">
-        <div className="w-16 h-16 rounded-md bg-slate-700 mr-3 flex-shrink-0"></div>
-        <div className="flex flex-col flex-1 gap-2 mt-1">
-          <div className="h-4 bg-slate-700 rounded w-2/3"></div>
-          <div className="h-3 bg-slate-700/50 rounded w-full"></div>
-          <div className="h-3 bg-slate-700/50 rounded w-4/5"></div>
-        </div>
-      </div>
-    );
-  }
-
-  // Fallback defaults if scraper failed to find something
-  const title = data?.title || acc.type + " " + acc.platform;
-  const desc = data?.description || "";
-  // Prefer user's manual image override, then the scraped image
-  const imageUrl = acc.imageUrl || data?.image || null;
+// A dedicated component for rendering a single dropdown item statically
+function StaticLinkPreview({ acc }: { acc: SocialAccount }) {
+  const title = acc.label || acc.type + " " + acc.platform;
+  const desc = acc.description || "";
+  const imageUrl = acc.imageUrl || null;
 
   return (
     <a 
@@ -112,20 +72,42 @@ export default function WebLinksCard() {
     instagram: [],
   };
 
-  // Add primary accounts
-  if (vcardData.website) accountsByPlatform.website.push({ platform: 'website', type: 'Business', url: vcardData.website });
-  if (vcardData.linkedin) accountsByPlatform.linkedin.push({ platform: 'linkedin', type: 'Business', url: vcardData.linkedin });
-  if (vcardData.facebook) accountsByPlatform.facebook.push({ platform: 'facebook', type: 'Business', url: vcardData.facebook });
-  if (vcardData.instagram) accountsByPlatform.instagram.push({ platform: 'instagram', type: 'Business', url: vcardData.instagram });
+  // Helper to safely extract a handle for default primary links
+  const getHandle = (url: string) => {
+    try {
+      if (url.includes('instagram.com/')) return '@' + url.split('instagram.com/')[1].split('?')[0].replace(/\//g, '');
+      if (url.includes('linkedin.com/in/')) return url.split('linkedin.com/in/')[1].split('?')[0].replace(/\//g, '');
+      if (url.includes('facebook.com/')) return url.split('facebook.com/')[1].split('?')[0].replace(/\//g, '');
+      const parsed = new URL(url);
+      return parsed.hostname.replace('www.', '');
+    } catch {
+      return 'Link';
+    }
+  };
 
-  // Add extra social accounts from array
+  // Helper to check if a primary URL is already customized in socialAccounts
+  const isCustomized = (url: string) => {
+    return (vcardData.socialAccounts || []).some(acc => acc.url === url);
+  };
+
+  // Add primary accounts with fallback labels if they aren't provided explicitly in socialAccounts
+  if (vcardData.website && !isCustomized(vcardData.website)) accountsByPlatform.website.push({ platform: 'website', type: 'Business', url: vcardData.website, label: "Main Website", description: getHandle(vcardData.website), imageUrl: vcardData.logoImage });
+  if (vcardData.linkedin && !isCustomized(vcardData.linkedin)) accountsByPlatform.linkedin.push({ platform: 'linkedin', type: 'Business', url: vcardData.linkedin, label: "Main LinkedIn", description: getHandle(vcardData.linkedin), imageUrl: vcardData.profileImage });
+  if (vcardData.facebook && !isCustomized(vcardData.facebook)) accountsByPlatform.facebook.push({ platform: 'facebook', type: 'Business', url: vcardData.facebook, label: "Main Facebook", description: getHandle(vcardData.facebook), imageUrl: vcardData.logoImage });
+  if (vcardData.instagram && !isCustomized(vcardData.instagram)) accountsByPlatform.instagram.push({ 
+    platform: 'instagram', 
+    type: 'Business', 
+    url: vcardData.instagram, 
+    label: "Fix-It Build-It Colorado", 
+    description: getHandle(vcardData.instagram),
+    imageUrl: "https://scontent-msp1-1.cdninstagram.com/v/t51.82787-19/731754283_18114890849311047_7974306995239146690_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=108&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=maL8The0ZFEQ7kNvwGhP6Cx&_nc_oc=AdpQei6TbKVhTJHNZBKpBoWzWHDF6YVcv8XqugARNYPIKqchxHAeNuaIMAfC_MvshK0&_nc_zt=24&_nc_ht=scontent-msp1-1.cdninstagram.com&_nc_gid=jCLV6zBBL7g_Z_GfyD-ayg&_nc_ss=7b689&oh=00_AQNA-s9wpEhA-PggUhyouSAZ88CVauZVRXrExJtxt954TA&oe=6AC378C8"
+  });
+
+  // Add extra social accounts from array (these now take precedence)
   (vcardData.socialAccounts || []).forEach(acc => {
     const plat = acc.platform as PlatformId;
     if (accountsByPlatform[plat]) {
-      const isDuplicate = accountsByPlatform[plat].some(existing => existing.url === acc.url);
-      if (!isDuplicate) {
-        accountsByPlatform[plat].push(acc as SocialAccount);
-      }
+      accountsByPlatform[plat].push(acc as SocialAccount);
     }
   });
 
@@ -183,7 +165,7 @@ export default function WebLinksCard() {
           </p>
           <div className="flex flex-col gap-2">
             {expandedAccounts.map((acc, idx) => (
-              <DynamicLinkPreview key={idx} acc={acc} />
+              <StaticLinkPreview key={idx} acc={acc} />
             ))}
           </div>
         </div>
