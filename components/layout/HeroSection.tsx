@@ -33,7 +33,7 @@ export default function HeroSection({ onOpenModal }: { onOpenModal: () => void }
 
         const loadJobsImages = async () => {
             try {
-                const response = await fetch("/imgs/Portfolio/jobs-manifest.json", { cache: "no-store" });
+                const response = await fetch("/imgs/Portfolio/jobs-manifest.json", { cache: "force-cache" });
 
                 if (!response.ok) {
                     return defaultPastImages;
@@ -52,7 +52,7 @@ export default function HeroSection({ onOpenModal }: { onOpenModal: () => void }
 
         const loadBlueprintImages = async () => {
             try {
-                const response = await fetch("/imgs/Portfolio/blueprints-manifest.json", { cache: "no-store" });
+                const response = await fetch("/imgs/Portfolio/blueprints-manifest.json", { cache: "force-cache" });
 
                 if (!response.ok) {
                     return defaultBlueprintImages;
