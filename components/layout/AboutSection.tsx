@@ -92,7 +92,7 @@ export default function AboutSection() {
 
         const loadAboutImages = async () => {
             try {
-                const response = await fetch("/imgs/Portfolio/about-manifest.json", { cache: "no-store" });
+                const response = await fetch("/imgs/Portfolio/about-manifest.json", { cache: "force-cache" });
 
                 if (!response.ok) {
                     return DEFAULT_ABOUT_IMAGES;
