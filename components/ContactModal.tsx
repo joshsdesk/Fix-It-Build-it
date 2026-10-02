@@ -185,7 +185,6 @@ export default function ContactModal({ isOpen, onClose, prefill }: BaseModalProp
                         options={[
                             { label: "Private Pay", value: "Private Pay" },
                             { label: "Unmet Needs", value: "Unmet Needs" },
-                            /* { label: "Health First Colorado Medicaid Waiver (CES/SLS)", value: "Health First Colorado Medicaid Waiver (CES/SLS)" } */
                         ]}
                     />
 
