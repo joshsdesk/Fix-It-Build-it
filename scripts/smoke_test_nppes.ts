@@ -4,18 +4,14 @@
  */
 
 async function main() {
-    console.log("Starting smoke test for CMS NPPES API...");
-    
     // Test case: Soar Health Inc
     const query = "Soar Health";
-    console.log(`Querying for Organization Name: ${query}`);
     
     const nppesUrl = new URL("https://npiregistry.cms.hhs.gov/api/?version=2.1");
     nppesUrl.searchParams.set("organization_name", query);
     
     try {
         const response = await fetch(nppesUrl.toString());
-        console.log(`HTTP Status: ${response.status}`);
         
         if (!response.ok) {
             console.error("Error: Failed to fetch from NPPES API.");

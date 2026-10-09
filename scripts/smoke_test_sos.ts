@@ -4,11 +4,8 @@
  */
 
 async function main() {
-    console.log("Starting smoke test for Colorado SOS API...");
-    
     // Test case: Soar Health Inc
     const query = "Soar Health Inc";
-    console.log(`Querying for: ${query}`);
     
     const sosUrl = new URL("https://data.colorado.gov/resource/4ykn-tg5h.json");
     
@@ -19,7 +16,6 @@ async function main() {
     
     try {
         const response = await fetch(sosUrl.toString());
-        console.log(`HTTP Status: ${response.status}`);
         
         if (!response.ok) {
             console.error("Error: Failed to fetch from Colorado SOS API.");
