@@ -4,7 +4,12 @@ export const onRequestPost: PagesFunction<{
     STRIPE_SECRET_KEY: string;
 }> = async (context) => {
     try {
-        const stripe = new Stripe(context.env.STRIPE_SECRET_KEY || "sk_test_placeholder", {
+        if (!context.env.STRIPE_SECRET_KEY) {
+            console.error("STRIPE_SECRET_KEY is missing from environment variables.");
+            return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+        }
+
+        const stripe = new Stripe(context.env.STRIPE_SECRET_KEY, {
             apiVersion: '2026-08-26.dahlia',
         });
 
@@ -28,7 +33,6 @@ export const onRequestPost: PagesFunction<{
 
     } catch (error: unknown) {
         console.error("Stripe error:", error);
-        const message = error instanceof Error ? error.message : "Internal Server Error";
-        return new Response(JSON.stringify({ error: message }), { status: 500 });
+        return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
     }
 };
