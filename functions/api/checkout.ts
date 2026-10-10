@@ -13,10 +13,9 @@ export const onRequestPost: PagesFunction<{
             apiVersion: '2026-08-26.dahlia',
         });
 
-        const data = await context.request.json() as { amount?: number };
-
-        // Default to $150.00 for the consultation
-        const amount = data.amount || 15000; 
+        // Explicitly ignore any amount sent from the client to prevent IDOR vulnerability.
+        // Hardcode the required consultation price to $150.00 (15000 cents).
+        const amount = 15000;
 
         // Create a PaymentIntent with the order amount and currency
         const paymentIntent = await stripe.paymentIntents.create({

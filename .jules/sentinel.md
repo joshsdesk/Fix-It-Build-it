@@ -1,0 +1,4 @@
+## 2024-06-25 - Client-Controlled Pricing IDOR in Checkout
+**Vulnerability:** The Stripe checkout API endpoint (`functions/api/checkout.ts`) trusted the `amount` provided in the client's POST request body to create a PaymentIntent, rather than looking up the required price securely on the backend.
+**Learning:** This is a classic Insecure Direct Object Reference (IDOR) / parameter tampering vulnerability where a malicious user could intercept the request and change the `amount` to an arbitrarily low number (e.g., $1.00) and successfully complete checkout for a service intended to cost more.
+**Prevention:** Never trust client-provided pricing data. Always define prices statically on the backend, or look them up securely from a database or pricing table (e.g., using a Stripe Price ID) before generating a PaymentIntent or checkout session.
