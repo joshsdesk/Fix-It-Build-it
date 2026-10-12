@@ -9,12 +9,10 @@ import Image from "next/image";
 
 const navItems = [
     { name: "Home", href: "/" },
-    { name: "Services", href: "/services" },
-    { name: "Sensory Wizard", href: "/sensory-wizard" },
+    { name: "Services", href: "/#services" },
+    { name: "Sensory Wizard", href: "/#estimator" },
     { name: "About", href: "/about" },
     { name: "Packages", href: "/packages" },
-    { name: "Funding", href: "/funding" },
-    { name: "Unmet Needs", href: "/unmet-needs" },
 ];
 
 export default function Header() {

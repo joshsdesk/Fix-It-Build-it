@@ -126,6 +126,9 @@ export default function HeroSection({ onOpenModal }: { onOpenModal: () => void }
                     className="mx-auto flex w-full max-w-xl flex-col justify-center items-center text-center gap-6 sm:gap-8"
                 >
                     <div className="space-y-3 sm:space-y-4">
+                        <div className="inline-block px-3 py-1 bg-fibi-accent/10 border border-fibi-accent/20 rounded-full mb-2">
+                            <span className="text-xs font-semibold text-fibi-accent tracking-wider uppercase">Sensory-Informed Spatial Design & Precision Installation</span>
+                        </div>
                         <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-thin tracking-tight leading-[1.1] sm:leading-[1.05]">
                             {vcardData.heroTitleBase}<br className="hidden sm:inline" />{" "}
                             <span className="font-normal text-gradient">{vcardData.heroTitleHighlight}</span>
@@ -136,16 +139,21 @@ export default function HeroSection({ onOpenModal }: { onOpenModal: () => void }
                         </p>
                     </div>
 
-                    <Button
-                        variant="primary"
-                        title={vcardData.heroCta}
-                        componentNamespace="home"
-                        elementIdentifier="hero-cta"
-                        onClick={onOpenModal}
-                        className="flex items-center justify-center gap-2 text-sm sm:text-base lg:text-xl px-6 py-2.5 sm:px-8 sm:py-3 lg:px-12 lg:py-4 w-fit mx-auto"
-                    >
-                        {vcardData.heroCta} <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-                    </Button>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <Button
+                            variant="primary"
+                            title={vcardData.heroCta}
+                            componentNamespace="home"
+                            elementIdentifier="hero-cta"
+                            onClick={onOpenModal}
+                            className="flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg px-6 py-2.5 sm:px-8 sm:py-3 lg:px-10 lg:py-3 w-fit"
+                        >
+                            {vcardData.heroCta} <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </Button>
+                        <a href="#services" className="text-sm font-medium text-slate-300 hover:text-white transition-colors underline-offset-4 hover:underline">
+                            Explore Services
+                        </a>
+                    </div>
                 </motion.div>
 
                 {/* Right Column */}
