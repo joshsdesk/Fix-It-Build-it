@@ -51,6 +51,20 @@ export default function Page() {
         </div>
       </section>
 
+      {/* The isolated Pending Enrollment Box */}
+      <section className="snap-start min-h-[50svh] flex flex-col justify-center items-center bg-stone-900 py-16 px-6 relative z-10">
+        <div className="max-w-4xl w-full border border-red-500/30 bg-red-950/20 rounded-2xl p-6 sm:p-10 text-center relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-[50px]"></div>
+          <h2 className="text-2xl font-bold text-white mb-4">Funding & Regulatory Notice</h2>
+          <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
+            Fix-It Build-It Colorado LLC operates as an independent private-pay specialty contractor. All non-structural adaptations are custom-designed to align with therapeutic recommendations and environmental accessibility standards. Provider enrollment with Health First Colorado for HCBS Medicaid Waivers (including CES and SLS) is currently in pending status. Direct Medicaid billing and Prior Authorization Requests (PARs) will only be available once state enrollment is fully approved.
+          </p>
+          <div className="mt-8 inline-block px-4 py-1.5 border border-red-500/50 text-red-400 font-bold text-xs tracking-widest uppercase rounded-full bg-red-500/10">
+            PENDING ENROLLMENT APPROVAL
+          </div>
+        </div>
+      </section>
+
       <section className="snap-start bg-slate-950">
         <Footer />
       </section>

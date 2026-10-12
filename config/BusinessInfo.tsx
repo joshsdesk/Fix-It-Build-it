@@ -12,9 +12,10 @@ export const vcardData = {
   // Basic Info
   firstName: "Josh",
   lastName: "Bourassa",
-  company: "FIX IT, BUILD IT COLORADO LLC",
-  tagline: "Precision Installation for Specialized Environments.",
-  title: "Owner, Consultant/Technician",
+  company: "Fix-It Build-It Colorado LLC",
+  tagline: "Sensory-Informed Spatial Design & Precision Installation",
+  title: "Founder & Neurodivergent Home & Environmental Specialist Consultant",
+  contractorStatus: "Licensed Contractor",
   profileImage: "/imgs/UI/ME.png",
   logoImage: "/imgs/UI/FIBILOGO.png",
 
@@ -24,11 +25,11 @@ export const vcardData = {
   email: "FixitBuilditColorado@gmail.com",
   
   // Address & Service Area
-  address: "Denver Metro Front Range",
+  address: "Westminster, Arvada & Denver Metro Front Range",
   city: "Denver",
   state: "CO",
   country: "US",
-  serviceAreas: ["Denver Metro Front Range", "Colorado"],
+  serviceAreas: ["Westminster", "Arvada", "Denver Metro Front Range"],
 
   // Call-to-Action Links
   appointmentUrl: "", 
@@ -39,7 +40,7 @@ export const vcardData = {
   customUrlLabel: "Learn More", 
 
   // Bio / About
-  about: "I didn't just learn these skills; I lived the need for them. As a father navigating the trials and triumphs of the ASD world, I saw the gaps in standard home construction. I am not a doctor or a lawyer—I am a Technician. I applied my trade to solve the friction points my own family faced. Now, I build those solutions for you.",
+  about: "Josh brings over 15 years of precision carpentry and framing experience combined with lived experience as a father raising an autistic son. Having navigated sensory friction points, meltdowns, and home safety challenges firsthand, he bridges the gap between clinical occupational therapy recommendations and physical, durable home installations.",
   accessibilityPolicy: "\"All-Access\" Policy: We do not filter by \"Level\" or support needs. If you've been told your needs are \"too little or too much,\" you're in the right place.",
 
   // Web Links
@@ -85,16 +86,22 @@ export const vcardData = {
   ] as SocialAccount[],
 
   // Site Meta & SEO
-  seoTitle: "FIX IT, BUILD IT COLORADO LLC | EAA Specialist",
-  seoDescription: "Colorado’s Specialized Partner for Environmental Accessibility Adaptations (EAA). Specializing in sensory-safe spaces for the neurodivergent home.",
-  seoKeywords: ["Neuro-Inclusive Colorado", "Environmental Accessibility Adaptations", "Sensory Room Builder", "Autism Home Modifications Colorado", "safe rooms", "wheelchair thresholds"],
-  specialties: ["Custom sensory walls", "Safe rooms", "Wheelchair thresholds", "Sensory equipment mounting"],
+  seoTitle: "Sensory Room Design & Installation Denver | Fix-It Build-It",
+  seoDescription: "Licensed contractor providing sensory room design, joist-anchored swing mounts, climbing walls, and calming spaces across Denver Metro Front Range.",
+  seoKeywords: [
+      "sensory room installation Denver",
+      "sensory swing ceiling mount contractor",
+      "neurodivergent home adaptation",
+      "climbing wall installation Colorado",
+      "acoustic felt sensory room"
+    ],
+  specialties: ["Custom sensory walls", "Safe rooms", "Sensory equipment mounting"],
 
   // Home Page (Hero)
-  heroTitleBase: "Precision Installation for",
-  heroTitleHighlight: "Specialized Environments.",
-  heroSubtitle: "Professional assembly and mounting of sensory equipment, safety adaptations, and functional home hardware in the Denver Metro Front Range.",
-  heroCta: "Contact Us",
+  heroTitleBase: "Precision Sensory Spaces Designed for the",
+  heroTitleHighlight: "Neurodivergent Home",
+  heroSubtitle: "Professional assembly, structural joist mounting, and evidence-based environmental design tailored for sensory regulation across the Denver Metro Front Range.",
+  heroCta: "Launch Sensory Wizard",
 
   // Services Section
   servicesTitleBase: "Specialized",
