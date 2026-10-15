@@ -14,6 +14,9 @@ import { vcardData } from "@/config/BusinessInfo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(vcardData.website || 'https://fixitbuilditcolorado.com'),
+  alternates: {
+    canonical: '/',
+  },
   title: vcardData.seoTitle,
   description: vcardData.seoDescription,
   keywords: vcardData.seoKeywords,
@@ -32,12 +35,6 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: vcardData.seoTitle,
-    description: vcardData.seoDescription,
-    images: [vcardData.logoImage],
   },
 };
 
@@ -70,12 +67,6 @@ export default function RootLayout({
                     "email": vcardData.email,
                     "image": vcardData.logoImage,
                     "description": vcardData.seoDescription,
-                    "address": {
-                      "@type": "PostalAddress",
-                      "addressLocality": vcardData.city,
-                      "addressRegion": vcardData.state,
-                      "addressCountry": vcardData.country
-                    },
                     "sameAs": [
                       vcardData.facebook,
                       vcardData.linkedin,
