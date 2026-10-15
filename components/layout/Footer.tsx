@@ -61,11 +61,11 @@ export default function Footer() {
                 {/* Tier 3: Admin & Dashboard */}
                 <div className="flex flex-col items-center gap-4 text-xs">
                     <p className="text-slate-500 text-center max-w-4xl leading-relaxed">
-                        Licensed Contractor • Serving Westminster, Arvada & Denver Metro
+                        FIX IT, BUILD IT COLORADO LLC | Specialty Code 677 (Environmental Accessibility Adaptations - EAA) | Procedure Code T2025 | Health First Colorado Provider Enrollment Pending
                     </p>
                     <div className="flex flex-col md:flex-row justify-between items-center w-full gap-4 mt-2 border-t border-white/5 pt-4">
                         <p className="text-slate-500 uppercase tracking-widest text-center md:text-left">
-                            © {new Date().getFullYear()} Fix-It Build-It Colorado LLC. All rights reserved.
+                            © {new Date().getFullYear()} FIX IT, BUILD IT COLORADO LLC
                         </p>
                         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 font-bold text-fibi-purple/60 uppercase tracking-widest">
                             <a href="https://fixitbuildit-portal.cloudflareaccess.com" className="min-h-[48px] flex items-center hover:text-fibi-purple transition-colors">Client Portal</a>
